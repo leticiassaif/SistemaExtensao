@@ -1,4 +1,4 @@
 package enums;
 
-public class Papel {
+public enum Papel {
 }

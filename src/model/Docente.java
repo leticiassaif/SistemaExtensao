@@ -7,17 +7,16 @@ public class Docente extends Usuario {
     private String siape;
     private String departamento;
 
+    // Métodos especiais
     public Docente(String nome, String email, String senha, Papel papel, String siape) {
         super(nome, email, senha, papel);
         this.siape = siape;
         this.departamento = "Departamento ...";
     }
 
-    // Métodos especiais
     public String getSiape() {
         return siape;
     }
-
     public String getDepartamento() {
         return departamento;
     }

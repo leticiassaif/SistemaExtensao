@@ -12,7 +12,7 @@ public class Discente extends Usuario {
         super(nome, email, senha, papel); // verificar
         this.matricula = matricula;
         this.semestreAtual = semestreAtual;
-        // this.curso =
+        this.curso = new Curso();
     }
 
     public String getMatricula() {
@@ -29,9 +29,6 @@ public class Discente extends Usuario {
 
     public Curso getCurso() {
         return curso;
-    }
-    public void setCurso(Curso curso) {
-        this.curso = curso;
     }
 
     // Métodos personalizados

@@ -1,7 +1,6 @@
 package model;
 
 import enums.Papel;
-
 import java.util.List;
 
 public class Usuario {

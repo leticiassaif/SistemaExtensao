@@ -12,11 +12,22 @@ public class Usuario {
 
     // Métodos especiais
     public Usuario(String nome, String email, String senha, Papel papel) {
+        if (nome == null) {
+            throw new IllegalArgumentException("Nome obrigatório");
+        }
+
+        if (email == null || !email.contains("@")) {
+            throw new IllegalArgumentException("E-mail inválido");
+        }
+
+        if (senha == null) {
+            throw new IllegalArgumentException("Senha inválida");
+        }
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.papel = papel;
-        this.ativo = false; // ?
+        this.ativo = true;
     }
 
     public String getNome() {
@@ -54,10 +65,17 @@ public class Usuario {
     // Métodos personalizados
     public void mudarSenha(String novaSenha) {
         if (novaSenha == null) {
-            return; // melhorar
+            throw new IllegalArgumentException("Senha inválida");
         }
         this.senha = novaSenha;
     }
 
+    public void desativar() {
+        this.ativo = false;
+    }
+
+    // talvez seja melhor em discente?
     public List<Oportunidade> obterOportunidades() {}
+
+    // fazer toString
 }

@@ -9,7 +9,16 @@ public class Discente extends Usuario {
 
     // Métodos especiais
     public Discente(String nome, String email, String senha, Papel papel, String matricula, int semestreAtual) {
-        super(nome, email, senha, papel); // verificar
+        super(nome, email, senha, papel);
+
+        if (matricula == null) {
+            throw new IllegalArgumentException("Matrícula obrigatória");
+        }
+
+        if (semestreAtual < 1) {
+            throw new IllegalArgumentException("Semestre inválido");
+        }
+
         this.matricula = matricula;
         this.semestreAtual = semestreAtual;
         this.curso = new Curso();
@@ -23,8 +32,8 @@ public class Discente extends Usuario {
         return semestreAtual;
     }
     // verificar
-    private void setSemestreAtual(int semestreAtual) {
-        this.semestreAtual = semestreAtual;
+    private void setSemestreAtual() {
+        this.semestreAtual += 1;
     }
 
     public Curso getCurso() {

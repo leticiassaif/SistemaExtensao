@@ -1,7 +1,6 @@
 package model;
 
 import enums.Papel;
-
 import java.time.LocalDate;
 
 public class DiscenteDiretor extends Discente{
@@ -16,8 +15,8 @@ public class DiscenteDiretor extends Discente{
         super(nome, email, senha, papel, matricula, semestreAtual);
         this.grupo = grupo;
         this.cargo = cargo;
-        // this.dataInicio =
-        // this.dataFim =
+        this.dataInicio = LocalDate.now();
+        this.dataFim = null;
     }
 
     public Grupo getGrupo() {

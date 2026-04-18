@@ -10,6 +10,11 @@ public class Docente extends Usuario {
     // Métodos especiais
     public Docente(String nome, String email, String senha, Papel papel, String siape) {
         super(nome, email, senha, papel);
+
+        if (siape == null) {
+            throw new IllegalArgumentException("SIAPE obrigatório");
+        }
+
         this.siape = siape;
         this.departamento = "Departamento ...";
     }
@@ -22,7 +27,10 @@ public class Docente extends Usuario {
     }
 
     // Métodos personalizados
-    public Oportunidade criarOportunidade(LocalDate data) {}
+    public Oportunidade criarOportunidade(LocalDate data) {
+        Oportunidade op = new Oportunidade();
+        return op;
+    }
 
     public void registrarPlanoAtividade(Oportunidade oportunidade, LocalDate data) {}
 }

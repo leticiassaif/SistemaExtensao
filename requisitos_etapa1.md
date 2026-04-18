@@ -1,4 +1,4 @@
-# Requisitos — Etapa 1 (trabalho-1-entrega)
+# Requisitos — Etapa 1
 
 ## Gestão de Usuários
 

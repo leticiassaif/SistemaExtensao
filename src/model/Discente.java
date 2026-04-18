@@ -21,7 +21,7 @@ public class Discente extends Usuario {
 
         this.matricula = matricula;
         this.semestreAtual = semestreAtual;
-        this.curso = new Curso();
+        this.curso = new Curso(); // INCOMPLETO !!!
     }
 
     public String getMatricula() {
@@ -31,18 +31,11 @@ public class Discente extends Usuario {
     public int getSemestreAtual() {
         return semestreAtual;
     }
-    // verificar
-    private void setSemestreAtual() {
+    public void setSemestreAtual() {
         this.semestreAtual += 1;
     }
 
     public Curso getCurso() {
         return curso;
-    }
-
-    // Métodos personalizados
-    // necessário??????
-    public void mudarCurso(Curso novoCurso) {
-
     }
 }

@@ -16,7 +16,7 @@ public class Docente extends Usuario {
         }
 
         this.siape = siape;
-        this.departamento = "Departamento ...";
+        this.departamento = "Departamento de Informática";
     }
 
     public String getSiape() {
@@ -28,9 +28,11 @@ public class Docente extends Usuario {
 
     // Métodos personalizados
     public Oportunidade criarOportunidade(LocalDate data) {
-        Oportunidade op = new Oportunidade();
+        Oportunidade op = new Oportunidade(); // INCOMPLETO !!!!
         return op;
     }
 
-    public void registrarPlanoAtividade(Oportunidade oportunidade, LocalDate data) {}
+    public void registrarPlanoAtividade(Oportunidade oportunidade, LocalDate data) {
+        // INCOMPLETO !!!
+    }
 }

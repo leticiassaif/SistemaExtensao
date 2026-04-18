@@ -3,7 +3,8 @@ package enums;
 public enum Papel {
     DISCENTE("Discente"),
     DOCENTE("Docente"),
-    DISCENTE_DIRETOR("Discente Diretor");
+    DISCENTE_DIRETOR("Discente Diretor"),
+    ADMIN("Administrador");
 
     private String descricao;
 

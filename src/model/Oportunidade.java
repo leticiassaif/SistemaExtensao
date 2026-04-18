@@ -19,6 +19,7 @@ public class Oportunidade {
     private Usuario autor;
     private Docente responsavel;
 
+
     public String getTitulo() {
         return titulo;
     }

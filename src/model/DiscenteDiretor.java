@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 public class DiscenteDiretor extends Discente{
     private Grupo grupo;
-    private String cargo;
+    private String cargo; // talvez um enum?
     private LocalDate dataInicio;
     private LocalDate dataFim;
 
@@ -40,7 +40,7 @@ public class DiscenteDiretor extends Discente{
     public LocalDate getDataFim() {
         return dataFim;
     }
-    public void setDataFim(LocalDate dataFim) {
-        this.dataFim = dataFim;
+    public void setDataFim() {
+        this.dataFim = LocalDate.now();
     }
 }

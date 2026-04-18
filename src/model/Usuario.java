@@ -70,12 +70,17 @@ public class Usuario {
         this.senha = novaSenha;
     }
 
-    public void desativar() {
-        this.ativo = false;
-    }
-
     // talvez seja melhor em discente?
     public List<Oportunidade> obterOportunidades() {}
 
-    // fazer toString
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", senha='" + senha + '\'' +
+                ", papel=" + papel +
+                ", ativo=" + ativo +
+                '}';
+    }
 }

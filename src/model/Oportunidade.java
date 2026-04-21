@@ -15,7 +15,7 @@ public class Oportunidade {
     private Modalidade modalidade;
     private int cargaHoraria;
     private int vagas;
-    private Enum<StatusOportunidade> status;
+    private StatusOportunidade status;
     private LocalDate inicio;
     private LocalDate fim;
     private Usuario autor;
@@ -37,6 +37,9 @@ public class Oportunidade {
         // RF011:
         this.status = StatusOportunidade.RASCUNHO;
         this.inscricoes = new ArrayList<>();
+    }
+
+    public Oportunidade(String titulo, String descricao, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, StatusOportunidade pendente, LocalDate inicio, LocalDate fim, Usuario autor, Docente responsavelId) {
     }
 
 
@@ -120,11 +123,11 @@ public class Oportunidade {
         this.vagas = vagas;
     }
 
-    public Enum<StatusOportunidade> getStatus() {
+    public StatusOportunidade getStatus() {
         return status;
     }
 
-    public void setStatus(Enum<StatusOportunidade> status) {
+    public void setStatus(StatusOportunidade status) {
         this.status = status;
     }
 

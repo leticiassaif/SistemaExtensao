@@ -1,22 +1,41 @@
 package model;
 
+import enums.StatusInscricao;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Curso {
     private String nome;
     private int codigo;
     private int cargaHoraria;
-    private String versaoPPC;
+    private String versaoPPC; //Versão atual
+    private List<VersaoPPC> historicoPPC;
 
     // Métodos especiais
     // o curso sempre vai ser de ciência da computação
-    public Curso() {
+    public Curso(int codigoCurso, String versaoPPC) {
         this.nome = "Ciência da Computação";
-        // this.codigo = codigo;
-        this.cargaHoraria = 3450; // confirmar se está correto
-        // this.versaoPPC = versaoPPC;
+        this.codigo = codigoCurso; //confirmar?
+        this.versaoPPC = versaoPPC;
+        this.cargaHoraria = 3540; // confirmar se está correto
+        this.historicoPPC = new ArrayList<>();
     }
 
+    // Métodos personalizados
+    public void atualizarPPC(int horas, String versao, Usuario autor) {
+        this.cargaHoraria = horas;
+        this.versaoPPC = versao;
+
+        VersaoPPC novoRegistro = new VersaoPPC(horas, versao, autor);
+        this.historicoPPC.add(novoRegistro);
+    }
+
+    public List<Discente> listarAlunosStatus(StatusInscricao status) {
+        return new ArrayList<>();
+    }
+
+    //Getters e Setters
     public String getNome() {
         return nome;
     }
@@ -28,19 +47,13 @@ public class Curso {
     public int getCargaHoraria() {
         return cargaHoraria;
     }
+
     public void setCargaHoraria(int cargaHoraria) {
         this.cargaHoraria = cargaHoraria;
     }
 
-    public String getVersaoPPC() {
-        return versaoPPC;
-    }
-    public void setVersaoPPC(String versaoPPC) {
-        this.versaoPPC = versaoPPC;
+    public List<VersaoPPC> getHistoricoPPC() {
+        return historicoPPC;
     }
 
-    // Métodos personalizados
-    public void atualizarPPC(int horas, String versao) {}
-
-    public List<Discente> listarAlunosStatus (Enum<> status) {}
 }

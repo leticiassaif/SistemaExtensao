@@ -5,12 +5,14 @@ import enums.StatusOportunidade;
 import enums.TipoOportunidade;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Oportunidade {
     private String titulo;
     private String descricao;
-    private Enum<TipoOportunidade> tipo;
-    private Enum<Modalidade> modalidade;
+    private TipoOportunidade tipo;
+    private Modalidade modalidade;
     private int cargaHoraria;
     private int vagas;
     private Enum<StatusOportunidade> status;
@@ -18,8 +20,58 @@ public class Oportunidade {
     private LocalDate fim;
     private Usuario autor;
     private Docente responsavel;
+    private List<Inscricao> inscricoes;
+
+    //Metodos
+    public Oportunidade(String titulo, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, LocalDate inicio, LocalDate fim, Usuario autor, Docente responsavel) {
+        this.titulo = titulo;
+        this.tipo = tipo;
+        this.modalidade = modalidade;
+        this.cargaHoraria = cargaHoraria;
+        this.vagas = vagas;
+        this.inicio = inicio;
+        this.fim = fim;
+        this.autor = autor;
+        this.responsavel = responsavel;
+
+        // RF011:
+        this.status = StatusOportunidade.RASCUNHO;
+        this.inscricoes = new ArrayList<>();
+    }
 
 
+    public void submeterParaAprovacao() {
+        if (this.status != StatusOportunidade.RASCUNHO) {
+            throw new IllegalStateException("A Oportunidade deve ter como Status, 'Rascunho'");
+        }
+        this.status = StatusOportunidade.AGUARDANDO_APROVACAO;
+    }
+
+    public void publicar() {
+        if (this.status != StatusOportunidade.AGUARDANDO_APROVACAO) {
+            throw new IllegalStateException("A Oportunidade deve ter como Status, 'Aguardando aprovação'");
+        }
+        this.status = StatusOportunidade.ABERTA;
+    }
+
+    public void fecharInscricoes() {
+
+        if (this.status != StatusOportunidade.ABERTA) {
+            throw new IllegalStateException("A Oportunidade deve ter como Status, 'Aberta'");
+        }
+        this.status = StatusOportunidade.EM_EXECUCAO;
+    }
+
+    public void cancelar() {
+
+        if (this.status != StatusOportunidade.EM_EXECUCAO) {
+            throw new IllegalStateException("A Oportunidade deve ter como Status, 'Em execução'");
+        }
+        this.status = StatusOportunidade.ENCERRADA;
+    }
+
+
+    //Getter/Setters
     public String getTitulo() {
         return titulo;
     }
@@ -41,7 +93,7 @@ public class Oportunidade {
     }
 
     public void setTipo(Enum<TipoOportunidade> tipo) {
-        this.tipo = tipo;
+        this.tipo = (TipoOportunidade) tipo;
     }
 
     public Enum<Modalidade> getModalidade() {
@@ -49,7 +101,7 @@ public class Oportunidade {
     }
 
     public void setModalidade(Enum<Modalidade> modalidade) {
-        this.modalidade = modalidade;
+        this.modalidade = (Modalidade) modalidade;
     }
 
     public int getCargaHoraria() {
@@ -108,14 +160,5 @@ public class Oportunidade {
         this.responsavel = responsavel;
     }
 
-    // Metodos personalizados
-    /*
-    public void publicar() {
-        if (this.status.getStatus() == PENDENTE) {
-            this.status = Publicada;
-        }
-    }
-    */
 
-    public void fecharInscricoes() {}
 }

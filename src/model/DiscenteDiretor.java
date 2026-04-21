@@ -1,7 +1,10 @@
 package model;
 
 import enums.Cargo;
+import enums.Modalidade;
 import enums.Papel;
+import enums.TipoOportunidade;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +48,10 @@ public class DiscenteDiretor extends Discente{
                 h.encerrar(); // define a data de fim como hoje relativo
             }
         }
+    }
+
+    public Oportunidade criarOportunidade(String titulo, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, LocalDate inicio, LocalDate fim, Docente responsavel) {
+        return new Oportunidade(titulo, tipo, modalidade, cargaHoraria, vagas, inicio, fim, this, responsavel);
     }
 
     //Getters e Setters

@@ -5,6 +5,8 @@ import enums.StatusOportunidade;
 import enums.TipoOportunidade;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Oportunidade {
     private String titulo;
@@ -18,8 +20,36 @@ public class Oportunidade {
     private LocalDate fim;
     private Usuario autor;
     private Docente responsavel;
+    private List<Inscricao> inscricoes;
+
+    //Metodos
+    public Oportunidade(String titulo, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, LocalDate inicio, LocalDate fim, Usuario autor, Docente responsavel) {
+        this.titulo = titulo;
+        this.tipo = tipo;
+        this.modalidade = modalidade;
+        this.cargaHoraria = cargaHoraria;
+        this.vagas = vagas;
+        this.inicio = inicio;
+        this.fim = fim;
+        this.autor = autor;
+        this.responsavel = responsavel;
+
+        // RF011:
+        this.status = StatusOportunidade.RASCUNHO;
+        this.inscricoes = new ArrayList<>();
+    }
+
+    public void fecharInscricoes() {
+
+        if (this.status != StatusOportunidade.ABERTA) {
+            throw new IllegalStateException("Inscrições só podem ser fechadas com a oportunidade aberta.");
+        }
+
+        this.status = StatusOportunidade.EM_EXECUCAO;
+    }
 
 
+    //Getter/Setters
     public String getTitulo() {
         return titulo;
     }
@@ -108,14 +138,5 @@ public class Oportunidade {
         this.responsavel = responsavel;
     }
 
-    // Metodos personalizados
-    /*
-    public void publicar() {
-        if (this.status.getStatus() == PENDENTE) {
-            this.status = Publicada;
-        }
-    }
-    */
 
-    public void fecharInscricoes() {}
 }

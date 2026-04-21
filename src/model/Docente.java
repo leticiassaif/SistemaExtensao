@@ -1,6 +1,9 @@
 package model;
 
+import enums.Modalidade;
 import enums.Papel;
+import enums.TipoOportunidade;
+
 import java.time.LocalDate;
 
 public class Docente extends Usuario {
@@ -27,12 +30,11 @@ public class Docente extends Usuario {
     }
 
     // Métodos personalizados
-    public Oportunidade criarOportunidade(LocalDate data) {
-        Oportunidade op = new Oportunidade(); // INCOMPLETO !!!!
-        return op;
+    public Oportunidade criarOportunidade(String titulo, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, LocalDate inicio, LocalDate fim) {
+        return new Oportunidade(titulo, tipo, modalidade, cargaHoraria, vagas, inicio, fim, this, this);
     }
 
     public void registrarPlanoAtividade(Oportunidade oportunidade, LocalDate data) {
-        // INCOMPLETO !!!
+        // TODO: A lógica de negócio será implementada nas próximas etapas
     }
 }

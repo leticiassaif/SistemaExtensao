@@ -36,7 +36,7 @@ public class UsuarioService {
 
     Usuario buscarEmail(String email) {
         for (Usuario u : usuarios) {
-            if (Objects.equals(u.getEmail(), email)) {
+            if (u.getEmail().equals(email)) {
                 return u;
             }
         }

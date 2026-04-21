@@ -13,11 +13,14 @@ public class Oportunidade {
     private Enum<Modalidade> modalidade;
     private int cargaHoraria;
     private int vagas;
-    private Enum<StatusOportunidade> status;
+    private StatusOportunidade status;
     private LocalDate inicio;
     private LocalDate fim;
     private Usuario autor;
     private Docente responsavel;
+
+    public Oportunidade(String titulo, String descricao, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, StatusOportunidade pendente, LocalDate inicio, LocalDate fim, Usuario autor, Docente responsavelId) {
+    }
 
 
     public String getTitulo() {
@@ -68,11 +71,11 @@ public class Oportunidade {
         this.vagas = vagas;
     }
 
-    public Enum<StatusOportunidade> getStatus() {
+    public StatusOportunidade getStatus() {
         return status;
     }
 
-    public void setStatus(Enum<StatusOportunidade> status) {
+    public void setStatus(StatusOportunidade status) {
         this.status = status;
     }
 

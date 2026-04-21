@@ -6,6 +6,8 @@ public class Discente extends Usuario {
     private String matricula;
     private int semestreAtual;
     private Curso curso;
+    private int codigoCurso;
+    private String versaoPPC;
 
     // Métodos especiais
     public Discente(String nome, String email, String senha, Papel papel, String matricula, int semestreAtual) {
@@ -21,7 +23,7 @@ public class Discente extends Usuario {
 
         this.matricula = matricula;
         this.semestreAtual = semestreAtual;
-        this.curso = new Curso(); // INCOMPLETO !!!
+        this.curso = new Curso(codigoCurso, versaoPPC); 
     }
 
     public String getMatricula() {

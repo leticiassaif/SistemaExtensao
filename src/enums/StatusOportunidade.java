@@ -1,7 +1,10 @@
 package enums;
 
 public enum StatusOportunidade {
-    PENDENTE,
-    PUBLICADA,
-    EM_PROGRESSO
+    RASCUNHO,
+    AGUARDANDO_APROVACAO,
+    ABERTA,
+    EM_EXECUCAO,
+    ENCERRADA,
+    CANCELADA
 }

@@ -10,13 +10,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InscricaoService {
-    private List<Inscricao> inscricoes = new ArrayList<>();
+    private List<Inscricao> inscricoes = new ArrayList<>(); //todo trocar o formato de todos os ids p/ string TIP + 00 + proximoId
+    private long proximoId = 1;
 
-    public Inscricao inscrever(Discente discenteId, Oportunidade oportunidadeId, String motivacao){
-        Long id = (long) (inscricoes.size() + 1);
-        LocalDate dataInscricao = LocalDate.now();
-        StatusInscricao status = StatusInscricao.PENDENTE;
-        return new Inscricao(id, discenteId, oportunidadeId, motivacao, dataInscricao, status);
+    public Inscricao inscrever(Discente discente, Oportunidade oportunidade, String motivacao){
+
+        if (discente == null || oportunidade == null || motivacao == null)
+            throw new IllegalArgumentException("Discente, oportunidade e motivação são obrigatórios.");
+
+        Long id = proximoId++;
+        Inscricao inscricao = new Inscricao(id, discente, oportunidade, motivacao);
+        inscricoes.add(inscricao);
+        return inscricao;
     }
 
     public Inscricao aprovar(Long inscricaoId){
@@ -52,9 +57,22 @@ public class InscricaoService {
         return null;
     }
 
-    //todo descobrir como ordenar essas listas
-    public List <Inscricao> listarPorOportunidade(){
-            return inscricoes; }
+    public List <Inscricao> listarPorOportunidade(Oportunidade op){
+        List<Inscricao> resultado = new ArrayList<>();
+        for (Inscricao i : inscricoes){
+            if(i.getOportunidade().equals(op)){
+                resultado.add(i);
+            }
+        }
+        return resultado; }
 
-    public List <Inscricao> listarPorDiscente(){ return inscricoes; }
+    public List <Inscricao> listarPorDiscente(Discente d){
+        List<Inscricao> resultado = new ArrayList<>();
+        for (Inscricao i : inscricoes){
+            if(i.getDiscente().equals(d)){
+                resultado.add(i);
+            }
+        }
+        return resultado;
+    }
 }

@@ -20,7 +20,7 @@ public class Oportunidade {
     private Long docenteResponsavelId;
     private Usuario autor;
 
-    public Oportunidade(Long id, String titulo, String descricao, TipoOportunidade tipo, StatusOportunidade status, Modalidade modalidade, int cargaHoraria, int vagas, Long docenteResponsavelId, LocalDate inicio, LocalDate fim, Usuario autor) {
+    public Oportunidade(Long id, String titulo, String descricao, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, Long docenteResponsavelId, LocalDate inicio, LocalDate fim, Usuario autor) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;

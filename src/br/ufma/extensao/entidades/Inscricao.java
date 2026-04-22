@@ -11,7 +11,7 @@ public class Inscricao {
     private String motivacao;
     private LocalDate dataInscricao;
 
-    public Inscricao(Long id, Discente discente, Oportunidade oportunidade, String motivacao, LocalDate dataInscricao, StatusInscricao status) {
+    public Inscricao(Long id, Discente discente, Oportunidade oportunidade, String motivacao) {
         this.id = id;
         this.discente = discente;
         this.oportunidade = oportunidade;

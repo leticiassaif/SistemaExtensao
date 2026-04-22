@@ -7,12 +7,15 @@ import br.ufma.extensao.enums.Papel;
 import java.util.ArrayList;
 import java.util.List;
 
-//todo corrigir usuario service
+
 public class UsuarioService {
     private List<Usuario> usuarios = new ArrayList<>();
+    private long proximoId = 1;
+
+    //todo adicionar parametros p/ cadastro de todas as classes
 
     public Discente cadastrarDiscente(String nome, String email, String senha, String matricula, int semestreAtual, Curso curso){
-        Long id = (long) (usuarios.size() + 1);
+        Long id = proximoId ++;
         Discente discente = new Discente(id, nome, email, senha, matricula, semestreAtual, curso);
         usuarios.add(discente);
         return discente;

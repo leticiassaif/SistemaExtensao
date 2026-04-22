@@ -13,13 +13,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OportunidadeService {
-    List<Oportunidade> oportunidades = new ArrayList<>();
+    private List<Oportunidade> oportunidades = new ArrayList<>();
+    private long proximoId = 1;
 
 
     public Oportunidade criarOportunidade(String titulo, String descricao, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, Long responsavelId, Usuario autor, LocalDate inicio, LocalDate fim){
+        if (titulo == null || descricao == null)
+            throw new IllegalArgumentException("Discente e oportunidade são obrigatórios.");
+        if (cargaHoraria <= 0)
+            throw new IllegalArgumentException("Carga horária deve ser positiva.");
+        if (inicio == null || fim == null || fim.isBefore(LocalDate.now()))
+            throw new IllegalArgumentException("Datas inválidas.");
         if (autor.getPapel() == Papel.DOCENTE || autor.getCargo() == Cargo.DIRETOR) {  //todo problemas com os cargos
-            Long id = (long) (oportunidades.size() + 1);
-            Oportunidade oportunidade = new Oportunidade(id, titulo, descricao, tipo, StatusOportunidade.RASCUNHO, modalidade, cargaHoraria, vagas, responsavelId, inicio, fim, autor);
+
+            Long id = proximoId++;
+            Oportunidade oportunidade = new Oportunidade(id, titulo, descricao, tipo, modalidade, cargaHoraria, vagas, responsavelId, inicio, fim, autor);
             oportunidades.add(oportunidade);
             return oportunidade;
         }

@@ -1,16 +1,31 @@
 package br.ufma.extensao.servicos;
 
 import br.ufma.extensao.entidades.Aproveitamento;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-//todo fazer aproveitamento service
-// TODO: falta mudar os status
-// TODO: criar uma funcao proximoId  para todos os componentes que usam ID Acho que seria bom algo como APROVEITAMENTO@ID, seria uma concatenação do tipo, e do id gerado
-public class AproveitamentoService {
 
-    //TODO: colocar
-    // public void concluir() {
-    //    this.dataFim = LocalDate.now();
-    //}
-    List<Aproveitamento> aproveitamentos = new ArrayList<>();
+public class AproveitamentoService {
+    private List<Aproveitamento> aproveitamentos = new ArrayList<>();
+    private int proximoId = 1;
+
+    public Aproveitamento submeter(String discenteId, String descricao, double cargaHoraria){
+        if (discenteId == null || descricao == null || cargaHoraria <= 0)
+            throw new IllegalArgumentException("Dados do aproveitamento são inválidos!");
+        String id = ("APR00" + proximoId);
+        proximoId++;
+        Aproveitamento aproveitamento = new Aproveitamento(id, discenteId, descricao, cargaHoraria);
+        return aproveitamento;
+    }
+
+    public Aproveitamento aprovar(){}
+
+    public Aproveitamento indeferir(){}
+
+    public Aproveitamento reenviar(){}
+
+    public List <Aproveitamento> (){}
+
+    public List <Aproveitamento> (){}
 }

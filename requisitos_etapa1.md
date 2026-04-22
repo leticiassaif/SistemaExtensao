@@ -21,9 +21,9 @@
 | [✅] | RF012 | O sistema deve gerenciar o fluxo de estados da oportunidade. | Estados: Rascunho → Aguardando Aprovação → Aberta → Em Execução → Encerrada / Cancelada. Oportunidades de discentes exigem validação docente. |
 | [✅] | RF014 | O sistema deve permitir que o discente se inscreva em oportunidades de extensão internas. | Durante o período de inscrição, o discente poderá se inscrever; o sistema registrará a inscrição com status Pendente. |
 | [✅] | RF015 | O sistema deve permitir que o responsável aprove ou rejeite inscrições. | O responsável (docente ou líder discente autorizado) poderá aprovar ou rejeitar inscrições conforme critérios definidos na ação. |
-| [ ] | RF016 | O sistema deve permitir que o discente cancele sua inscrição antes do início da atividade. | O discente poderá cancelar a participação dentro do prazo definido pela oportunidade. |
+| [✅] | RF016 | O sistema deve permitir que o discente cancele sua inscrição antes do início da atividade. | O discente poderá cancelar a participação dentro do prazo definido pela oportunidade. |
 | [ ] | RF017 | O sistema deve permitir a substituição de participantes. | O responsável poderá remover um participante com justificativa e selecionar outro da lista de interessados. |
-| [ ] | RF019 | O sistema deve permitir o encerramento da oportunidade. | Ao término, a oportunidade é marcada como Encerrada e a lista de participantes é encaminhada para certificação. |
+| [✅] | RF019 | O sistema deve permitir o encerramento da oportunidade. | Ao término, a oportunidade é marcada como Encerrada e a lista de participantes é encaminhada para certificação. |
 
 ## Gestão de Solicitações
 

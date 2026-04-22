@@ -70,7 +70,7 @@ public class OportunidadeService {
 
     public Oportunidade iniciarExecucao(String id){
         for (Oportunidade op : oportunidades){
-            if (op.getId().equals(id)) {
+            if (op.getId().equals(id) || op.getInicio().isEqual(LocalDate.now())) {
                 op.setStatus(StatusOportunidade.EM_EXECUCAO);
                 return op;
             }
@@ -80,7 +80,7 @@ public class OportunidadeService {
 
     public Oportunidade encerrarOportunidade(String id){
         for (Oportunidade op : oportunidades){
-            if (op.getId().equals(id)) {
+            if (op.getId().equals(id) || op.getFim().isEqual(LocalDate.now())) {
                 op.setStatus(StatusOportunidade.ENCERRADA);
                 return op;
             }
@@ -88,11 +88,13 @@ public class OportunidadeService {
         return null;
     }
 
-    public Oportunidade cancelarOportunidade(String id){
-        for (Oportunidade op : oportunidades){
-            if (op.getId().equals(id)) {
-                op.setStatus(StatusOportunidade.CANCELADA);
-                return op;
+    public Oportunidade cancelarOportunidade(String id, Usuario u){
+        if (UsuarioService.hasPermissao(u, Papel.ADMIN) || UsuarioService.hasPermissao(u, Papel.DOCENTE)) {
+            for (Oportunidade op : oportunidades) {
+                if (op.getId().equals(id)) {
+                    op.setStatus(StatusOportunidade.CANCELADA);
+                    return op;
+                }
             }
         }
         return null;

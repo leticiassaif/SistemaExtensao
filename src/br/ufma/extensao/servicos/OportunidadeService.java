@@ -1,17 +1,16 @@
-package service;
+package br.ufma.extensao.servicos;
 
-import enums.Modalidade;
-import enums.Papel;
-import enums.StatusOportunidade;
-import enums.TipoOportunidade;
-import model.Docente;
-import model.Oportunidade;
-import model.Usuario;
+import br.ufma.extensao.enums.Modalidade;
+import br.ufma.extensao.enums.StatusOportunidade;
+import br.ufma.extensao.enums.TipoOportunidade;
+import br.ufma.extensao.entidades.Docente;
+import br.ufma.extensao.entidades.Oportunidade;
+import br.ufma.extensao.entidades.Usuario;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
+//falta mudar os status
 public class OportunidadeService {
     List<Oportunidade> oportunidades = new ArrayList<>();
 

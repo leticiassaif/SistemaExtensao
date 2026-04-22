@@ -1,6 +1,6 @@
-package model;
+package br.ufma.extensao.entidades;
 
-import enums.StatusAssinatura;
+import br.ufma.extensao.enums.StatusAssinatura;
 import java.awt.*;
 import java.time.LocalDate;
 
@@ -13,10 +13,5 @@ public class Certificado {
     private String certificadoPath;
     private Enum<StatusAssinatura> statusAssinatura;
 
-    // Métodos especiais
 
-    // Métodos personalizados
-    public Image gerarQRCode() {}
-
-    public boolean verificarAutenticidade(String hash) {}
 }

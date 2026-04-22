@@ -1,6 +1,6 @@
-package model;
+package br.ufma.extensao.entidades;
 
-import enums.Cargo;
+import br.ufma.extensao.enums.Cargo;
 
 import java.time.LocalDate;
 
@@ -18,15 +18,6 @@ public class HistoricoCargo {
         this.cargo = cargo;
         dataInicio = LocalDate.now();
         dataFim = null;
-    }
-
-    //Metodos
-    public void encerrar() {
-        dataFim = LocalDate.now();
-    }
-
-    public boolean isAtivo() {
-        return dataFim == null;
     }
 
     //Getters Setters

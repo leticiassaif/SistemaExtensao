@@ -1,8 +1,8 @@
-package model;
+package br.ufma.extensao.entidades;
 
-import enums.Modalidade;
-import enums.StatusOportunidade;
-import enums.TipoOportunidade;
+import br.ufma.extensao.enums.Modalidade;
+import br.ufma.extensao.enums.StatusOportunidade;
+import br.ufma.extensao.enums.TipoOportunidade;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -38,42 +38,7 @@ public class Oportunidade {
         this.status = StatusOportunidade.RASCUNHO;
         this.inscricoes = new ArrayList<>();
     }
-
-    public Oportunidade(String titulo, String descricao, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, StatusOportunidade pendente, LocalDate inicio, LocalDate fim, Usuario autor, Docente responsavelId) {
-    }
-
-
-    public void submeterParaAprovacao() {
-        if (this.status != StatusOportunidade.RASCUNHO) {
-            throw new IllegalStateException("A Oportunidade deve ter como Status, 'Rascunho'");
-        }
-        this.status = StatusOportunidade.AGUARDANDO_APROVACAO;
-    }
-
-    public void publicar() {
-        if (this.status != StatusOportunidade.AGUARDANDO_APROVACAO) {
-            throw new IllegalStateException("A Oportunidade deve ter como Status, 'Aguardando aprovação'");
-        }
-        this.status = StatusOportunidade.ABERTA;
-    }
-
-    public void fecharInscricoes() {
-
-        if (this.status != StatusOportunidade.ABERTA) {
-            throw new IllegalStateException("A Oportunidade deve ter como Status, 'Aberta'");
-        }
-        this.status = StatusOportunidade.EM_EXECUCAO;
-    }
-
-    public void cancelar() {
-
-        if (this.status != StatusOportunidade.EM_EXECUCAO) {
-            throw new IllegalStateException("A Oportunidade deve ter como Status, 'Em execução'");
-        }
-        this.status = StatusOportunidade.ENCERRADA;
-    }
-
-
+    
     //Getter/Setters
     public String getTitulo() {
         return titulo;

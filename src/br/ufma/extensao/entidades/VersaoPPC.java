@@ -1,4 +1,4 @@
-package model;
+package br.ufma.extensao.entidades;
 
 import java.time.LocalDate;
 

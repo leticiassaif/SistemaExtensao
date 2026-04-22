@@ -1,9 +1,9 @@
-package model;
+package br.ufma.extensao.entidades;
 
-import enums.Cargo;
-import enums.Modalidade;
-import enums.Papel;
-import enums.TipoOportunidade;
+import br.ufma.extensao.enums.Cargo;
+import br.ufma.extensao.enums.Modalidade;
+import br.ufma.extensao.enums.Papel;
+import br.ufma.extensao.enums.TipoOportunidade;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -25,33 +25,6 @@ public class DiscenteDiretor extends Discente{
         this.dataInicio = LocalDate.now();
         this.dataFim = null;
         this.historicoCargos = new ArrayList<>();
-    }
-
-    public void atribuirCargo(Discente discente, Cargo novoCargo) {
-        for (HistoricoCargo h: historicoCargos) {
-
-            //Se é aluno e ainda esta ativo...
-            if (h.getDiscente().equals(discente) && h.isAtivo()) {
-                h.encerrar(); // define a data de fim como hoje relativo
-            }
-        }
-        grupo.addMembro(discente);
-        HistoricoCargo novo = new HistoricoCargo(discente, grupo, novoCargo);
-        historicoCargos.add(novo);
-
-    }
-
-    public void removerCargo(Discente discente) {
-        for (HistoricoCargo h: historicoCargos) {
-            //Se é aluno e ainda esta ativo...
-            if (h.getDiscente().equals(discente) && h.isAtivo()) {
-                h.encerrar(); // define a data de fim como hoje relativo
-            }
-        }
-    }
-
-    public Oportunidade criarOportunidade(String titulo, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, LocalDate inicio, LocalDate fim, Docente responsavel) {
-        return new Oportunidade(titulo, tipo, modalidade, cargaHoraria, vagas, inicio, fim, this, responsavel);
     }
 
     //Getters e Setters

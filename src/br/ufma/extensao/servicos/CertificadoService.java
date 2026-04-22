@@ -1,6 +1,6 @@
-package service;
+package br.ufma.extensao.servicos;
 
-import model.Certificado;
+import br.ufma.extensao.entidades.Certificado;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package model;
+package br.ufma.extensao.entidades;
 
-import enums.StatusAproveitamento;
+import br.ufma.extensao.enums.StatusAproveitamento;
 
 import java.io.File;
 
@@ -14,8 +14,5 @@ public class Aproveitamento {
     private Usuario avaliador;
     private String motivoRejeicao;
 
-    // Métodos especiais
 
-    // Métodos personalizados
-    public boolean uploadCertificado(File file) {}
 }

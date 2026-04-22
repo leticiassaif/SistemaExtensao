@@ -1,6 +1,6 @@
-package service;
+package br.ufma.extensao.servicos;
 
-import model.Aproveitamento;
+import br.ufma.extensao.entidades.Aproveitamento;
 import java.util.ArrayList;
 import java.util.List;
 

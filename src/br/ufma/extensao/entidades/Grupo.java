@@ -3,14 +3,14 @@ package br.ufma.extensao.entidades;
 import br.ufma.extensao.enums.StatusGrupo;
 
 public class Grupo {
-    private Long id;
+    private String id;
     private String nome;
     private String descricao;
     private String email;
-    private Long docenteResponsavelId;
+    private String docenteResponsavelId;
     private StatusGrupo status;
 
-    public Grupo(Long id, String nome, String descricao, String email, Long docenteResponsavelId) {
+    public Grupo(String id, String nome, String descricao, String email, String docenteResponsavelId) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -20,18 +20,18 @@ public class Grupo {
     }
 
     // Getters
-    public Long getId() { return id; }
+    public String getId() { return id; }
     public String getNome() { return nome; }
     public String getDescricao() { return descricao; }
     public String getEmail() { return email; }
-    public Long getDocenteResponsavelId() { return docenteResponsavelId; }
+    public String getDocenteResponsavelId() { return docenteResponsavelId; }
     public StatusGrupo getStatus() { return status; }
 
     // Setters
     public void setNome(String nome) { this.nome = nome; }
     public void setDescricao(String descricao) { this.descricao = descricao; }
     public void setEmail(String email) { this.email = email; }
-    public void setDocenteResponsavelId(Long docenteResponsavelId) { this.docenteResponsavelId = docenteResponsavelId; }
+    public void setDocenteResponsavelId(String docenteResponsavelId) { this.docenteResponsavelId = docenteResponsavelId; }
     public void setStatus(StatusGrupo status) { this.status = status; }
 
     @Override

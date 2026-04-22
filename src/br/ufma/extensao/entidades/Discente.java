@@ -8,7 +8,7 @@ public class Discente extends Usuario {
     private double totalHorasConcluidas;
     private Curso curso;
 
-    public Discente(Long id, String nome, String email, String senha, String matricula, int semestreAtual, Curso curso) {
+    public Discente(String id, String nome, String email, String senha, String matricula, int semestreAtual, Curso curso) {
         super(id, nome, email, senha, Papel.DISCENTE);
 
         if (matricula == null || matricula.isBlank())

@@ -4,8 +4,8 @@ import br.ufma.extensao.enums.StatusAproveitamento;
 import java.time.LocalDate;
 
 public class Aproveitamento {
-    private Long id;
-    private Long discenteId;
+    private String id;
+    private String discenteId;
     private String descricaoAtividade;
     private double cargaHorariaPleiteada;
     private double cargaHorariaAprovada;
@@ -14,7 +14,7 @@ public class Aproveitamento {
     private StatusAproveitamento status;
     private String parecer;
 
-    public Aproveitamento(Long id, Long discenteId, String descricaoAtividade,
+    public Aproveitamento(String id, String discenteId, String descricaoAtividade,
                           double cargaHorariaPleiteada) {
         this.id = id;
         this.discenteId = discenteId;
@@ -28,8 +28,8 @@ public class Aproveitamento {
     }
 
     // Getters
-    public Long getId() { return id; }
-    public Long getDiscenteId() { return discenteId; }
+    public String getId() { return id; }
+    public String getDiscenteId() { return discenteId; }
     public String getDescricaoAtividade() { return descricaoAtividade; }
     public double getCargaHorariaPleiteada() { return cargaHorariaPleiteada; }
     public double getCargaHorariaAprovada() { return cargaHorariaAprovada; }
@@ -39,8 +39,8 @@ public class Aproveitamento {
     public String getParecer() { return parecer; }
 
     // Setters
-    public void setId(Long id) { this.id = id; }
-    public void setDiscenteId(Long discenteId) { this.discenteId = discenteId; }
+    public void setId(String id) { this.id = id; }
+    public void setDiscenteId(String discenteId) { this.discenteId = discenteId; }
     public void setDescricaoAtividade(String descricaoAtividade) { this.descricaoAtividade = descricaoAtividade; }
     public void setCargaHorariaPleiteada(double cargaHorariaPleiteada) { this.cargaHorariaPleiteada = cargaHorariaPleiteada; }
     public void setCargaHorariaAprovada(double cargaHorariaAprovada) { this.cargaHorariaAprovada = cargaHorariaAprovada; }

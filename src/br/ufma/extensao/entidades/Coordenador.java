@@ -7,7 +7,7 @@ public class Coordenador extends Usuario {
     private String siape;
     private CargoCoordenador cargo;
 
-    public Coordenador(Long id, String nome, String email, String senha, String siape, CargoCoordenador cargo) {
+    public Coordenador(String id, String nome, String email, String senha, String siape, CargoCoordenador cargo) {
         super(id, nome, email, senha, Papel.COORDENADOR);
         this.siape = siape;
         this.cargo = cargo;

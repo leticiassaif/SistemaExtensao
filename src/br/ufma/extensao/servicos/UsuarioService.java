@@ -1,35 +1,41 @@
 package br.ufma.extensao.servicos;
 
+import br.ufma.extensao.entidades.*;
+import br.ufma.extensao.enums.CargoCoordenador;
 import br.ufma.extensao.enums.Papel;
-import br.ufma.extensao.entidades.Discente;
-import br.ufma.extensao.entidades.Docente;
-import br.ufma.extensao.entidades.Usuario;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsuarioService {
-    List<Usuario> usuarios = new ArrayList<>();
 
-    Discente cadastrarDiscente(String nome, String email, String senha, String matricula, int semestreAtual){
-        Discente discente = new Discente(nome, email, senha, Papel.DISCENTE, matricula, semestreAtual);
+public class UsuarioService {
+    private List<Usuario> usuarios = new ArrayList<>();
+    private int proximoId = 1;
+
+
+    public Discente cadastrarDiscente(String nome, String email, String senha, String matricula, int semestreAtual, Curso curso){
+        String id = ("DIS00" + proximoId);
+        proximoId ++;
+        Discente discente = new Discente(id, nome, email, senha, matricula, semestreAtual, curso);
         usuarios.add(discente);
         return discente;
     }
 
-    Docente cadastrarDocente(String nome, String email, String senha, String siape) {
-        Docente docente = new Docente(nome, email, senha, Papel.DOCENTE, siape);
+    public Docente cadastrarDocente(String nome, String email, String senha, String siape, String departamento) {
+        String id = ("DOC00" + proximoId);
+        Docente docente = new Docente(id, nome, email, senha, siape, departamento);
         usuarios.add(docente);
         return docente;
     }
 
-    // necessário?
-    Usuario cadastrarAdmin(String nome, String email, String senha) {
-        Usuario admin = new Usuario(nome, email, senha, Papel.ADMIN);
-        usuarios.add(admin);
-        return admin;
+    public Usuario cadastrarCoordenador(String nome, String email, String senha, String siape, CargoCoordenador cargo) {
+        String id = ("COR00" + proximoId);
+        Usuario coordenador = new Coordenador(id, nome, email, senha, siape, cargo);
+        usuarios.add(coordenador);
+        return coordenador;
     }
 
-    boolean hasPermissao(Usuario usuario, Papel papel) {
+    public static boolean hasPermissao(Usuario usuario, Papel papel) {
         return usuario.getPapel() == papel;
     }
 
@@ -45,7 +51,7 @@ public class UsuarioService {
     // possível buscar por matrícula / siape / id futuramente
 
     // sugestão Collections.unmodifiableList(usuarios) pois impede mudanças da lista *
-    List<Usuario> listarUsuarios() {
+    public List<Usuario> listarUsuarios() {
         return usuarios;
     }
 }

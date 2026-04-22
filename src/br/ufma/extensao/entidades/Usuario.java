@@ -4,7 +4,7 @@ import br.ufma.extensao.enums.Papel;
 
 public class Usuario {
 
-    private Long id;
+    private final String id;
     private String nome;
     private String email;
     private String senha;
@@ -12,7 +12,7 @@ public class Usuario {
     private boolean ativo;
 
     // Métodos especiais
-    public Usuario(Long id, String nome, String email, String senha, Papel papel) {
+    public Usuario(String id, String nome, String email, String senha, Papel papel) {
         if (nome == null) {
             throw new IllegalArgumentException("Nome obrigatório");
         }
@@ -32,7 +32,7 @@ public class Usuario {
         this.ativo = true;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 

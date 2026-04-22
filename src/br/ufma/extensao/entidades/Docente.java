@@ -6,7 +6,7 @@ public class Docente extends Usuario {
     private String siape;
     private String departamento;
 
-    public Docente(Long id, String nome, String email, String senha, String siape, String departamento) {
+    public Docente(String id, String nome, String email, String senha, String siape, String departamento) {
         super(id, nome, email, senha, Papel.DOCENTE);
         this.siape = siape;
         this.departamento = departamento;

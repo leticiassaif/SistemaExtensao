@@ -9,21 +9,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Oportunidade {
+    private Long id;
     private String titulo;
     private String descricao;
     private TipoOportunidade tipo;
     private Modalidade modalidade;
-    private int cargaHoraria;
+    private double cargaHoraria;
     private int vagas;
     private StatusOportunidade status;
     private LocalDate inicio;
     private LocalDate fim;
-    private Usuario autor;
     private Docente responsavel;
+    private Usuario autor;
     private List<Inscricao> inscricoes;
 
     //Metodos
-    public Oportunidade(String titulo, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, LocalDate inicio, LocalDate fim, Usuario autor, Docente responsavel) {
+    public Oportunidade(Long id, String titulo, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, LocalDate inicio, LocalDate fim, Usuario autor, Docente responsavel) {
+        this.id = id;
         this.titulo = titulo;
         this.tipo = tipo;
         this.modalidade = modalidade;
@@ -38,7 +40,7 @@ public class Oportunidade {
         this.status = StatusOportunidade.RASCUNHO;
         this.inscricoes = new ArrayList<>();
     }
-    
+
     //Getter/Setters
     public String getTitulo() {
         return titulo;
@@ -128,5 +130,22 @@ public class Oportunidade {
         this.responsavel = responsavel;
     }
 
-
+    @Override
+    public String toString() {
+        return "Oportunidade{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", tipo=" + tipo +
+                ", modalidade=" + modalidade +
+                ", cargaHoraria=" + cargaHoraria +
+                ", vagas=" + vagas +
+                ", status=" + status +
+                ", inicio=" + inicio +
+                ", fim=" + fim +
+                ", autor=" + autor +
+                ", responsavel=" + responsavel +
+                ", inscricoes=" + inscricoes.size() + " inscrição(ões)" +
+                '}';
+    }
 }

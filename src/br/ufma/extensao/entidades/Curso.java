@@ -49,5 +49,15 @@ public class Curso {
     public void setVersaoPPC(String versaoPPC) {
         this.versaoPPC = versaoPPC;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Curso{" +
+                "nome='" + nome + '\'' +
+                ", codigo='" + codigo + '\'' +
+                ", cargaHoraria=" + cargaHoraria +
+                ", versaoPPC='" + versaoPPC + '\'' +
+                '}';
+    }
+
 }

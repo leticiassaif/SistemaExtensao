@@ -7,10 +7,9 @@ import java.time.LocalDate;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("=== Gestão de Atividades Complementares ===\n");
 
 // PASSO 1 — INSTANCIAR TODOS OS SERVIÇOS
-        System.out.println("Instanciando todos os serviços...");
+        System.out.println("Instanciando todos os serviços:");
 
         UsuarioService usuarioService       = new UsuarioService();
         OportunidadeService oportunidadeService = new OportunidadeService();
@@ -19,10 +18,10 @@ public class Main {
         AproveitamentoService aprovService  = new AproveitamentoService();
         GrupoService grupoService           = new GrupoService();
 
-        System.out.println("   Todos os serviços instanciados com sucesso.\n");
+        System.out.println("   Todos os serviços instanciados.\n");
 
 // PASSO 2 — Cadastrar um Docente e um Discente
-        System.out.println("Cadastrando Docente e Discente...");
+        System.out.println("Cadastrando Docente e Discente:");
 
         // Cadastra Docente passando: nome, email, senha, siape, departamento
         Docente docente = usuarioService.cadastrarDocente(
@@ -52,7 +51,7 @@ public class Main {
                 + " | Curso: " + discente.getCurso().getNome() + "\n");
 
 // PASSO 3 — Cadastrar um Coordenador
-        System.out.println("Cadastrando Coordenador...");
+        System.out.println("Cadastrando Coordenador:");
 
         // Coordenador é cadastrado com nome, email, senha, siape e cargo de coordenação
         Usuario coordenador = usuarioService.cadastrarCoordenador(
@@ -66,7 +65,7 @@ public class Main {
                 + " | Papel: " + coordenador.getPapel().getDescricao() + "\n");
 
 // PASSO 4 — Criar uma oportunidade e publicá-la
-        System.out.println("Criando e publicando oportunidade...");
+        System.out.println("Criando e publicando oportunidade:");
 
         // criarOportunidade requer: titulo, descricao, tipo, modalidade,
         //   cargaHoraria, vagas, responsavelId (Long), autor, inicio, fim
@@ -90,23 +89,23 @@ public class Main {
         System.out.println("   Oportunidade publicada. Status: " + oportunidade.getStatus() + "\n");
 
 // PASSO 5 — Inscrever o discente e aprovar a inscrição
-        System.out.println("Inscrevendo discente e aprovando inscrição...");
+        System.out.println("Inscrevendo discente e aprovando inscrição:");
 
         // inscrever requer: discente, oportunidade, motivacao
         Inscricao inscricao = inscricaoService.inscrever(
                 discente,
                 oportunidade,
-                "Tenho interesse em reforçar meus conhecimentos em OO."
+                "reforçar meus conhecimentos"
         );
         System.out.println("   Inscrição realizada: " + discente.getNome()
                 + " → " + oportunidade.getTitulo());
 
         // Aprova a inscrição (docente tem permissão)
         inscricaoService.aprovar(inscricao.getId(), docente);
-        System.out.println("   Inscrição aprovada! Status: " + StatusInscricao.APROVADA + "\n");
+        System.out.println("   Inscrição aprovada Status: " + StatusInscricao.APROVADA + "\n");
 
 // PASSO 6 — Iniciar execução da oportunidade e encerrar
-        System.out.println("Iniciando e encerrando execução da oportunidade...");
+        System.out.println("Iniciando e encerrando execução da oportunidade:");
 
         oportunidadeService.iniciarExecucao(oportunidade.getId());
         System.out.println("   Oportunidade em andamento. Status: " + oportunidade.getStatus());
@@ -115,7 +114,7 @@ public class Main {
         System.out.println("   Oportunidade encerrada. Status: " + oportunidade.getStatus() + "\n");
 
 // PASSO 7 — Gerar certificado para o discente
-        System.out.println("Gerando certificado para o discente...");
+        System.out.println("Gerando certificado para o discente:");
 
         // gerar requer: discente, oportunidade, cargaHoraria, dataEmissao
         Certificado certificado = certificadoService.gerar(
@@ -128,7 +127,7 @@ public class Main {
                 + " | Oportunidade: " + oportunidade.getTitulo() + "\n");
 
 // PASSO 8 — Buscar o certificado pelo código de autenticidade e imprimir
-        System.out.println("Buscando certificado pelo código de autenticidade...");
+        System.out.println("Buscando certificado pelo código de autenticidade:");
 
         Certificado certificadoEncontrado = certificadoService.buscar(certificado.getCodigoAutenticidade());
         System.out.println("   Certificado encontrado: " + certificadoEncontrado.getCodigoAutenticidade());
@@ -138,7 +137,7 @@ public class Main {
         System.out.println("   Data emissão : " + certificadoEncontrado.getDataEmissao() + "\n");
 
 // PASSO 9 — Submeter solicitação de aproveitamento
-        System.out.println("Submetendo solicitação de aproveitamento...");
+        System.out.println("Submetendo solicitação de aproveitamento:");
 
         // submeter requer: discenteId, descricao, cargaHorariaPleiteada
         Aproveitamento aproveitamento = aprovService.submeter(
@@ -150,7 +149,7 @@ public class Main {
         System.out.println("   Status: " + aproveitamento.getStatus() + "\n");
 
 // PASSO 10 — Indeferir, reenviar e aprovar o aproveitamento
-        System.out.println("Indeferindo solicitação com parecer...");
+        System.out.println("Indeferindo solicitação com parecer:");
 
         // Indeferir requer permissão de COORDENADOR
         aprovService.indeferir(aproveitamento.getId(), coordenador);
@@ -168,7 +167,7 @@ public class Main {
         System.out.println("   Status: " + aproveitamento.getStatus() + "\n");
 
 // PASSO 11 — Criar grupo e adicionar o discente como DIRETOR
-        System.out.println("Criando grupo e adicionando discente como DIRETOR...");
+        System.out.println("Criando grupo e adicionando discente como DIRETOR:");
 
         // criar requer: nome, descricao, email, docenteResponsavelId
         Grupo grupo = grupoService.criar(
@@ -199,7 +198,7 @@ public class Main {
                 + " | Papel: " + diretor.getPapel().getDescricao() + "\n");
 
 // PASSO 12 — Imprimir o resultado final de cada operação
-        System.out.println("=== Resultado Final ===");
+        System.out.println("Resultado Final");
         System.out.println("  Docente cadastrado    : " + docente.getNome());
         System.out.println("  Discente cadastrado   : " + discente.getNome());
         System.out.println("  Coordenador cadastrado: " + coordenador.getNome());

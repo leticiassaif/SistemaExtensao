@@ -4,5 +4,6 @@ public enum TipoOportunidade {
     PROJETO,
     CURSO,
     EVENTO,
-    OFICINA
+    PROGRAMA,
+    PRESTACAO_SERVICO
 }

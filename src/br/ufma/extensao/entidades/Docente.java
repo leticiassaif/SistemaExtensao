@@ -11,8 +11,8 @@ public class Docente extends Usuario {
     private String departamento;
 
     // Métodos especiais
-    public Docente(String nome, String email, String senha, Papel papel, String siape) {
-        super(nome, email, senha, papel);
+    public Docente(String nome, String email, String senha, String siape) {
+        super(nome, email, senha, Papel.DOCENTE);
 
         if (siape == null) {
             throw new IllegalArgumentException("SIAPE obrigatório");

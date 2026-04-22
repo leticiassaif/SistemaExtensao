@@ -1,25 +1,31 @@
 package br.ufma.extensao.entidades;
 
+import br.ufma.extensao.enums.StatusGrupo;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import static br.ufma.extensao.enums.StatusGrupo.ATIVO;
+
 public class Grupo {
+    private Long id;
     private String nome;
     private String tipo;
     private String email;
     private String descricao;
     private Docente responsavel;
-    private boolean ativo;
+    private StatusGrupo status;
     private List<Usuario> membros;
 
     // Construtor
-    public Grupo(String nome, String tipo, String email, String descricao, Docente responsavel) {
+    public Grupo(Long id, String nome, String tipo, String email, String descricao, Docente responsavel) {
+        this.id = id;
         this.nome = nome;
         this.tipo = tipo;
         this.email = email;
         this.descricao = descricao;
         this.responsavel = responsavel;
-        this.ativo = true;
+        this.status = ATIVO;
         this.membros = new ArrayList<>();
     }
 
@@ -54,8 +60,8 @@ public class Grupo {
         return responsavel;
     }
 
-    public boolean isAtivo() {
-        return ativo;
+    public StatusGrupo getStatus() {
+        return status;
     }
 
     public List<Usuario> getMembros() {
@@ -84,8 +90,8 @@ public class Grupo {
         this.responsavel = responsavel;
     }
 
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
+    public void setStatus(StatusGrupo status) {
+        this.status = status;
     }
 
     public void setMembros(List<Usuario> membros) {
@@ -98,7 +104,7 @@ public class Grupo {
                 "nome='" + nome + '\'' +
                 ", tipo='" + tipo + '\'' +
                 ", responsavel=" + responsavel.getNome() +
-                ", ativo=" + ativo +
+                ", status=" + status +
                 ", membros=" + membros.size() +
                 '}';
     }

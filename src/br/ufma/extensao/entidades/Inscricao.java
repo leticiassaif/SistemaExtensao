@@ -4,13 +4,65 @@ import br.ufma.extensao.enums.StatusInscricao;
 import java.time.LocalDate;
 
 public class Inscricao {
-    private Oportunidade oportunidade;
+    private Long id;
     private Discente discente;
-    private Enum<StatusInscricao> status;
+    private Oportunidade oportunidade;
+    private StatusInscricao status;
     private String motivacao;
+    private LocalDate dataInscricao;
 
-    // Métodos especiais
+    public Inscricao(Long id, Discente discente, Oportunidade oportunidade, String motivacao) {
+        this.id = id;
+        this.discente = discente;
+        this.oportunidade = oportunidade;
+        this.motivacao = motivacao;
+        this.dataInscricao = LocalDate.now();
+        this.status = StatusInscricao.PENDENTE;
+    }
 
-    // Métodos personalizados
+    // Getters
+    public Long getId() {
+        return id;
+    }
 
+    public Discente getDiscente() {
+        return discente;
+    }
+
+    public Oportunidade getOportunidade() {
+        return oportunidade;
+    }
+
+    public StatusInscricao getStatus() {
+        return status;
+    }
+
+    public String getMotivacao() {
+        return motivacao;
+    }
+
+    public LocalDate getDataInscricao() {
+        return dataInscricao;
+    }
+
+    //Setters
+    public void setStatus(StatusInscricao status) {
+        this.status = status;
+    }
+
+    public void setMotivacao(String motivacao) {
+        this.motivacao = motivacao;
+    }
+
+    @Override
+    public String toString() {
+        return "Inscricao{" +
+                "id=" + id +
+                ", discente=" + discente.getNome() +
+                ", oportunidade=" + oportunidade.getTitulo() +
+                ", status=" + status +
+                ", motivacao='" + motivacao + '\'' +
+                ", dataInscricao=" + dataInscricao +
+                '}';
+    }
 }

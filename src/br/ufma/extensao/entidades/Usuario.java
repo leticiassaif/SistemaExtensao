@@ -3,6 +3,7 @@ package br.ufma.extensao.entidades;
 import br.ufma.extensao.enums.Papel;
 
 public class Usuario {
+
     private String nome;
     private String email;
     private String senha;
@@ -54,12 +55,8 @@ public class Usuario {
         this.papel = papel;
     }
 
-    public boolean getAtivo() {
-        return ativo;
-    }
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
-    }
+    public boolean isAtivo() { return ativo; }
+    public void setAtivo(boolean ativo) { this.ativo = ativo; }
 
     @Override
     public String toString() {

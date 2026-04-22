@@ -10,8 +10,7 @@ import br.ufma.extensao.entidades.Usuario;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-// TODO: falta mudar os status
-// TODO: criar uma funcao proximoId  para todos os componentes que usam ID
+
 public class OportunidadeService {
     List<Oportunidade> oportunidades = new ArrayList<>();
 

@@ -15,7 +15,7 @@ public class Aproveitamento {
     private String parecer;
 
     public Aproveitamento(Long id, Long discenteId, String descricaoAtividade,
-                          double cargaHorariaPleiteada, LocalDate dataInicio, LocalDate dataFim) {
+                          double cargaHorariaPleiteada) {
         this.id = id;
         this.discenteId = discenteId;
         this.descricaoAtividade = descricaoAtividade;

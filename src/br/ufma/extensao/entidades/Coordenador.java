@@ -1,13 +1,13 @@
 package br.ufma.extensao.entidades;
 
+import br.ufma.extensao.enums.CargoCoordenador;
 import br.ufma.extensao.enums.Papel;
 
 public class Coordenador extends Usuario {
     private String siape;
-    private String cargo;
+    private CargoCoordenador cargo;
 
-    public Coordenador(String nome, String email, String senha,
-                       boolean ativo, String siape, String cargo) {
+    public Coordenador(String nome, String email, String senha, String siape, CargoCoordenador cargo) {
         super(nome, email, senha, Papel.COORDENADOR);
         this.siape = siape;
         this.cargo = cargo;
@@ -18,7 +18,7 @@ public class Coordenador extends Usuario {
         return siape;
     }
 
-    public String getCargo() {
+    public CargoCoordenador getCargo() {
         return cargo;
     }
 
@@ -27,7 +27,7 @@ public class Coordenador extends Usuario {
         this.siape = siape;
     }
 
-    public void setCargo(String cargo) {
+    public void setCargo(CargoCoordenador cargo) {
         this.cargo = cargo;
     }
 

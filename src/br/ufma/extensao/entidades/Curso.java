@@ -7,18 +7,18 @@ import java.util.List;
 
 public class Curso {
     private String nome;
-    private int codigo;
+    private String codigo;
     private int cargaHoraria;
     private String versaoPPC; //Versão atual
 
 
     // Métodos especiais
     // o curso sempre vai ser de ciência da computação
-    public Curso(int codigoCurso, String versaoPPC) {
-        this.nome = "Ciência da Computação";
+    public Curso(String nome, String codigoCurso, String versaoPPC, int cargaHoraria) {
+        this.nome = nome;
         this.codigo = codigoCurso; //confirmar?
         this.versaoPPC = versaoPPC;
-        this.cargaHoraria = 3540; // confirmar se está correto
+        this.cargaHoraria = cargaHoraria; // confirmar se está correto
     }
 
     //Getters e Setters
@@ -26,7 +26,7 @@ public class Curso {
         return nome;
     }
 
-    public int getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
@@ -38,4 +38,15 @@ public class Curso {
         this.cargaHoraria = cargaHoraria;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public void setVersaoPPC(String versaoPPC) {
+        this.versaoPPC = versaoPPC;
+    }
 }

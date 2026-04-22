@@ -15,16 +15,19 @@ import java.util.List;
 public class OportunidadeService {
     List<Oportunidade> oportunidades = new ArrayList<>();
 
+    //TODO descobrir como fazer a separaçao de quem pode criar oportunidades (discente diretor e docente)
+
     Oportunidade criarOportunidade(String titulo, String descricao, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, Docente responsavelId, Usuario autor, LocalDate inicio, LocalDate fim){
-        Oportunidade oportunidade = new Oportunidade(titulo, descricao, tipo, modalidade, cargaHoraria, vagas, StatusOportunidade.PENDENTE, inicio, fim, autor, responsavelId);
-        oportunidades.add(oportunidade);
-        return oportunidade;
+      //  if ()
+            Oportunidade oportunidade = new Oportunidade(titulo, descricao, tipo, modalidade, cargaHoraria, vagas, StatusOportunidade.RASCUNHO, inicio, fim, autor, responsavelId);
+            oportunidades.add(oportunidade);
+            return oportunidade;
     }
 
     Oportunidade publicarOportunidade(String titulo){
         for (Oportunidade op : oportunidades){
             if (op.getTitulo().equals(titulo)) {
-                op.setStatus(StatusOportunidade.PUBLICADA);
+                op.setStatus(StatusOportunidade.AGUARDANDO_APROVACAO);
                 return op;
             }
         }
@@ -34,7 +37,7 @@ public class OportunidadeService {
     Oportunidade iniciarExecucao(String titulo){
         for (Oportunidade op : oportunidades){
             if (op.getTitulo().equals(titulo)) {
-                op.setStatus(StatusOportunidade.EM_PROGRESSO);
+                op.setStatus(StatusOportunidade.EM_EXECUCAO);
                 return op;
             }
         }

@@ -2,7 +2,6 @@ package br.ufma.extensao.entidades;
 
 import br.ufma.extensao.enums.CargoCoordenador;
 import br.ufma.extensao.enums.Papel;
-//todo resolver esse problema
 
 public class Coordenador extends Usuario {
     private String siape;

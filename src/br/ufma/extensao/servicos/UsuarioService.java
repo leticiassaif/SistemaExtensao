@@ -12,7 +12,6 @@ public class UsuarioService {
     private List<Usuario> usuarios = new ArrayList<>();
     private int proximoId = 1;
 
-    //todo adicionar parametros p/ cadastro de todas as classes
 
     public Discente cadastrarDiscente(String nome, String email, String senha, String matricula, int semestreAtual, Curso curso){
         String id = ("DIS00" + proximoId);

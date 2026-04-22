@@ -1,12 +1,11 @@
-package service;
+package br.ufma.extensao.servicos;
 
-import enums.Papel;
-import model.Discente;
-import model.Docente;
-import model.Usuario;
+import br.ufma.extensao.enums.Papel;
+import br.ufma.extensao.entidades.Discente;
+import br.ufma.extensao.entidades.Docente;
+import br.ufma.extensao.entidades.Usuario;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class UsuarioService {
     List<Usuario> usuarios = new ArrayList<>();

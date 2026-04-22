@@ -1,9 +1,10 @@
-package model;
+package br.ufma.extensao.entidades;
 
-import enums.Papel;
-import java.util.List;
+import br.ufma.extensao.enums.Papel;
 
 public class Usuario {
+
+    private Long id;
     private String nome;
     private String email;
     private String senha;
@@ -11,7 +12,7 @@ public class Usuario {
     private boolean ativo;
 
     // Métodos especiais
-    public Usuario(String nome, String email, String senha, Papel papel) {
+    public Usuario(Long id, String nome, String email, String senha, Papel papel) {
         if (nome == null) {
             throw new IllegalArgumentException("Nome obrigatório");
         }
@@ -23,11 +24,16 @@ public class Usuario {
         if (senha == null) {
             throw new IllegalArgumentException("Senha inválida");
         }
+        this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.papel = papel;
         this.ativo = true;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getNome() {
@@ -55,23 +61,8 @@ public class Usuario {
         this.papel = papel;
     }
 
-    public boolean isAtivo() {
-        return ativo;
-    }
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
-    }
-
-    // Métodos personalizados
-    public void mudarSenha(String novaSenha) {
-        if (novaSenha == null) {
-            throw new IllegalArgumentException("Senha inválida");
-        }
-        this.senha = novaSenha;
-    }
-
-    // talvez seja melhor em discente?
-    public List<Oportunidade> obterOportunidades() {}
+    public boolean isAtivo() { return ativo; }
+    public void setAtivo(boolean ativo) { this.ativo = ativo; }
 
     @Override
     public String toString() {

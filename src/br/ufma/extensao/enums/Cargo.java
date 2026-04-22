@@ -1,8 +1,8 @@
-package enums;
+package br.ufma.extensao.enums;
 
 public enum Cargo {
     DIRETOR("Diretor"),
-    VICE_DIRETOR("Vice-Diretor"),
+    VICE("Vice-Diretor"),
     TESOUREIRO("Tesoureiro"),
     MEMBRO("Membro");
 

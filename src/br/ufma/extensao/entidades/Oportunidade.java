@@ -74,11 +74,11 @@ public class Oportunidade {
         this.modalidade = (Modalidade) modalidade;
     }
 
-    public int getCargaHoraria() {
+    public double getCargaHoraria() {
         return cargaHoraria;
     }
 
-    public void setCargaHoraria(int cargaHoraria) {
+    public void setCargaHoraria(double cargaHoraria) {
         this.cargaHoraria = cargaHoraria;
     }
 

@@ -4,7 +4,7 @@ import br.ufma.extensao.enums.StatusCertificado;
 import java.time.LocalDate;
 
 public class Certificado {
-    private Long id;
+    private String id;
     private Discente discente;
     private Oportunidade oportunidade;
     private double cargaHorariaCumprida;
@@ -12,7 +12,7 @@ public class Certificado {
     private String codigoAutenticidade;
     private StatusCertificado status;
 
-    public Certificado(Long id, Discente discente, Oportunidade oportunidade,
+    public Certificado(String id, Discente discente, Oportunidade oportunidade,
                        double cargaHorariaCumprida, LocalDate dataEmissao) {
         this.id = id;
         this.discente = discente;
@@ -24,7 +24,7 @@ public class Certificado {
     }
 
     // Getters
-    public Long getId() { return id; }
+    public String getId() { return id; }
     public Discente getDiscente() { return discente; }
     public Oportunidade getOportunidade() { return oportunidade; }
     public double getCargaHorariaCumprida() { return cargaHorariaCumprida; }

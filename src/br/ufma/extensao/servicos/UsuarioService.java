@@ -10,26 +10,27 @@ import java.util.List;
 
 public class UsuarioService {
     private List<Usuario> usuarios = new ArrayList<>();
-    private long proximoId = 1;
+    private int proximoId = 1;
 
     //todo adicionar parametros p/ cadastro de todas as classes
 
     public Discente cadastrarDiscente(String nome, String email, String senha, String matricula, int semestreAtual, Curso curso){
-        Long id = proximoId ++;
+        String id = ("DIS00" + proximoId);
+        proximoId ++;
         Discente discente = new Discente(id, nome, email, senha, matricula, semestreAtual, curso);
         usuarios.add(discente);
         return discente;
     }
 
     public Docente cadastrarDocente(String nome, String email, String senha, String siape, String departamento) {
-        Long id = (long) (usuarios.size() + 1);
+        String id = ("DOC00" + proximoId);
         Docente docente = new Docente(id, nome, email, senha, siape, departamento);
         usuarios.add(docente);
         return docente;
     }
 
     public Usuario cadastrarCoordenador(String nome, String email, String senha, String siape, CargoCoordenador cargo) {
-        Long id = (long) (usuarios.size() + 1);
+        String id = ("COR00" + proximoId);
         Usuario coordenador = new Coordenador(id, nome, email, senha, siape, cargo);
         usuarios.add(coordenador);
         return coordenador;

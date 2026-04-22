@@ -14,7 +14,7 @@ import java.util.List;
 
 public class OportunidadeService {
     private List<Oportunidade> oportunidades = new ArrayList<>();
-    private long proximoId = 1;
+    private int proximoId = 1;
 
 
     public Oportunidade criarOportunidade(String titulo, String descricao, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, Long responsavelId, Usuario autor, LocalDate inicio, LocalDate fim){
@@ -26,7 +26,8 @@ public class OportunidadeService {
             throw new IllegalArgumentException("Datas inválidas.");
         if (autor.getPapel() == Papel.DOCENTE || autor.getCargo() == Cargo.DIRETOR) {  //todo problemas com os cargos
 
-            Long id = proximoId++;
+            String id = ("OPT00" + proximoId);
+            proximoId++;
             Oportunidade oportunidade = new Oportunidade(id, titulo, descricao, tipo, modalidade, cargaHoraria, vagas, responsavelId, inicio, fim, autor);
             oportunidades.add(oportunidade);
             return oportunidade;
@@ -34,7 +35,7 @@ public class OportunidadeService {
         return null;
     }
 
-    public Oportunidade publicarOportunidade(Long id, Usuario autor){
+    public Oportunidade publicarOportunidade(String id, Usuario autor){
         for (Oportunidade op : oportunidades){
             if (op.getId().equals(id)) {
                 if (autor.getCargo() == Cargo.DIRETOR) {
@@ -50,7 +51,7 @@ public class OportunidadeService {
         return null;
     }
 
-    public Oportunidade aprovarOportunidade(Long id, Usuario usuario){
+    public Oportunidade aprovarOportunidade(String id, Usuario usuario){
         for (Oportunidade op : oportunidades){
             if (op.getId().equals(id)) {
                 if (usuario.getPapel() == Papel.DOCENTE) {
@@ -64,7 +65,7 @@ public class OportunidadeService {
         return null;
     }
 
-    public Oportunidade iniciarExecucao(Long id){
+    public Oportunidade iniciarExecucao(String id){
         for (Oportunidade op : oportunidades){
             if (op.getId().equals(id)) {
                 op.setStatus(StatusOportunidade.EM_EXECUCAO);
@@ -74,7 +75,7 @@ public class OportunidadeService {
         return null;
     }
 
-    public Oportunidade encerrarOportunidade(Long id){
+    public Oportunidade encerrarOportunidade(String id){
         for (Oportunidade op : oportunidades){
             if (op.getId().equals(id)) {
                 op.setStatus(StatusOportunidade.ENCERRADA);
@@ -84,7 +85,7 @@ public class OportunidadeService {
         return null;
     }
 
-    public Oportunidade cancelarOportunidade(Long id){
+    public Oportunidade cancelarOportunidade(String id){
         for (Oportunidade op : oportunidades){
             if (op.getId().equals(id)) {
                 op.setStatus(StatusOportunidade.CANCELADA);
@@ -94,7 +95,7 @@ public class OportunidadeService {
         return null;
     }
 
-    public Oportunidade buscarOportunidadePorId(Long id){
+    public Oportunidade buscarOportunidadePorId(String id){
         for (Oportunidade op : oportunidades){
             if (op.getId().equals(id)) {
                 return op;

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CertificadoService {
     private List<Certificado> certificados = new ArrayList<>();
-    private long proximoId = 1;
+    private int proximoId = 1;
 
     public Certificado gerar(Discente discente, Oportunidade oportunidade, double cargaHoraria, LocalDate dataEmissao){
 
@@ -21,7 +21,8 @@ public class CertificadoService {
         if (dataEmissao == null || dataEmissao.isAfter(LocalDate.now()))
             throw new IllegalArgumentException("Data de emissão inválida.");
 
-        Long id = proximoId++;
+        String id = ("CER00" + proximoId);
+        proximoId++;
         Certificado certificado = new Certificado(id, discente, oportunidade, cargaHoraria, dataEmissao);
         certificados.add(certificado);
         return certificado;

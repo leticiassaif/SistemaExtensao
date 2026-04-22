@@ -7,7 +7,7 @@ import br.ufma.extensao.enums.TipoOportunidade;
 import java.time.LocalDate;
 
 public class Oportunidade {
-    private Long id;
+    private String id;
     private String titulo;
     private String descricao;
     private TipoOportunidade tipo;
@@ -20,7 +20,7 @@ public class Oportunidade {
     private Long docenteResponsavelId;
     private Usuario autor;
 
-    public Oportunidade(Long id, String titulo, String descricao, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, Long docenteResponsavelId, LocalDate inicio, LocalDate fim, Usuario autor) {
+    public Oportunidade(String id, String titulo, String descricao, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, Long docenteResponsavelId, LocalDate inicio, LocalDate fim, Usuario autor) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
@@ -37,7 +37,7 @@ public class Oportunidade {
 
 
     // Getters
-    public Long getId() { return id; }
+    public String getId() { return id; }
     public String getTitulo() { return titulo; }
     public String getDescricao() { return descricao; }
     public TipoOportunidade getTipo() { return tipo; }

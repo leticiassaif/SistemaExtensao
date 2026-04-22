@@ -11,20 +11,21 @@ import java.util.List;
 
 public class InscricaoService {
     private List<Inscricao> inscricoes = new ArrayList<>(); //todo trocar o formato de todos os ids p/ string TIP + 00 + proximoId
-    private long proximoId = 1;
+    private int proximoId = 1;
 
     public Inscricao inscrever(Discente discente, Oportunidade oportunidade, String motivacao){
 
         if (discente == null || oportunidade == null || motivacao == null)
             throw new IllegalArgumentException("Discente, oportunidade e motivação são obrigatórios.");
 
-        Long id = proximoId++;
+        String id = ("INS00" + proximoId);
+        proximoId++;
         Inscricao inscricao = new Inscricao(id, discente, oportunidade, motivacao);
         inscricoes.add(inscricao);
         return inscricao;
     }
 
-    public Inscricao aprovar(Long inscricaoId){
+    public Inscricao aprovar(String inscricaoId){
         for (Inscricao i : inscricoes){
             if (i.getId().equals(inscricaoId)){
                 if (i.getStatus() == StatusInscricao.PENDENTE){
@@ -35,7 +36,7 @@ public class InscricaoService {
         return null;
     }
 
-    public Inscricao rejeitar(Long inscricaoId){
+    public Inscricao rejeitar(String inscricaoId){
         for (Inscricao i : inscricoes){
             if (i.getId().equals(inscricaoId)){
                 if (i.getStatus() == StatusInscricao.PENDENTE){
@@ -46,10 +47,10 @@ public class InscricaoService {
         return null;
     }
 
-    public Inscricao cancelar(Long inscricaoId){
+    public Inscricao cancelar(String inscricaoId){
         for (Inscricao i : inscricoes){
             if (i.getId().equals(inscricaoId)){
-                if (i.getStatus() != StatusInscricao.CANCELADA){
+                if (i.getStatus() == StatusInscricao.APROVADA){
                     i.setStatus(StatusInscricao.CANCELADA);
                     return i;}
             }

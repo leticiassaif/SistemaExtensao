@@ -28,14 +28,14 @@
 ## Gestão de Solicitações
 
 | Feito | Código | Requisito | Detalhamento |
-|-------|--------|-----------|--------------|
-| [ ] | RF020 | O sistema deve permitir que o discente inicie uma solicitação de aproveitamento de horas externas. | O formulário deve exigir descrição da atividade, carga horária pleiteada, data de início e fim. Status inicial: Pendente. |
-| [ ] | RF021 | O sistema deve permitir que o coordenador visualize e analise as solicitações de aproveitamento. | O coordenador poderá consultar a fila de pendências e emitir decisão com parecer obrigatório em caso de indeferimento. |
-| [ ] | RF023 | O sistema deve permitir que o discente reenvie uma solicitação indeferida. | O discente poderá editar os campos e reenviar a solicitação dentro do prazo de 5 dias após o indeferimento. |
+|------|--------|-----------|--------------|
+| [✅] | RF020 | O sistema deve permitir que o discente inicie uma solicitação de aproveitamento de horas externas. | O formulário deve exigir descrição da atividade, carga horária pleiteada, data de início e fim. Status inicial: Pendente. |
+| [✅] | RF021 | O sistema deve permitir que o coordenador visualize e analise as solicitações de aproveitamento. | O coordenador poderá consultar a fila de pendências e emitir decisão com parecer obrigatório em caso de indeferimento. |
+| [✅] | RF023 | O sistema deve permitir que o discente reenvie uma solicitação indeferida. | O discente poderá editar os campos e reenviar a solicitação dentro do prazo de 5 dias após o indeferimento. |
 
 ## Certificação e Validação
 
 | Feito | Código | Requisito | Detalhamento |
 |-------|--------|-----------|--------------|
-| [ ] | RF025 | O sistema deve gerar certificados para participantes de atividades internas concluídas. | O certificado deve conter nome do participante, dados da atividade, período de cumprimento e carga horária cumprida. |
-| [ ] | RF026 | O sistema deve incluir um código de autenticidade único nos certificados emitidos. | Cada certificado deve possuir um identificador único (ex.: CERT-{id}) para verificação de autenticidade. |
+| [✅] | RF025 | O sistema deve gerar certificados para participantes de atividades internas concluídas. | O certificado deve conter nome do participante, dados da atividade, período de cumprimento e carga horária cumprida. |
+| [✅] | RF026 | O sistema deve incluir um código de autenticidade único nos certificados emitidos. | Cada certificado deve possuir um identificador único (ex.: CERT-{id}) para verificação de autenticidade. |

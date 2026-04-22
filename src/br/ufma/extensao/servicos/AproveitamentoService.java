@@ -27,9 +27,10 @@ public class AproveitamentoService {
     public Aproveitamento aprovar(String id, Usuario u, double cargaPleiteada){
         if (UsuarioService.hasPermissao(u, Papel.COORDENADOR)){
             for (Aproveitamento apr : aproveitamentos){
-                if (apr.getId().equals(id) || apr.getStatus() == StatusAproveitamento.PENDENTE){
+                if (apr.getId().equals(id) && apr.getStatus() == StatusAproveitamento.PENDENTE) {
                     apr.setCargaHorariaAprovada(cargaPleiteada);
                     apr.setStatus(StatusAproveitamento.APROVADO);
+                    return apr;
                 }
             }
         }
@@ -39,8 +40,9 @@ public class AproveitamentoService {
     public Aproveitamento indeferir(String id, Usuario u){
         if (UsuarioService.hasPermissao(u, Papel.COORDENADOR)){
             for (Aproveitamento apr : aproveitamentos){
-                if (apr.getId().equals(id) || apr.getStatus() == StatusAproveitamento.PENDENTE){
+                if (apr.getId().equals(id) && apr.getStatus() == StatusAproveitamento.PENDENTE) {
                     apr.setStatus(StatusAproveitamento.INDEFERIDO);
+                    return apr;
                 }
             }
         }
@@ -48,15 +50,16 @@ public class AproveitamentoService {
     }
 
     public Aproveitamento reenviar(String id){
-            for (Aproveitamento apr : aproveitamentos){
-                if (apr.getId().equals(id) || apr.getStatus() == StatusAproveitamento.INDEFERIDO){
-                    apr.setStatus(StatusAproveitamento.PENDENTE);
+        for (Aproveitamento apr : aproveitamentos) {
+            if (apr.getId().equals(id) && apr.getStatus() == StatusAproveitamento.INDEFERIDO) {
+                apr.setStatus(StatusAproveitamento.PENDENTE);
+                return apr;
                 }
             }
         throw new IllegalArgumentException("Impossível realizar ação!");
     }
 
-    
+
 
     public List <Aproveitamento> listarPendentes(){
         List <Aproveitamento> resultado = new ArrayList<>();
@@ -67,10 +70,10 @@ public class AproveitamentoService {
         return resultado;
     }
 
-    public List <Aproveitamento> listarPorDiscente(){
+    public List <Aproveitamento> listarPorDiscente(String discenteId){
         List<Aproveitamento> resultado = new ArrayList<>();
-        for (Aproveitamento apr : aproveitamentos){
-            if(apr.getDiscenteId().equals(apr.getId())){
+        for (Aproveitamento apr : aproveitamentos) {
+            if (apr.getDiscenteId().equals(discenteId)) {
                 resultado.add(apr);
             }
         }

@@ -10,7 +10,7 @@ public class Grupo {
     private String descricao;
     private Docente responsavel;
     private boolean ativo;
-    private List<Discente> membros;
+    private List<Usuario> membros;
 
     // Construtor
     public Grupo(String nome, String tipo, String email, String descricao, Docente responsavel) {
@@ -21,6 +21,16 @@ public class Grupo {
         this.responsavel = responsavel;
         this.ativo = true;
         this.membros = new ArrayList<>();
+    }
+
+    //metodos simples
+
+    public void adicionarMembro(Usuario usuario) {
+        membros.add(usuario);
+    }
+
+    public void removerMembro(Usuario usuario) {
+        membros.remove(usuario);
     }
 
     //Getters
@@ -48,7 +58,7 @@ public class Grupo {
         return ativo;
     }
 
-    public List<Discente> getMembros() {
+    public List<Usuario> getMembros() {
         return membros;
     }
 
@@ -78,7 +88,18 @@ public class Grupo {
         this.ativo = ativo;
     }
 
-    public void setMembros(List<Discente> membros) {
+    public void setMembros(List<Usuario> membros) {
         this.membros = membros;
+    }
+
+    @Override
+    public String toString() {
+        return "Grupo{" +
+                "nome='" + nome + '\'' +
+                ", tipo='" + tipo + '\'' +
+                ", responsavel=" + responsavel.getNome() +
+                ", ativo=" + ativo +
+                ", membros=" + membros.size() +
+                '}';
     }
 }

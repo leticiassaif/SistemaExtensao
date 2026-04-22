@@ -1,7 +1,6 @@
 package br.ufma.extensao.entidades;
 
 import br.ufma.extensao.enums.Papel;
-import java.util.List;
 
 public class Usuario {
     private String nome;
@@ -55,13 +54,13 @@ public class Usuario {
         this.papel = papel;
     }
 
-    public boolean isAtivo() {
+    public boolean getAtivo() {
         return ativo;
     }
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
     }
-    
+
     @Override
     public String toString() {
         return "Usuario{" +

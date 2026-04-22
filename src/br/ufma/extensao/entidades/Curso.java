@@ -10,7 +10,7 @@ public class Curso {
     private int codigo;
     private int cargaHoraria;
     private String versaoPPC; //Versão atual
-    private List<VersaoPPC> historicoPPC;
+
 
     // Métodos especiais
     // o curso sempre vai ser de ciência da computação
@@ -19,7 +19,6 @@ public class Curso {
         this.codigo = codigoCurso; //confirmar?
         this.versaoPPC = versaoPPC;
         this.cargaHoraria = 3540; // confirmar se está correto
-        this.historicoPPC = new ArrayList<>();
     }
 
     //Getters e Setters
@@ -37,10 +36,6 @@ public class Curso {
 
     public void setCargaHoraria(int cargaHoraria) {
         this.cargaHoraria = cargaHoraria;
-    }
-
-    public List<VersaoPPC> getHistoricoPPC() {
-        return historicoPPC;
     }
 
 }

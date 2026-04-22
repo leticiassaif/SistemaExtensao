@@ -2,6 +2,9 @@ package br.ufma.extensao.servicos;
 
 import br.ufma.extensao.entidades.Discente;
 import br.ufma.extensao.entidades.Inscricao;
+import br.ufma.extensao.entidades.Usuario;
+import br.ufma.extensao.enums.Papel;
+import br.ufma.extensao.servicos.UsuarioService;
 import br.ufma.extensao.entidades.Oportunidade;
 import br.ufma.extensao.enums.StatusInscricao;
 
@@ -10,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InscricaoService {
-    private List<Inscricao> inscricoes = new ArrayList<>(); //todo trocar o formato de todos os ids p/ string TIP + 00 + proximoId
+    private List<Inscricao> inscricoes = new ArrayList<>();
     private int proximoId = 1;
 
     public Inscricao inscrever(Discente discente, Oportunidade oportunidade, String motivacao){
@@ -25,34 +28,45 @@ public class InscricaoService {
         return inscricao;
     }
 
-    public Inscricao aprovar(String inscricaoId){
-        for (Inscricao i : inscricoes){
-            if (i.getId().equals(inscricaoId)){
-                if (i.getStatus() == StatusInscricao.PENDENTE){
-                    i.setStatus(StatusInscricao.APROVADA);
-                    return i;}
+    public Inscricao aprovar(String inscricaoId, Usuario u){
+        if (UsuarioService.hasPermissao(u, Papel.ADMIN) || UsuarioService.hasPermissao(u, Papel.DOCENTE)) {
+            for (Inscricao i : inscricoes) {
+                if (i.getId().equals(inscricaoId)) {
+                    if (i.getStatus() == StatusInscricao.PENDENTE) {
+                        i.setStatus(StatusInscricao.APROVADA);
+                        return i;
+                    }
+                }
             }
         }
         return null;
     }
 
-    public Inscricao rejeitar(String inscricaoId){
-        for (Inscricao i : inscricoes){
-            if (i.getId().equals(inscricaoId)){
-                if (i.getStatus() == StatusInscricao.PENDENTE){
-                    i.setStatus(StatusInscricao.REJEITADA);
-                    return i;}
+    public Inscricao rejeitar(String inscricaoId, Usuario u){
+        if (UsuarioService.hasPermissao(u, Papel.ADMIN) || UsuarioService.hasPermissao(u, Papel.DOCENTE)) {
+            for (Inscricao i : inscricoes) {
+                if (i.getId().equals(inscricaoId)) {
+                    if (i.getStatus() == StatusInscricao.PENDENTE) {
+                        i.setStatus(StatusInscricao.REJEITADA);
+                        return i;
+                    }
+                }
             }
         }
         return null;
     }
 
-    public Inscricao cancelar(String inscricaoId){
-        for (Inscricao i : inscricoes){
-            if (i.getId().equals(inscricaoId)){
-                if (i.getStatus() == StatusInscricao.APROVADA){
-                    i.setStatus(StatusInscricao.CANCELADA);
-                    return i;}
+    public Inscricao cancelar(String inscricaoId, Usuario u){
+        if (UsuarioService.hasPermissao(u, Papel.DISCENTE) || UsuarioService.hasPermissao(u, Papel.DISCENTE_DIRETOR)) {
+            for (Inscricao i : inscricoes) {
+                if (i.getId().equals(inscricaoId) && LocalDate.now().isBefore(i.getOportunidade().getInicio())) {
+                    if (i.getStatus() == StatusInscricao.APROVADA) {
+                        i.setStatus(StatusInscricao.CANCELADA);
+                        return i;
+                    }
+                if (!(LocalDate.now().isBefore(i.getOportunidade().getInicio())))
+                        throw new IllegalArgumentException("Não é possível cancelar a inscrição em oportunidades já iniciadas!");
+                }
             }
         }
         return null;

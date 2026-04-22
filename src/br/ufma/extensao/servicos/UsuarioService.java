@@ -36,7 +36,7 @@ public class UsuarioService {
         return coordenador;
     }
 
-    boolean hasPermissao(Usuario usuario, Papel papel) {
+    public static boolean hasPermissao(Usuario usuario, Papel papel) {
         return usuario.getPapel() == papel;
     }
 

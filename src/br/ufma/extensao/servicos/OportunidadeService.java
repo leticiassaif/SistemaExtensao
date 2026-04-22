@@ -6,7 +6,6 @@ import br.ufma.extensao.enums.TipoOportunidade;
 import br.ufma.extensao.entidades.Oportunidade;
 import br.ufma.extensao.entidades.Usuario;
 import br.ufma.extensao.enums.Papel;
-import br.ufma.extensao.enums.Cargo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -24,7 +23,11 @@ public class OportunidadeService {
             throw new IllegalArgumentException("Carga horária deve ser positiva.");
         if (inicio == null || fim == null || fim.isBefore(LocalDate.now()))
             throw new IllegalArgumentException("Datas inválidas.");
-        if (autor.getPapel() == Papel.DOCENTE || autor.getCargo() == Cargo.DIRETOR) {  //todo problemas com os cargos
+
+        if (!(autor.getPapel() == Papel.DOCENTE || autor.getPapel() == Papel.DISCENTE_DIRETOR))
+            throw new IllegalArgumentException("Usuário não tem permissão para criar oportunidade!");
+
+        if (autor.getPapel() == Papel.DOCENTE || autor.getPapel() == Papel.DISCENTE_DIRETOR) {
 
             String id = ("OPT00" + proximoId);
             proximoId++;
@@ -38,7 +41,7 @@ public class OportunidadeService {
     public Oportunidade publicarOportunidade(String id, Usuario autor){
         for (Oportunidade op : oportunidades){
             if (op.getId().equals(id)) {
-                if (autor.getCargo() == Cargo.DIRETOR) {
+                if (autor.getPapel() == Papel.DISCENTE_DIRETOR) {
                     op.setStatus(StatusOportunidade.AGUARDANDO_APROVACAO);
                     return op;
                 }

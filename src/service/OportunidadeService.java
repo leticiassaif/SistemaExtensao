@@ -15,28 +15,49 @@ import java.util.List;
 public class OportunidadeService {
     List<Oportunidade> oportunidades = new ArrayList<>();
 
-    //TODO descobrir como fazer a separaçao de quem pode criar oportunidades (discente diretor e docente)
 
-    Oportunidade criarOportunidade(String titulo, String descricao, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, Docente responsavelId, Usuario autor, LocalDate inicio, LocalDate fim){
-      //  if ()
-            Oportunidade oportunidade = new Oportunidade(titulo, descricao, tipo, modalidade, cargaHoraria, vagas, StatusOportunidade.RASCUNHO, inicio, fim, autor, responsavelId);
+    public Oportunidade criarOportunidade(String titulo, String descricao, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, Docente responsavelId, Usuario autor, LocalDate inicio, LocalDate fim){
+        if (autor.getPapel() == Papel.DOCENTE || autor.getPapel() == Papel.DISCENTE_DIRETOR) {
+            Oportunidade oportunidade = new Oportunidade(id, titulo, descricao, tipo, modalidade, cargaHoraria, vagas, StatusOportunidade.RASCUNHO, inicio, fim, autor, responsavelId);
             oportunidades.add(oportunidade);
             return oportunidade;
+        }
+        return null;
     }
 
-    Oportunidade publicarOportunidade(String titulo){
+    public Oportunidade publicarOportunidade(Long id, Usuario autor){
         for (Oportunidade op : oportunidades){
-            if (op.getTitulo().equals(titulo)) {
-                op.setStatus(StatusOportunidade.AGUARDANDO_APROVACAO);
-                return op;
+            if (op.getId().equals(id)) {
+                if (autor.getPapel() == Papel.DISCENTE_DIRETOR) {
+                    op.setStatus(StatusOportunidade.AGUARDANDO_APROVACAO);
+                    return op;
+                }
+                if (autor.getPapel() == Papel.DOCENTE) {
+                    op.setStatus(StatusOportunidade.ABERTA);
+                    return op;
+                }
             }
         }
         return null;
     }
 
-    Oportunidade iniciarExecucao(String titulo){
+    public Oportunidade aprovarOportunidade(Long id, Usuario usuario){
         for (Oportunidade op : oportunidades){
-            if (op.getTitulo().equals(titulo)) {
+            if (op.getId().equals(id)) {
+                if (usuario.getPapel() == Papel.DOCENTE) {
+                    if (op.getStatus() == StatusOportunidade.AGUARDANDO_APROVACAO) {
+                        op.setStatus(StatusOportunidade.ABERTA);
+                        return op;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public Oportunidade iniciarExecucao(Long id){
+        for (Oportunidade op : oportunidades){
+            if (op.getId().equals(id)) {
                 op.setStatus(StatusOportunidade.EM_EXECUCAO);
                 return op;
             }
@@ -44,9 +65,9 @@ public class OportunidadeService {
         return null;
     }
 
-    Oportunidade encerrarOportunidade(String titulo){
+    public Oportunidade encerrarOportunidade(Long id){
         for (Oportunidade op : oportunidades){
-            if (op.getTitulo().equals(titulo)) {
+            if (op.getId().equals(id)) {
                 op.setStatus(StatusOportunidade.ENCERRADA);
                 return op;
             }
@@ -54,9 +75,9 @@ public class OportunidadeService {
         return null;
     }
 
-    Oportunidade cancelarOportunidade(String titulo){
+    public Oportunidade cancelarOportunidade(Long id){
         for (Oportunidade op : oportunidades){
-            if (op.getTitulo().equals(titulo)) {
+            if (op.getId().equals(id)) {
                 op.setStatus(StatusOportunidade.CANCELADA);
                 return op;
             }
@@ -64,16 +85,16 @@ public class OportunidadeService {
         return null;
     }
 
-    Oportunidade buscarOportunidadePorTitulo(String titulo){
+    public Oportunidade buscarOportunidadePorId(Long id){
         for (Oportunidade op : oportunidades){
-            if (op.getTitulo().equals(titulo)) {;
+            if (op.getId().equals(id)) {
                 return op;
             }
         }
         return null;
     }
 
-    List <Oportunidade> listarOportunidades(){
+    private List <Oportunidade> listarOportunidades(){
         return oportunidades;
     }
 }

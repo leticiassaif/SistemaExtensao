@@ -3,7 +3,6 @@ package br.ufma.extensao.servicos;
 import br.ufma.extensao.enums.Modalidade;
 import br.ufma.extensao.enums.StatusOportunidade;
 import br.ufma.extensao.enums.TipoOportunidade;
-import br.ufma.extensao.entidades.Docente;
 import br.ufma.extensao.entidades.Oportunidade;
 import br.ufma.extensao.entidades.Usuario;
 import br.ufma.extensao.enums.Papel;
@@ -18,7 +17,7 @@ public class OportunidadeService {
 
 
     public Oportunidade criarOportunidade(String titulo, String descricao, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, Long responsavelId, Usuario autor, LocalDate inicio, LocalDate fim){
-        if (autor.getPapel() == Papel.DOCENTE || autor.getCargo() == Cargo.DIRETOR) {
+        if (autor.getPapel() == Papel.DOCENTE || autor.getCargo() == Cargo.DIRETOR) {  //todo problemas com os cargos
             Long id = (long) (oportunidades.size() + 1);
             Oportunidade oportunidade = new Oportunidade(id, titulo, descricao, tipo, StatusOportunidade.RASCUNHO, modalidade, cargaHoraria, vagas, responsavelId, inicio, fim, autor);
             oportunidades.add(oportunidade);
@@ -96,7 +95,7 @@ public class OportunidadeService {
         return null;
     }
 
-    private List <Oportunidade> listarOportunidades(){
+    public List <Oportunidade> listarOportunidades(){
         return oportunidades;
     }
 }

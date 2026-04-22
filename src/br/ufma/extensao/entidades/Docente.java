@@ -29,12 +29,4 @@ public class Docente extends Usuario {
         return departamento;
     }
 
-    // Métodos personalizados
-    public Oportunidade criarOportunidade(String titulo, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, LocalDate inicio, LocalDate fim) {
-        return new Oportunidade(titulo, tipo, modalidade, cargaHoraria, vagas, inicio, fim, this, this);
-    }
-
-    public void registrarPlanoAtividade(Oportunidade oportunidade, LocalDate data) {
-        // TODO: A lógica de negócio será implementada nas próximas etapas
-    }
 }

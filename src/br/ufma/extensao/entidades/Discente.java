@@ -9,7 +9,6 @@ public class Discente extends Usuario {
     private int codigoCurso;
     private String versaoPPC;
 
-    // Métodos especiais
     public Discente(String nome, String email, String senha, Papel papel, String matricula, int semestreAtual) {
         super(nome, email, senha, papel);
 
@@ -40,4 +39,5 @@ public class Discente extends Usuario {
     public Curso getCurso() {
         return curso;
     }
+
 }

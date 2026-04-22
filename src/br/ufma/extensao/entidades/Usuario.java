@@ -61,18 +61,7 @@ public class Usuario {
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
     }
-
-    // Métodos personalizados
-    public void mudarSenha(String novaSenha) {
-        if (novaSenha == null) {
-            throw new IllegalArgumentException("Senha inválida");
-        }
-        this.senha = novaSenha;
-    }
-
-    // talvez seja melhor em discente?
-    public List<Oportunidade> obterOportunidades() {}
-
+    
     @Override
     public String toString() {
         return "Usuario{" +

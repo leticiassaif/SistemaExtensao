@@ -23,17 +23,6 @@ public class Grupo {
         this.membros = new ArrayList<>();
     }
 
-    //Funções de Add e Remove de discentes
-    public void addMembro(Discente d) {
-        if (!membros.contains(d)) {
-            membros.add(d);
-        }
-    }
-
-    public void removeMembro(Discente d) {
-        membros.remove(d);
-    }
-
     //Getters
     public String getNome() {
         return nome;

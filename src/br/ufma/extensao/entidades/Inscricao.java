@@ -12,7 +12,5 @@ public class Inscricao {
     // Métodos especiais
 
     // Métodos personalizados
-    public void aprovar(LocalDate data) {}
 
-    public void rejeitar() {}
 }

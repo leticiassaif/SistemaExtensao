@@ -22,19 +22,6 @@ public class Curso {
         this.historicoPPC = new ArrayList<>();
     }
 
-    // Métodos personalizados
-    public void atualizarPPC(int horas, String versao, Usuario autor) {
-        this.cargaHoraria = horas;
-        this.versaoPPC = versao;
-
-        VersaoPPC novoRegistro = new VersaoPPC(horas, versao, autor);
-        this.historicoPPC.add(novoRegistro);
-    }
-
-    public List<Discente> listarAlunosStatus(StatusInscricao status) {
-        return new ArrayList<>();
-    }
-
     //Getters e Setters
     public String getNome() {
         return nome;

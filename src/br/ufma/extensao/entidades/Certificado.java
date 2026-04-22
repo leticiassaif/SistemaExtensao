@@ -13,10 +13,5 @@ public class Certificado {
     private String certificadoPath;
     private Enum<StatusAssinatura> statusAssinatura;
 
-    // Métodos especiais
 
-    // Métodos personalizados
-    public Image gerarQRCode() {}
-
-    public boolean verificarAutenticidade(String hash) {}
 }

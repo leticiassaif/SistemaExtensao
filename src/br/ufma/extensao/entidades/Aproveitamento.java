@@ -14,8 +14,5 @@ public class Aproveitamento {
     private Usuario avaliador;
     private String motivoRejeicao;
 
-    // Métodos especiais
 
-    // Métodos personalizados
-    public boolean uploadCertificado(File file) {}
 }

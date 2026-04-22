@@ -20,15 +20,6 @@ public class HistoricoCargo {
         dataFim = null;
     }
 
-    //Metodos
-    public void encerrar() {
-        dataFim = LocalDate.now();
-    }
-
-    public boolean isAtivo() {
-        return dataFim == null;
-    }
-
     //Getters Setters
     public Discente getDiscente() {
         return discente;

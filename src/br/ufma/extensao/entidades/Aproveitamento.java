@@ -1,6 +1,6 @@
-package model;
+package br.ufma.extensao.entidades;
 
-import enums.StatusAproveitamento;
+import br.ufma.extensao.enums.StatusAproveitamento;
 
 import java.io.File;
 

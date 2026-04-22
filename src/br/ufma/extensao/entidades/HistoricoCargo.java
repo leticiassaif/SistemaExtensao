@@ -1,6 +1,6 @@
-package model;
+package br.ufma.extensao.entidades;
 
-import enums.Cargo;
+import br.ufma.extensao.enums.Cargo;
 
 import java.time.LocalDate;
 

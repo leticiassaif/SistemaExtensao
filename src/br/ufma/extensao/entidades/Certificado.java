@@ -1,6 +1,6 @@
-package model;
+package br.ufma.extensao.entidades;
 
-import enums.StatusAssinatura;
+import br.ufma.extensao.enums.StatusAssinatura;
 import java.awt.*;
 import java.time.LocalDate;
 

@@ -1,8 +1,8 @@
-package model;
+package br.ufma.extensao.entidades;
 
-import enums.Modalidade;
-import enums.Papel;
-import enums.TipoOportunidade;
+import br.ufma.extensao.enums.Modalidade;
+import br.ufma.extensao.enums.Papel;
+import br.ufma.extensao.enums.TipoOportunidade;
 
 import java.time.LocalDate;
 

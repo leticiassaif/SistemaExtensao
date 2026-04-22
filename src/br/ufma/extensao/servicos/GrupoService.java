@@ -1,6 +1,6 @@
-package service;
+package br.ufma.extensao.servicos;
 
-import model.Grupo;
+import br.ufma.extensao.entidades.Grupo;
 import java.util.ArrayList;
 import java.util.List;
 

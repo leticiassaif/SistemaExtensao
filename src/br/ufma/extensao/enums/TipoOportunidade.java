@@ -1,4 +1,4 @@
-package enums;
+package br.ufma.extensao.enums;
 
 public enum TipoOportunidade {
     PROJETO,

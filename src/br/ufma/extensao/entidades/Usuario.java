@@ -1,6 +1,6 @@
-package model;
+package br.ufma.extensao.entidades;
 
-import enums.Papel;
+import br.ufma.extensao.enums.Papel;
 import java.util.List;
 
 public class Usuario {

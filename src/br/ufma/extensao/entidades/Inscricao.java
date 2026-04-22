@@ -1,6 +1,6 @@
-package model;
+package br.ufma.extensao.entidades;
 
-import enums.StatusInscricao;
+import br.ufma.extensao.enums.StatusInscricao;
 import java.time.LocalDate;
 
 public class Inscricao {

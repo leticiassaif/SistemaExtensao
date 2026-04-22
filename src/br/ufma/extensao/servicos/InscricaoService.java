@@ -1,6 +1,6 @@
-package service;
+package br.ufma.extensao.servicos;
 
-import model.Inscricao;
+import br.ufma.extensao.entidades.Inscricao;
 import java.util.ArrayList;
 import java.util.List;
 

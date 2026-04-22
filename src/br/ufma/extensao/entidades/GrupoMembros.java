@@ -28,7 +28,7 @@ public class GrupoMembros {
     public LocalDate getDataEntrada() { return dataEntrada; }
     public LocalDate getDataSaida() { return dataSaida; }
 
-    // Setters — só o que faz sentido mudar depois de criado
+    // Setters
     public void setCargo(Cargo cargo) { this.cargo = cargo; }
     public void setDataSaida(LocalDate dataSaida) { this.dataSaida = dataSaida; }
 

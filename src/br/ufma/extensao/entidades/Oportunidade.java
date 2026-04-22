@@ -24,15 +24,16 @@ public class Oportunidade {
     private List<Inscricao> inscricoes;
 
     //Metodos
-    public Oportunidade(Long id, String titulo, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, LocalDate inicio, LocalDate fim, Usuario autor, Docente responsavel) {
+    public Oportunidade(Long id, String titulo, String descricao, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, LocalDate inicio, LocalDate fim, Usuario autor, Docente responsavel) {
         this.id = id;
         this.titulo = titulo;
+        this.descricao = descricao;
         this.tipo = tipo;
         this.modalidade = modalidade;
         this.cargaHoraria = cargaHoraria;
         this.vagas = vagas;
-        this.inicio = inicio;
-        this.fim = fim;
+        this.inicio = LocalDate.now();
+        this.fim = null;
         this.autor = autor;
         this.responsavel = responsavel;
 

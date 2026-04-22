@@ -4,12 +4,12 @@ import java.time.LocalDate;
 
 public class PPC {
     private Long id;
-    private int cursoId;
+    private Long cursoId;
     private int versao;
     private double cargaHoraria;
     private LocalDate dataInicio;
 
-    public PPC(Long id, int cursoId, int versao, double cargaHorariaExtensao) {
+    public PPC(Long id, Long cursoId, int versao, double cargaHorariaExtensao) {
         this.id = id;
         this.cursoId = cursoId;
         this.versao = versao;
@@ -27,11 +27,11 @@ public class PPC {
         this.id = id;
     }
 
-    public int getCursoId() {
+    public Long getCursoId() {
         return cursoId;
     }
 
-    public void setCursoId(int cursoId) {
+    public void setCursoId(Long cursoId) {
         this.cursoId = cursoId;
     }
 

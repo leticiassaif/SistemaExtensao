@@ -1,32 +1,33 @@
 package br.ufma.extensao.entidades;
 
-import br.ufma.extensao.enums.Modalidade;
 import br.ufma.extensao.enums.Papel;
-import br.ufma.extensao.enums.TipoOportunidade;
-
-import java.time.LocalDate;
 
 public class Docente extends Usuario {
     private String siape;
     private String departamento;
 
-    // Métodos especiais
-    public Docente(String nome, String email, String senha, String siape) {
-        super(nome, email, senha, Papel.DOCENTE);
-
-        if (siape == null) {
-            throw new IllegalArgumentException("SIAPE obrigatório");
-        }
-
+    public Docente(Long id, String nome, String email, String senha, String siape, String departamento) {
+        super(id, nome, email, senha, Papel.DOCENTE);
         this.siape = siape;
-        this.departamento = "Departamento de Informática";
+        this.departamento = departamento;
     }
 
-    public String getSiape() {
-        return siape;
-    }
-    public String getDepartamento() {
-        return departamento;
-    }
+    // Getters
+    public String getSiape() { return siape; }
+    public String getDepartamento() { return departamento; }
 
+    // Setters
+    public void setSiape(String siape) { this.siape = siape; }
+    public void setDepartamento(String departamento) { this.departamento = departamento; }
+
+    @Override
+    public String toString() {
+        return "Docente{" +
+                "nome='" + getNome() + '\'' +
+                ", email='" + getEmail() + '\'' +
+                ", siape='" + siape + '\'' +
+                ", departamento='" + departamento + '\'' +
+                ", ativo=" + isAtivo() +
+                '}';
+    }
 }

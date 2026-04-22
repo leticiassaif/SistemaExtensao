@@ -3,7 +3,7 @@ package br.ufma.extensao.enums;
 public enum Papel {
     DISCENTE("Discente"),
     DOCENTE("Docente"),
-    DISCENTE_DIRETOR("Discente Diretor"),
+    COORDENADOR("Coordenador"),
     ADMIN("Administrador");
 
     private String descricao;

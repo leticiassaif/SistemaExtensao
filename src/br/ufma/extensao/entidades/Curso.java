@@ -1,46 +1,31 @@
 package br.ufma.extensao.entidades;
 
-import br.ufma.extensao.enums.StatusInscricao;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class Curso {
+    private Long id;
     private String nome;
-    private int codigo;
-    private int cargaHoraria;
-    private String versaoPPC; //Versão atual
-    private List<VersaoPPC> historicoPPC;
+    private String codigo;
 
-    // Métodos especiais
-    // o curso sempre vai ser de ciência da computação
-    public Curso(int codigoCurso, String versaoPPC) {
-        this.nome = "Ciência da Computação";
-        this.codigo = codigoCurso; //confirmar?
-        this.versaoPPC = versaoPPC;
-        this.cargaHoraria = 3540; // confirmar se está correto
-        this.historicoPPC = new ArrayList<>();
+    public Curso(Long id, String nome, String codigo) {
+        this.id = id;
+        this.nome = nome;
+        this.codigo = codigo;
     }
 
-    //Getters e Setters
-    public String getNome() {
-        return nome;
-    }
+    // Getters
+    public Long getId() { return id; }
+    public String getNome() { return nome; }
+    public String getCodigo() { return codigo; }
 
-    public int getCodigo() {
-        return codigo;
-    }
+    // Setters
+    public void setNome(String nome) { this.nome = nome; }
+    public void setCodigo(String codigo) { this.codigo = codigo; }
 
-    public int getCargaHoraria() {
-        return cargaHoraria;
+    @Override
+    public String toString() {
+        return "Curso{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", codigo='" + codigo + '\'' +
+                '}';
     }
-
-    public void setCargaHoraria(int cargaHoraria) {
-        this.cargaHoraria = cargaHoraria;
-    }
-
-    public List<VersaoPPC> getHistoricoPPC() {
-        return historicoPPC;
-    }
-
 }

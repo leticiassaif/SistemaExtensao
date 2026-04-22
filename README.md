@@ -9,7 +9,7 @@ Projeto desenvolvido para a disciplina de Programação Orientada a Objetos, imp
 |Ana Letícia Saif Rodrigues      | Estrutura do projeto |
 |Maria Cecília V. Xavier| Entidades |
 |Roberta Silva Seba Salomão      | Serviços |
-|Luana P. Reis      | Main e entrega |
+|Luana P. Reis      | Main |
 
 ## Pré-requisitos
 

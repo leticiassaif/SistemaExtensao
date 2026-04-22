@@ -6,15 +6,8 @@ import br.ufma.extensao.enums.TipoOportunidade;
 import br.ufma.extensao.entidades.Docente;
 import br.ufma.extensao.entidades.Oportunidade;
 import br.ufma.extensao.entidades.Usuario;
-
-import br.ufma.extensao.enums.Modalidade;
 import br.ufma.extensao.enums.Papel;
 import br.ufma.extensao.enums.Cargo;
-import br.ufma.extensao.enums.StatusOportunidade;
-import br.ufma.extensao.enums.TipoOportunidade;
-import br.ufma.extensao.entidades.Docente;
-import br.ufma.extensao.entidades.Oportunidade;
-import br.ufma.extensao.entidades.Usuario;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -24,9 +17,10 @@ public class OportunidadeService {
     List<Oportunidade> oportunidades = new ArrayList<>();
 
 
-    public Oportunidade criarOportunidade(String titulo, String descricao, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, Docente responsavelId, Usuario autor, LocalDate inicio, LocalDate fim){
+    public Oportunidade criarOportunidade(String titulo, String descricao, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, Long responsavelId, Usuario autor, LocalDate inicio, LocalDate fim){
         if (autor.getPapel() == Papel.DOCENTE || autor.getCargo() == Cargo.DIRETOR) {
-            Oportunidade oportunidade = new Oportunidade( titulo, descricao, tipo, modalidade, cargaHoraria, vagas, StatusOportunidade.RASCUNHO, inicio, fim, autor, responsavelId);
+            Long id = (long) (oportunidades.size() + 1);
+            Oportunidade oportunidade = new Oportunidade(id, titulo, descricao, tipo, StatusOportunidade.RASCUNHO, modalidade, cargaHoraria, vagas, responsavelId, inicio, fim, autor);
             oportunidades.add(oportunidade);
             return oportunidade;
         }

@@ -8,8 +8,8 @@ public class Discente extends Usuario {
     private double totalHorasConcluidas;
     private Curso curso;
 
-    public Discente(String nome, String email, String senha, String matricula, int semestreAtual, Curso curso) {
-        super(nome, email, senha, Papel.DISCENTE);
+    public Discente(Long id, String nome, String email, String senha, String matricula, int semestreAtual, Curso curso) {
+        super(id, nome, email, senha, Papel.DISCENTE);
 
         if (matricula == null || matricula.isBlank())
             throw new IllegalArgumentException("Matrícula obrigatória");

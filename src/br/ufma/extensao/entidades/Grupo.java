@@ -10,33 +10,19 @@ import static br.ufma.extensao.enums.StatusGrupo.ATIVO;
 public class Grupo {
     private Long id;
     private String nome;
-    private String tipo;
     private String email;
     private String descricao;
     private Docente responsavel;
     private StatusGrupo status;
-    private List<Usuario> membros;
 
     // Construtor
-    public Grupo(Long id, String nome, String tipo, String email, String descricao, Docente responsavel) {
+    public Grupo(Long id, String nome, String email, String descricao, Docente responsavel) {
         this.id = id;
         this.nome = nome;
-        this.tipo = tipo;
         this.email = email;
         this.descricao = descricao;
         this.responsavel = responsavel;
         this.status = ATIVO;
-        this.membros = new ArrayList<>();
-    }
-
-    //metodos simples
-
-    public void adicionarMembro(Usuario usuario) {
-        membros.add(usuario);
-    }
-
-    public void removerMembro(Usuario usuario) {
-        membros.remove(usuario);
     }
 
     //Getters

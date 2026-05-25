@@ -1,173 +1,184 @@
-// Importação de todos os ARQUIVOS.
-import enums.*;
-import model.*;
-import service.*;
+// Importação dos pacotes corretos do projeto
+import br.ufma.extensao.enums.*;
+import br.ufma.extensao.entidades.*;
+import br.ufma.extensao.servicos.*;
 import java.time.LocalDate;
 
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Gestão de Atividades Complementares");
-//PASSO 1 - INSTANCIAR TODOS OS SERVIÇOS
 
+// PASSO 1 — INSTANCIAR TODOS OS SERVIÇOS
         System.out.println("Instanciando todos os serviços:");
-        // Cria o service responsável por gerenciar usuários (discentes, docentes, admins)
-        UsuarioService usuarioService = new UsuarioService();
-        OportunidadeService oportunidadeService = new OportunidadeService();
-        InscricaoService inscricaoService = new InscricaoService();
-        CertificadoService certificadoService = new CertificadoService();
-        AproveitamentoService aprovService = new AproveitamentoService();
-        GrupoService grupoService = new GrupoService();
 
-        // Confirma que todos os serviços foram criados com sucesso
-        System.out.println(" Todos os servicos estao instanciados. \n");
+        UsuarioService usuarioService       = new UsuarioService();
+        OportunidadeService oportunidadeService = new OportunidadeService();
+        InscricaoService inscricaoService   = new InscricaoService();
+        CertificadoService certificadoService = new CertificadoService();
+        AproveitamentoService aprovService  = new AproveitamentoService();
+        GrupoService grupoService           = new GrupoService();
+
+        System.out.println("   Todos os serviços instanciados.\n");
 
 // PASSO 2 — Cadastrar um Docente e um Discente
-        System.out.println("Cadastrando Docente e Discente:"); //cadastra DOCENTE
+        System.out.println("Cadastrando Docente e Discente:");
 
-        // Chama o método cadastrarDocente do UsuarioService passando nome, email, senha e SIAPE
-        // O método já define o papel como DOCENTE e o departamento como "Departamento de Informática"
+        // Cadastra Docente passando: nome, email, senha, siape, departamento
         Docente docente = usuarioService.cadastrarDocente(
-                "Prof. Carlos Silva",          // Nome do docente
-                "carlos.silva@docente.ufma.br",// E-mail institucional
-                "senha123",                    // Senha
-                "1234567"                      // IAPE
+                "Prof. Carlos Silva",
+                "carlos.silva@docente.ufma.br",
+                "senha123",
+                "1234567",
+                "Departamento de Informática"
         );
-        System.out.println("   Docente cadastrado : " + docente.getNome() //impreme os dados
+        System.out.println("   Docente cadastrado : " + docente.getNome()
                 + " | SIAPE: " + docente.getSiape()
                 + " | Depto: " + docente.getDepartamento());
 
-        // Chama o método cadastrarDiscente do UsuarioService passando nome, email, senha, matrícula e semestre
-        // O método já define o papel como DISCENTE e associa ao curso de Ciência da Computação
-        Discente discente = usuarioService.cadastrarDiscente( //cadastra DISCENTE
-                "Ana Souza",                   // Nome do discente
-                "ana.souza@discente.ufma.br",           // E-mail institucional
-                "senha456",                    // Senha
-                "20230001",                    // Matrícula do discente
-                3                             // Semestre atual
+        // Cadastra Discente passando: nome, email, senha, matrícula, semestre, curso
+        Curso cursoCC = new Curso(1L, "Ciência da Computação", "CC");
+        Discente discente = usuarioService.cadastrarDiscente(
+                "Ana Souza",
+                "ana.souza@discente.ufma.br",
+                "senha456",
+                "20230001",
+                3,
+                cursoCC
         );
         System.out.println("   Discente cadastrado: " + discente.getNome()
                 + " | Matrícula: " + discente.getMatricula()
                 + " | Semestre: " + discente.getSemestreAtual()
                 + " | Curso: " + discente.getCurso().getNome() + "\n");
 
-// PASSO 3 — Cadastrar um Coordenador usando UsuarioService
-        System.out.println("Cadastrando Coordenador...");
-        // Coordenador é cadastrado como Admin pois tem papel administrativo no sistema
+// PASSO 3 — Cadastrar um Coordenador
+        System.out.println("Cadastrando Coordenador:");
 
-        Usuario coordenador = usuarioService.cadastrarAdmin(
-                "Coord. Mariana Lima",         // Nome do coordenador
-                "mariana.lima@ufma.br",        // E-mail institucional
-                "senha789"                     // Senha
+        // Coordenador é cadastrado com nome, email, senha, siape e cargo de coordenação
+        Usuario coordenador = usuarioService.cadastrarCoordenador(
+                "Coord. Mariana Lima",
+                "mariana.lima@ufma.br",
+                "senha789",
+                "7654321",
+                CargoCoordenador.COORDENADOR
         );
-
-        // Imprime os dados do coordenador cadastrado — getDescricao() retorna "Administrador"
         System.out.println("   Coordenador cadastrado: " + coordenador.getNome()
                 + " | Papel: " + coordenador.getPapel().getDescricao() + "\n");
 
 // PASSO 4 — Criar uma oportunidade e publicá-la
         System.out.println("Criando e publicando oportunidade:");
 
-        Oportunidade oportunidade = new Oportunidade();
-        oportunidade.setTitulo("Monitoria de Programação Orientada a Objetos");
-        oportunidade.setDescricao("Auxílio a alunos na disciplina de LP2");
-        oportunidade.setTipo(TipoOportunidade.MONITORIA);
-        oportunidade.setModalidade(Modalidade.PRESENCIAL);
-        oportunidade.setCargaHoraria(60);
-        oportunidade.setVagas(5);
-        oportunidade.setStatus(StatusOportunidade.PENDENTE);
-        oportunidade.setInicio(LocalDate.now());
-        oportunidade.setFim(LocalDate.now().plusMonths(6));
-
-        // Define o docente cadastrado como autor da oportunidade
-        oportunidade.setAutor(docente);
-
-        // Define o mesmo docente como responsável pela oportunidade
-        oportunidade.setResponsavel(docente);
-
-        // Adiciona a oportunidade na lista do OportunidadeService
-        oportunidadeService.oportunidades.add(oportunidade);
-        System.out.println("   Oportunidade criada : " + oportunidade.getTitulo() //status de oportunidade
+        // criarOportunidade requer: titulo, descricao, tipo, modalidade,
+        //   cargaHoraria, vagas, responsavelId (Long), autor, inicio, fim
+        Oportunidade oportunidade = oportunidadeService.criarOportunidade(
+                "Monitoria de Programação Orientada a Objetos",
+                "Auxílio a alunos na disciplina de LP2",
+                TipoOportunidade.PROJETO,
+                Modalidade.PRESENCIAL,
+                60,
+                5,
+                null,           // responsavelId (Long) — não obrigatório nesta etapa
+                docente,
+                LocalDate.now(),
+                LocalDate.now().plusMonths(6)
+        );
+        System.out.println("   Oportunidade criada  : " + oportunidade.getTitulo()
                 + " | Status: " + oportunidade.getStatus());
-        oportunidade.setStatus(StatusOportunidade.PUBLICADA);
-        System.out.println("   Oportunidade publicada Status: " + oportunidade.getStatus() + "\n");
+
+        // Publica a oportunidade (docente → status ABERTA diretamente)
+        oportunidadeService.publicarOportunidade(oportunidade.getId(), docente);
+        System.out.println("   Oportunidade publicada. Status: " + oportunidade.getStatus() + "\n");
 
 // PASSO 5 — Inscrever o discente e aprovar a inscrição
-        System.out.println("Inscrevendo discente e aprovando inscrição");
-        Inscricao inscricao = new Inscricao();
+        System.out.println("Inscrevendo discente e aprovando inscrição:");
 
-        inscricaoService.inscricoes.add(inscricao);
-
+        // inscrever requer: discente, oportunidade, motivacao
+        Inscricao inscricao = inscricaoService.inscrever(
+                discente,
+                oportunidade,
+                "reforçar meus conhecimentos"
+        );
         System.out.println("   Inscrição realizada: " + discente.getNome()
                 + " → " + oportunidade.getTitulo());
-        // O método aprovar() está definido na classe Inscricao
-        inscricao.aprovar(LocalDate.now());
 
-        // Imprime o status após aprovação usando o enum StatusInscricao
-        System.out.println("   Inscrição aprovada! Status: " + StatusInscricao.APROVADO + "\n");
+        // Aprova a inscrição (docente tem permissão)
+        inscricaoService.aprovar(inscricao.getId(), docente);
+        System.out.println("   Inscrição aprovada Status: " + StatusInscricao.APROVADA + "\n");
 
 // PASSO 6 — Iniciar execução da oportunidade e encerrar
-        System.out.println("Iniciando e encerrando execução da oportunidade...");
+        System.out.println("Iniciando e encerrando execução da oportunidade:");
 
-        // Muda o status da oportunidade para EM_PROGRESSO indicando que já começou
-        oportunidade.setStatus(StatusOportunidade.EM_PROGRESSO);
+        oportunidadeService.iniciarExecucao(oportunidade.getId());
+        System.out.println("   Oportunidade em andamento. Status: " + oportunidade.getStatus());
 
-        System.out.println("Oportunidade em andamento. \nStatus: " + oportunidade.getStatus());
-        oportunidade.fecharInscricoes(); //fechar inscrições
-        oportunidade.setStatus(StatusOportunidade.ENCERRADA); //oportunidade concluida
-        System.out.println("   Oportunidade encerrada\n. Status: " + oportunidade.getStatus() + "\n");
+        oportunidadeService.encerrarOportunidade(oportunidade.getId());
+        System.out.println("   Oportunidade encerrada. Status: " + oportunidade.getStatus() + "\n");
 
 // PASSO 7 — Gerar certificado para o discente
         System.out.println("Gerando certificado para o discente:");
-        Certificado certificado = new Certificado();
-        certificadoService.certificados.add(certificado);
 
+        // gerar requer: discente, oportunidade, cargaHoraria, dataEmissao
+        Certificado certificado = certificadoService.gerar(
+                discente,
+                oportunidade,
+                oportunidade.getCargaHoraria(),
+                LocalDate.now()
+        );
         System.out.println("   Certificado gerado para: " + discente.getNome()
                 + " | Oportunidade: " + oportunidade.getTitulo() + "\n");
 
-// PASSO 8 — Buscar o certificado pelo código e imprimir
-        System.out.println("Buscando certificado pelo código:");
+// PASSO 8 — Buscar o certificado pelo código de autenticidade e imprimir
+        System.out.println("Buscando certificado pelo código de autenticidade:");
 
-        Certificado certificadoEncontrado = certificadoService.certificados.get(0); //primeiro elemento da lista
-        System.out.println("   Certificado encontrado");
-        System.out.println("   Discente     : " + discente.getNome());
-        System.out.println("   Oportunidade : " + oportunidade.getTitulo());
-        System.out.println("   Carga horária: " + oportunidade.getCargaHoraria() + "h");
-        System.out.println("   Data emissão : " + LocalDate.now() + "\n");
+        Certificado certificadoEncontrado = certificadoService.buscar(certificado.getCodigoAutenticidade());
+        System.out.println("   Certificado encontrado: " + certificadoEncontrado.getCodigoAutenticidade());
+        System.out.println("   Discente     : " + certificadoEncontrado.getDiscente().getNome());
+        System.out.println("   Oportunidade : " + certificadoEncontrado.getOportunidade().getTitulo());
+        System.out.println("   Carga horária: " + certificadoEncontrado.getCargaHorariaCumprida() + "h");
+        System.out.println("   Data emissão : " + certificadoEncontrado.getDataEmissao() + "\n");
 
-// PASSO 9: Submetendo solicitação de aproveitamento
-        System.out.println("Submetendo solicitação de aproveitamento: ");
+// PASSO 9 — Submeter solicitação de aproveitamento
+        System.out.println("Submetendo solicitação de aproveitamento:");
 
-        Aproveitamento aproveitamento = new Aproveitamento();
-        aprovService.aproveitamentos.add(aproveitamento);
-
+        // submeter requer: discenteId, descricao, cargaHorariaPleiteada
+        Aproveitamento aproveitamento = aprovService.submeter(
+                discente.getId(),
+                "Participação em workshop de Java fora da universidade",
+                20.0
+        );
         System.out.println("   Solicitação submetida por: " + discente.getNome());
-        System.out.println("   Status: " + StatusAproveitamento.PENDENTE + "\n");
+        System.out.println("   Status: " + aproveitamento.getStatus() + "\n");
+
 // PASSO 10 — Indeferir, reenviar e aprovar o aproveitamento
         System.out.println("Indeferindo solicitação com parecer:");
 
-        // Simula o indeferimento da solicitação com um motivo/parecer
+        // Indeferir requer permissão de COORDENADOR
+        aprovService.indeferir(aproveitamento.getId(), coordenador);
         System.out.println("   Solicitação indeferida.");
-        System.out.println("   Motivo: Documentação incompleta.");
-        System.out.println("   Status: " + StatusAproveitamento.REJEITADO);
+        System.out.println("   Status: " + aproveitamento.getStatus());
 
-        // Simula o reenvio pelo discente com novos dados e documentação corrigida
+        // Discente reenvia a solicitação após correção
+        aprovService.reenviar(aproveitamento.getId());
         System.out.println("   Discente reenviou com novos dados e documentação corrigida.");
-        System.out.println("   Status: " + StatusAproveitamento.PENDENTE);
+        System.out.println("   Status: " + aproveitamento.getStatus());
 
-        // Simula a aprovação pelo avaliador (docente) após análise dos novos dados
-        System.out.println("   Solicitação aprovada pelo avaliador: " + docente.getNome());
-        System.out.println("   Status: " + StatusAproveitamento.APROVADO + "\n");
-// PASSO 11 — Criar grupo e adicionar o discente como DIRETO
-        System.out.println("Criando grupo e adicionando discente como DIRETOR");
+        // Coordenador aprova após análise
+        aprovService.aprovar(aproveitamento.getId(), coordenador, aproveitamento.getCargaHorariaPleiteada());
+        System.out.println("   Solicitação aprovada pelo avaliador: " + coordenador.getNome());
+        System.out.println("   Status: " + aproveitamento.getStatus() + "\n");
 
-        Grupo grupo = new Grupo();
-        grupoService.grupos.add(grupo);
+// PASSO 11 — Criar grupo e adicionar o discente como DIRETOR
+        System.out.println("Criando grupo e adicionando discente como DIRETOR:");
 
-        System.out.println("Grupo criado:");
+        // criar requer: nome, descricao, email, docenteResponsavelId
+        Grupo grupo = grupoService.criar(
+                "Diretório Acadêmico de Computação",
+                "Representação estudantil do curso de CC",
+                "dac@discente.ufma.br",
+                docente.getId()
+        );
+        System.out.println("   Grupo criado: " + grupo.getNome());
 
-        // Cria um DiscenteDiretor aproveitando os dados do discente já cadastrado
-        // DiscenteDiretor estende Discente, então recebe os mesmos dados básicos + grupo e cargo
+        // Cria um DiscenteDiretor com os dados do discente já cadastrado
         DiscenteDiretor diretor = new DiscenteDiretor(
                 discente.getNome(),
                 discente.getEmail(),
@@ -179,39 +190,29 @@ public class Main {
                 "Diretor"
         );
 
-        // Adiciona o diretor como membro do grupo usando o método addMembro()
-        grupo.addMembro(diretor);
-
+        // Adiciona o diretor como membro do grupo via GrupoService
+        grupoService.adicionarMembro(grupo.getId(), diretor.getId(), Cargo.DIRETOR);
         System.out.println("   " + diretor.getNome()
                 + " adicionado como DIRETOR."
                 + " | Cargo: " + diretor.getCargo()
                 + " | Papel: " + diretor.getPapel().getDescricao() + "\n");
 
-// PASSO 12 — Imprimir o resultado de cada operação
-        System.out.println("Resultado final:")
+// PASSO 12 — Imprimir o resultado final de cada operação
+        System.out.println("Resultado Final");
         System.out.println("  Docente cadastrado    : " + docente.getNome());
         System.out.println("  Discente cadastrado   : " + discente.getNome());
-
-
         System.out.println("  Coordenador cadastrado: " + coordenador.getNome());
-
-
         System.out.println("  Oportunidade          : " + oportunidade.getTitulo()
                 + " | Status: " + oportunidade.getStatus());
-
-
         System.out.println("  Inscrição             : " + discente.getNome()
                 + " → " + oportunidade.getTitulo()
-                + " | Status: " + StatusInscricao.APROVADO);
-
+                + " | Status: " + inscricao.getStatus());
         System.out.println("  Certificado emitido   : " + discente.getNome()
-                + " | " + oportunidade.getCargaHoraria() + "h");
-
+                + " | " + certificado.getCargaHorariaCumprida() + "h"
+                + " | Código: " + certificado.getCodigoAutenticidade());
         System.out.println("  Aproveitamento        : " + discente.getNome()
-                + " | Status: " + StatusAproveitamento.APROVADO);
-
+                + " | Status: " + aproveitamento.getStatus());
         System.out.println("  Grupo/Diretor         : " + diretor.getNome()
                 + " | Cargo: " + diretor.getCargo());
-
     }
 }

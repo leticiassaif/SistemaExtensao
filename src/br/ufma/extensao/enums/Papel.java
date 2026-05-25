@@ -1,9 +1,10 @@
-package enums;
+package br.ufma.extensao.enums;
 
 public enum Papel {
     DISCENTE("Discente"),
+    DISCENTE_DIRETOR("discente diretor"),
     DOCENTE("Docente"),
-    DISCENTE_DIRETOR("Discente Diretor"),
+    COORDENADOR("Coordenador"),
     ADMIN("Administrador");
 
     private String descricao;

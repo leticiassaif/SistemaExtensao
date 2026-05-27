@@ -70,7 +70,7 @@ public class OportunidadeService {
 
     public Oportunidade iniciarExecucao(String id){
         for (Oportunidade op : oportunidades){
-            if (op.getId().equals(id) || op.getInicio().isEqual(LocalDate.now())) {
+            if (op.getId().equals(id) && op.getInicio().isEqual(LocalDate.now())) {
                 op.setStatus(StatusOportunidade.EM_EXECUCAO);
                 return op;
             }
@@ -80,7 +80,7 @@ public class OportunidadeService {
 
     public Oportunidade encerrarOportunidade(String id){
         for (Oportunidade op : oportunidades){
-            if (op.getId().equals(id) || op.getFim().isEqual(LocalDate.now())) {
+            if (op.getId().equals(id) && op.getFim().isEqual(LocalDate.now())) {
                 op.setStatus(StatusOportunidade.ENCERRADA);
                 return op;
             }

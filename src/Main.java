@@ -179,11 +179,11 @@ public class Main {
         System.out.println("   Grupo criado: " + grupo.getNome());
 
         // Cria um DiscenteDiretor com os dados do discente já cadastrado
+        // Não há mais o "Cast" de papel.DISCENTE_DIRETOR, isso já está claro em DiscenteDiretor
         DiscenteDiretor diretor = new DiscenteDiretor(
                 discente.getNome(),
                 discente.getEmail(),
                 discente.getSenha(),
-                Papel.DISCENTE_DIRETOR,
                 discente.getMatricula(),
                 discente.getSemestreAtual(),
                 grupo,

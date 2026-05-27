@@ -12,13 +12,11 @@ public class DiscenteDiretor extends Discente {
     private String cargo;
 
     public DiscenteDiretor(String nome, String email, String senha,
-                           Papel papel,
                            String matricula, int semestreAtual,
                            Grupo grupo, String cargo) {
-        // Reutiliza id gerado internamente; usa Curso padrão do discente original
         super("DD-" + matricula, nome, email, senha, matricula, semestreAtual,
                 new Curso(0L, "Ciência da Computação", "CC"));
-        this.setPapel(papel);
+        this.setPapel(Papel.DISCENTE_DIRETOR);
         this.grupo = grupo;
         this.cargo = cargo;
     }
@@ -36,7 +34,14 @@ public class DiscenteDiretor extends Discente {
                 ", matricula='" + getMatricula() + '\'' +
                 ", cargo='" + cargo + '\'' +
                 ", papel=" + getPapel().getDescricao() +
-                ", grupo=" + (grupo != null ? grupo.getNome() : "nenhum") +
+                ", grupo=" + nomeDoGrupo() +
                 '}';
+    }
+
+    private String nomeDoGrupo() {
+        if (grupo == null) {
+            return "nenhum";
+        }
+        return grupo.getNome();
     }
 }

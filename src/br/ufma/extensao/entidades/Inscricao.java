@@ -4,14 +4,14 @@ import br.ufma.extensao.enums.StatusInscricao;
 import java.time.LocalDate;
 
 public class Inscricao {
-    private Long id;
+    private String id;
     private Discente discente;
     private Oportunidade oportunidade;
     private StatusInscricao status;
     private String motivacao;
     private LocalDate dataInscricao;
 
-    public Inscricao(Long id, Discente discente, Oportunidade oportunidade, String motivacao) {
+    public Inscricao(String id, Discente discente, Oportunidade oportunidade, String motivacao) {
         this.id = id;
         this.discente = discente;
         this.oportunidade = oportunidade;
@@ -21,7 +21,7 @@ public class Inscricao {
     }
 
     // Getters
-    public Long getId() {
+    public String getId() {
         return id;
     }
 

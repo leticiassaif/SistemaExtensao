@@ -7,7 +7,7 @@ import br.ufma.extensao.enums.TipoOportunidade;
 import java.time.LocalDate;
 
 public class Oportunidade {
-    private Long id;
+    private String id;
     private String titulo;
     private String descricao;
     private TipoOportunidade tipo;
@@ -18,13 +18,15 @@ public class Oportunidade {
     private LocalDate inicio;
     private LocalDate fim;
     private Long docenteResponsavelId;
+    private Usuario autor;
 
-    public Oportunidade(Long id, String titulo, String descricao, TipoOportunidade tipo, Modalidade modalidade, double cargaHoraria, int vagas, Long docenteResponsavelId, LocalDate inicio, LocalDate fim) {
+    public Oportunidade(String id, String titulo, String descricao, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, Long docenteResponsavelId, LocalDate inicio, LocalDate fim, Usuario autor) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
         this.tipo = tipo;
         this.modalidade = modalidade;
+        this.autor = autor;
         this.cargaHoraria = cargaHoraria;
         this.vagas = vagas;
         this.docenteResponsavelId = docenteResponsavelId;
@@ -33,14 +35,16 @@ public class Oportunidade {
         this.status = StatusOportunidade.RASCUNHO;
     }
 
+
     // Getters
-    public Long getId() { return id; }
+    public String getId() { return id; }
     public String getTitulo() { return titulo; }
     public String getDescricao() { return descricao; }
     public TipoOportunidade getTipo() { return tipo; }
     public Modalidade getModalidade() { return modalidade; }
     public double getCargaHoraria() { return cargaHoraria; }
     public int getVagas() { return vagas; }
+    public Usuario getAutor() { return autor; }
     public StatusOportunidade getStatus() { return status; }
     public LocalDate getInicio() { return inicio; }
     public LocalDate getFim() { return fim; }
@@ -57,6 +61,7 @@ public class Oportunidade {
     public void setInicio(LocalDate inicio) { this.inicio = inicio; }
     public void setFim(LocalDate fim) { this.fim = fim; }
     public void setDocenteResponsavelId(Long docenteResponsavelId) { this.docenteResponsavelId = docenteResponsavelId; }
+    public void setAutor(Usuario autor) { this.autor = autor; }
 
     @Override
     public String toString() {

@@ -16,26 +16,26 @@
 ## Gestão de Oportunidades
 
 | Feito | Código | Requisito | Detalhamento |
-|-------|--------|-----------|--------------|
+|-----|--------|-----------|--------------|
 | [✅] | RF011 | O sistema deve permitir a criação de oportunidades de extensão. | Docentes, coordenadores ou discentes líderes poderão cadastrar oportunidades com título, descrição, modalidade, carga horária, período e vagas. |
-| [ ] | RF012 | O sistema deve gerenciar o fluxo de estados da oportunidade. | Estados: Rascunho → Aguardando Aprovação → Aberta → Em Execução → Encerrada / Cancelada. Oportunidades de discentes exigem validação docente. |
-| [ ] | RF014 | O sistema deve permitir que o discente se inscreva em oportunidades de extensão internas. | Durante o período de inscrição, o discente poderá se inscrever; o sistema registrará a inscrição com status Pendente. |
-| [ ] | RF015 | O sistema deve permitir que o responsável aprove ou rejeite inscrições. | O responsável (docente ou líder discente autorizado) poderá aprovar ou rejeitar inscrições conforme critérios definidos na ação. |
-| [ ] | RF016 | O sistema deve permitir que o discente cancele sua inscrição antes do início da atividade. | O discente poderá cancelar a participação dentro do prazo definido pela oportunidade. |
-| [ ] | RF017 | O sistema deve permitir a substituição de participantes. | O responsável poderá remover um participante com justificativa e selecionar outro da lista de interessados. |
-| [ ] | RF019 | O sistema deve permitir o encerramento da oportunidade. | Ao término, a oportunidade é marcada como Encerrada e a lista de participantes é encaminhada para certificação. |
+| [✅] | RF012 | O sistema deve gerenciar o fluxo de estados da oportunidade. | Estados: Rascunho → Aguardando Aprovação → Aberta → Em Execução → Encerrada / Cancelada. Oportunidades de discentes exigem validação docente. |
+| [✅] | RF014 | O sistema deve permitir que o discente se inscreva em oportunidades de extensão internas. | Durante o período de inscrição, o discente poderá se inscrever; o sistema registrará a inscrição com status Pendente. |
+| [✅] | RF015 | O sistema deve permitir que o responsável aprove ou rejeite inscrições. | O responsável (docente ou líder discente autorizado) poderá aprovar ou rejeitar inscrições conforme critérios definidos na ação. |
+| [✅] | RF016 | O sistema deve permitir que o discente cancele sua inscrição antes do início da atividade. | O discente poderá cancelar a participação dentro do prazo definido pela oportunidade. |
+| [✅] | RF017 | O sistema deve permitir a substituição de participantes. | O responsável poderá remover um participante com justificativa e selecionar outro da lista de interessados. |
+| [✅] | RF019 | O sistema deve permitir o encerramento da oportunidade. | Ao término, a oportunidade é marcada como Encerrada e a lista de participantes é encaminhada para certificação. |
 
 ## Gestão de Solicitações
 
 | Feito | Código | Requisito | Detalhamento |
-|-------|--------|-----------|--------------|
-| [ ] | RF020 | O sistema deve permitir que o discente inicie uma solicitação de aproveitamento de horas externas. | O formulário deve exigir descrição da atividade, carga horária pleiteada, data de início e fim. Status inicial: Pendente. |
-| [ ] | RF021 | O sistema deve permitir que o coordenador visualize e analise as solicitações de aproveitamento. | O coordenador poderá consultar a fila de pendências e emitir decisão com parecer obrigatório em caso de indeferimento. |
-| [ ] | RF023 | O sistema deve permitir que o discente reenvie uma solicitação indeferida. | O discente poderá editar os campos e reenviar a solicitação dentro do prazo de 5 dias após o indeferimento. |
+|------|--------|-----------|--------------|
+| [✅] | RF020 | O sistema deve permitir que o discente inicie uma solicitação de aproveitamento de horas externas. | O formulário deve exigir descrição da atividade, carga horária pleiteada, data de início e fim. Status inicial: Pendente. |
+| [✅] | RF021 | O sistema deve permitir que o coordenador visualize e analise as solicitações de aproveitamento. | O coordenador poderá consultar a fila de pendências e emitir decisão com parecer obrigatório em caso de indeferimento. |
+| [✅] | RF023 | O sistema deve permitir que o discente reenvie uma solicitação indeferida. | O discente poderá editar os campos e reenviar a solicitação dentro do prazo de 5 dias após o indeferimento. |
 
 ## Certificação e Validação
 
 | Feito | Código | Requisito | Detalhamento |
 |-------|--------|-----------|--------------|
-| [ ] | RF025 | O sistema deve gerar certificados para participantes de atividades internas concluídas. | O certificado deve conter nome do participante, dados da atividade, período de cumprimento e carga horária cumprida. |
-| [ ] | RF026 | O sistema deve incluir um código de autenticidade único nos certificados emitidos. | Cada certificado deve possuir um identificador único (ex.: CERT-{id}) para verificação de autenticidade. |
+| [✅] | RF025 | O sistema deve gerar certificados para participantes de atividades internas concluídas. | O certificado deve conter nome do participante, dados da atividade, período de cumprimento e carga horária cumprida. |
+| [✅] | RF026 | O sistema deve incluir um código de autenticidade único nos certificados emitidos. | Cada certificado deve possuir um identificador único (ex.: CERT-{id}) para verificação de autenticidade. |

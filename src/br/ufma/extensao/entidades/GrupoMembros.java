@@ -4,14 +4,14 @@ import br.ufma.extensao.enums.Cargo;
 import java.time.LocalDate;
 
 public class GrupoMembros {
-    private Long id;
-    private Long grupoId;
-    private Long usuarioId;
+    private String id;
+    private String grupoId;
+    private String usuarioId;
     private Cargo cargo;
     private LocalDate dataEntrada;
     private LocalDate dataSaida;
 
-    public GrupoMembros(Long id, Long grupoId, Long usuarioId, Cargo cargo, LocalDate dataEntrada) {
+    public GrupoMembros(String id, String grupoId, String usuarioId, Cargo cargo, LocalDate dataEntrada) {
         this.id = id;
         this.grupoId = grupoId;
         this.usuarioId = usuarioId;
@@ -21,9 +21,9 @@ public class GrupoMembros {
     }
 
     // Getters
-    public Long getId() { return id; }
-    public Long getGrupoId() { return grupoId; }
-    public Long getUsuarioId() { return usuarioId; }
+    public String getId() { return id; }
+    public String getGrupoId() { return grupoId; }
+    public String getUsuarioId() { return usuarioId; }
     public Cargo getCargo() { return cargo; }
     public LocalDate getDataEntrada() { return dataEntrada; }
     public LocalDate getDataSaida() { return dataSaida; }

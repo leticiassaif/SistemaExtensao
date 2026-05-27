@@ -11,8 +11,8 @@ import java.util.List;
 
 public class GrupoService {
 
-    List<Grupo> grupos = new ArrayList<>();
-    List<GrupoMembros> membros = new ArrayList<>();
+    private List<Grupo> grupos = new ArrayList<>();
+    private List<GrupoMembros> membros = new ArrayList<>();
     private int proximoIdGrupo = 1;
     private int proximoIdMembro = 1;
 

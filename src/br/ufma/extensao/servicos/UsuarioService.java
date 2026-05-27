@@ -10,29 +10,39 @@ import java.util.List;
 
 public class UsuarioService {
     private List<Usuario> usuarios = new ArrayList<>();
-    private int proximoId = 1;
 
 
     public Discente cadastrarDiscente(String nome, String email, String senha, String matricula, int semestreAtual, Curso curso){
-        String id = ("DIS00" + proximoId);
-        proximoId ++;
-        Discente discente = new Discente(id, nome, email, senha, matricula, semestreAtual, curso);
+        Discente discente = new Discente("DIS"+matricula, nome, email, senha, matricula, semestreAtual, curso);
         usuarios.add(discente);
         return discente;
     }
 
     public Docente cadastrarDocente(String nome, String email, String senha, String siape, String departamento) {
-        String id = ("DOC00" + proximoId);
-        Docente docente = new Docente(id, nome, email, senha, siape, departamento);
+        Docente docente = new Docente("DOC-" + siape, nome, email, senha, siape, departamento);
         usuarios.add(docente);
         return docente;
     }
 
     public Usuario cadastrarCoordenador(String nome, String email, String senha, String siape, CargoCoordenador cargo) {
-        String id = ("COR00" + proximoId);
-        Usuario coordenador = new Coordenador(id, nome, email, senha, siape, cargo);
+        Usuario coordenador = new Coordenador("COR"+siape, nome, email, senha, siape, cargo);
         usuarios.add(coordenador);
         return coordenador;
+    }
+
+    public DiscenteDiretor promover(Discente discente, Grupo grupo, String cargo) {
+        DiscenteDiretor diretor = new DiscenteDiretor(
+                discente.getNome(),
+                discente.getEmail(),
+                discente.getSenha(),
+                discente.getMatricula(),
+                discente.getSemestreAtual(),
+                grupo,
+                cargo
+        );
+        usuarios.remove(discente); // remove o antigo
+        usuarios.add(diretor); // adiciona o promovido
+        return diretor;
     }
 
     public static boolean hasPermissao(Usuario usuario, Papel papel) {

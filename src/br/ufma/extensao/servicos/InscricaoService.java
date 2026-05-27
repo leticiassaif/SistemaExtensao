@@ -11,18 +11,18 @@ import br.ufma.extensao.enums.StatusInscricao;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class InscricaoService {
     private List<Inscricao> inscricoes = new ArrayList<>();
-    private int proximoId = 1;
+
 
     public Inscricao inscrever(Discente discente, Oportunidade oportunidade, String motivacao){
 
         if (discente == null || oportunidade == null || motivacao == null)
             throw new IllegalArgumentException("Discente, oportunidade e motivação são obrigatórios.");
 
-        String id = ("INS00" + proximoId);
-        proximoId++;
+        String id = "INS-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
         Inscricao inscricao = new Inscricao(id, discente, oportunidade, motivacao);
         inscricoes.add(inscricao);
         return inscricao;

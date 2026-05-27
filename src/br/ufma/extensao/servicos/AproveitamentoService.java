@@ -9,16 +9,16 @@ import br.ufma.extensao.enums.StatusAproveitamento;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class AproveitamentoService {
     private List<Aproveitamento> aproveitamentos = new ArrayList<>();
-    private int proximoId = 1;
+
 
     public Aproveitamento submeter(String discenteId, String descricao, double cargaHorariaPleiteada){
         if (discenteId == null || descricao == null || cargaHorariaPleiteada <= 0)
             throw new IllegalArgumentException("Dados do aproveitamento são inválidos!");
-        String id = ("APR00" + proximoId);
-        proximoId++;
+        String id = "APR-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
         Aproveitamento aproveitamento = new Aproveitamento(id, discenteId, descricao, cargaHorariaPleiteada);
         aproveitamentos.add(aproveitamento);
         return aproveitamento;

@@ -2,7 +2,7 @@ package br.ufma.extensao.entidades;
 
 import br.ufma.extensao.enums.Papel;
 
-public class Usuario {
+public abstract class Usuario {
 
     private final String id;
     private String nome;

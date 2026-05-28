@@ -25,17 +25,14 @@ public class OportunidadeService {
         if (inicio == null || fim == null || fim.isBefore(LocalDate.now()))
             throw new IllegalArgumentException("Datas inválidas.");
 
-        if (!(autor.getPapel() == Papel.DOCENTE || autor.getPapel() == Papel.DISCENTE_DIRETOR))
+        if (!(autor.getPapel() == Papel.DOCENTE || autor.getPapel() == Papel.DISCENTE_DIRETOR)) {
             throw new IllegalArgumentException("Usuário não tem permissão para criar oportunidade!");
-
-        if (autor.getPapel() == Papel.DOCENTE || autor.getPapel() == Papel.DISCENTE_DIRETOR) {
-
-            String id = "OPT-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
-            Oportunidade oportunidade = new Oportunidade(id, titulo, descricao, tipo, modalidade, cargaHoraria, vagas, responsavelId, inicio, fim, autor);
-            oportunidades.add(oportunidade);
-            return oportunidade;
-        }
-        return null;
+            }
+        // Criar a oportunidade diretamente, sem o segundo if redundante:
+        String id = "OPT-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+        Oportunidade oportunidade = new Oportunidade(id, titulo, descricao, tipo, modalidade, cargaHoraria, vagas, responsavelId, inicio, fim, autor);
+        oportunidades.add(oportunidade);
+        return oportunidade;
     }
 
     public Oportunidade publicarOportunidade(String id, Usuario autor){

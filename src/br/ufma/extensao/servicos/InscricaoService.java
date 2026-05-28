@@ -4,6 +4,7 @@ import br.ufma.extensao.entidades.Discente;
 import br.ufma.extensao.entidades.Inscricao;
 import br.ufma.extensao.entidades.Usuario;
 import br.ufma.extensao.enums.Papel;
+import br.ufma.extensao.enums.StatusOportunidade;
 import br.ufma.extensao.servicos.UsuarioService;
 import br.ufma.extensao.entidades.Oportunidade;
 import br.ufma.extensao.enums.StatusInscricao;
@@ -17,10 +18,27 @@ public class InscricaoService {
     private List<Inscricao> inscricoes = new ArrayList<>();
 
 
-    public Inscricao inscrever(Discente discente, Oportunidade oportunidade, String motivacao){
+    public Inscricao inscrever(Discente discente, Oportunidade oportunidade, String motivacao)
+    {
+        if (discente == null || oportunidade == null || motivacao == null) {
+            throw new IllegalArgumentException("Dados obrigatórios ausentes.");
+        }
 
-        if (discente == null || oportunidade == null || motivacao == null)
-            throw new IllegalArgumentException("Discente, oportunidade e motivação são obrigatórios.");
+        if (oportunidade.getStatus() != StatusOportunidade.ABERTA) {
+            throw new IllegalStateException("Oportunidade não está aberta para inscrições.");
+        }
+
+        long ativas = inscricoes.stream().filter(i -> i.getOportunidade().equals(oportunidade) && i.getStatus() != StatusInscricao.CANCELADA).count();
+
+        if (ativas >= oportunidade.getVagas()) {
+            throw new IllegalStateException("Vagas esgotadas.");
+        }
+
+        boolean duplicada = inscricoes.stream().anyMatch(i -> i.getDiscente().equals(discente) && i.getOportunidade().equals(oportunidade));
+        
+        if (duplicada) {
+            throw new IllegalStateException("Discente já inscrito nesta oportunidade.");
+        }
 
         String id = "INS-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
         Inscricao inscricao = new Inscricao(id, discente, oportunidade, motivacao);

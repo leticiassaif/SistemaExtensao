@@ -8,20 +8,20 @@ import br.ufma.extensao.enums.StatusGrupo;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class GrupoService {
 
     private List<Grupo> grupos = new ArrayList<>();
     private List<GrupoMembros> membros = new ArrayList<>();
-    private int proximoIdGrupo = 1;
+
     private int proximoIdMembro = 1;
 
     public Grupo criar(String nome, String descricao, String email, String docenteResponsavelId) {
         if (nome == null || descricao == null || email == null || docenteResponsavelId == null)
             throw new IllegalArgumentException("Dados do grupo são inválidos!");
 
-        String id = "GRP00" + proximoIdGrupo;
-        proximoIdGrupo++;
+        String id = "GRP-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
 
         Grupo grupo = new Grupo(id, nome, descricao, email, docenteResponsavelId);
         grupos.add(grupo);
@@ -34,8 +34,7 @@ public class GrupoService {
 
         for (Grupo g : grupos) {
             if (g.getId().equals(grupoId) && g.getStatus() == StatusGrupo.ATIVO) {
-                String id = "MBR00" + proximoIdMembro;
-                proximoIdMembro++;
+                String id = "MBR-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
                 GrupoMembros membro = new GrupoMembros(id, grupoId, usuarioId, cargo, LocalDate.now());
                 membros.add(membro);
                 return membro;

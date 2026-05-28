@@ -10,10 +10,11 @@ import br.ufma.extensao.enums.Papel;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class OportunidadeService {
     private List<Oportunidade> oportunidades = new ArrayList<>();
-    private int proximoId = 1;
+
 
 
     public Oportunidade criarOportunidade(String titulo, String descricao, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, Long responsavelId, Usuario autor, LocalDate inicio, LocalDate fim){
@@ -29,8 +30,7 @@ public class OportunidadeService {
 
         if (autor.getPapel() == Papel.DOCENTE || autor.getPapel() == Papel.DISCENTE_DIRETOR) {
 
-            String id = ("OPT00" + proximoId);
-            proximoId++;
+            String id = "OPT-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
             Oportunidade oportunidade = new Oportunidade(id, titulo, descricao, tipo, modalidade, cargaHoraria, vagas, responsavelId, inicio, fim, autor);
             oportunidades.add(oportunidade);
             return oportunidade;

@@ -7,10 +7,11 @@ import br.ufma.extensao.entidades.Oportunidade;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class CertificadoService {
     private List<Certificado> certificados = new ArrayList<>();
-    private int proximoId = 1;
+
 
     public Certificado gerar(Discente discente, Oportunidade oportunidade, double cargaHoraria, LocalDate dataEmissao){
 
@@ -21,8 +22,8 @@ public class CertificadoService {
         if (dataEmissao == null || dataEmissao.isAfter(LocalDate.now()))
             throw new IllegalArgumentException("Data de emissão inválida.");
 
-        String id = ("CER00" + proximoId);
-        proximoId++;
+        String id = "CER-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+
         Certificado certificado = new Certificado(id, discente, oportunidade, cargaHoraria, dataEmissao);
         certificados.add(certificado);
         return certificado;

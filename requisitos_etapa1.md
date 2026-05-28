@@ -6,7 +6,7 @@
 |-------|--------|-----------|--------------|
 | [✅]   | RF001 | O sistema deve permitir que o discente realize o autocadastro na plataforma. | O discente deverá se cadastrar utilizando dados institucionais, como nome completo, matrícula e e-mail institucional. A secretaria ou coordenação poderá apoiar o processo quando necessário. |
 | [✅]   | RF003 | O sistema deve permitir que o administrador cadastre previamente os perfis de gestores. | O administrador poderá cadastrar Docente, Coordenador, Comissão e Secretária, informando nome, e-mail institucional e matrícula/SIAPE. |
-| [ ]   | RF004 | O sistema deve permitir o gerenciamento de perfis e permissões de acesso. | O sistema deve possuir perfis predefinidos (Discente, Docente, Coordenador, Comissão/Secretaria, Administrador) e permitir a atribuição de permissões por módulo e ação. |
+| [ ]   | RF004 | O sistema deve permitir o gerenciamento de perfis. | O sistema deve possuir perfis predefinidos (Discente, Docente, Coordenador, Comissão/Secretaria, Administrador) e permitir a atribuição de permissões por módulo e ação. |
 | [✅]   | RF006 | O sistema deve permitir o cadastro de grupos de discentes. | A coordenação ou o administrador poderão cadastrar grupos (ex.: Diretório Acadêmico, Ligas, Atlética), vinculando obrigatoriamente um Docente Responsável. |
 | [ ]   | RF007 | O sistema deve permitir que o coordenador cadastre o Projeto Pedagógico do Curso (PPC). | O coordenador deverá cadastrar o PPC vigente, incluindo a carga horária mínima de extensão exigida. |
 | [✅]   | RF008 | O sistema deve manter o histórico de versões do PPC. | Sempre que o PPC for atualizado, o sistema deverá preservar as versões anteriores, registrando autor da alteração e data de vigência. |
@@ -29,13 +29,16 @@
 
 | Feito | Código | Requisito | Detalhamento |
 |------|--------|-----------|--------------|
-| [✅] | RF020 | O sistema deve permitir que o discente inicie uma solicitação de aproveitamento de horas externas. | O formulário deve exigir descrição da atividade, carga horária pleiteada, data de início e fim. Status inicial: Pendente. |
+| [✅] | RF020 | O sistema deve permitir que o discente inicie uma solicitação de aproveitamento. | O formulário deve exigir descrição da atividade, carga horária pleiteada, data de início e fim. Status inicial: Pendente. |
 | [✅] | RF021 | O sistema deve permitir que o coordenador visualize e analise as solicitações de aproveitamento. | O coordenador poderá consultar a fila de pendências e emitir decisão com parecer obrigatório em caso de indeferimento. |
+| [ ] | RF022 | O sistema deve impor prazos para decisão do coordenador e para reenvio do discente. | O coordenador deve decidir cada solicitação em até 10 dias. Em caso de indeferimento, o discente terá até 5 dias para ajustar e reenviar sua solicitação. (HARDCODED) |
 | [✅] | RF023 | O sistema deve permitir que o discente reenvie uma solicitação indeferida. | O discente poderá editar os campos e reenviar a solicitação dentro do prazo de 5 dias após o indeferimento. |
 
 ## Certificação e Validação
 
 | Feito | Código | Requisito | Detalhamento |
 |-------|--------|-----------|--------------|
-| [✅] | RF025 | O sistema deve gerar certificados para participantes de atividades internas concluídas. | O certificado deve conter nome do participante, dados da atividade, período de cumprimento e carga horária cumprida. |
-| [✅] | RF026 | O sistema deve incluir um código de autenticidade único nos certificados emitidos. | Cada certificado deve possuir um identificador único (ex.: CERT-{id}) para verificação de autenticidade. |
+| [ ] | RF024 | O sistema deve exibir o acompanhamento de status das solicitações para o discente. | O discente deverá visualizar claramente os estados Pendente, Aprovado, Indeferido e Cancelado, bem como os desacordos com a norma e os prazos associados. |
+| [ RETIRAR ] | RF025 | O sistema deve gerar certificados para participantes de atividades internas concluídas. | O certificado deve conter nome do participante, dados da atividade, período de cumprimento e carga horária cumprida. |
+| [ RETIRAR ] | RF026 | O sistema deve incluir um código de autenticidade único nos certificados emitidos. | Cada certificado deve possuir um identificador único (ex.: CERT-{id}) para verificação de autenticidade. |
+| [ ] | RF030 | O sistema deve exibir uma barra de progesso pessoal para o discente com o progresso de horas. | O painel deve apresentar horas concluídas, horas pendentes e um gráfico de progresso, além do histórico de atividades e solicitações. |

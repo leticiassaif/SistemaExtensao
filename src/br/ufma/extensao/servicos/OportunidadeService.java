@@ -66,9 +66,11 @@ public class OportunidadeService {
         return null;
     }
 
-    public Oportunidade iniciarExecucao(String id){
-        for (Oportunidade op : oportunidades){
-            if (op.getId().equals(id) && op.getInicio().isEqual(LocalDate.now())) {
+    public Oportunidade iniciarExecucao(String id) {
+        for (Oportunidade op : oportunidades) {
+            if (op.getId().equals(id)
+                    && !LocalDate.now().isBefore(op.getInicio())
+                    && op.getStatus() == StatusOportunidade.ABERTA) {
                 op.setStatus(StatusOportunidade.EM_EXECUCAO);
                 return op;
             }
@@ -76,9 +78,11 @@ public class OportunidadeService {
         return null;
     }
 
-    public Oportunidade encerrarOportunidade(String id){
-        for (Oportunidade op : oportunidades){
-            if (op.getId().equals(id) && op.getFim().isEqual(LocalDate.now())) {
+    public Oportunidade encerrarOportunidade(String id) {
+        for (Oportunidade op : oportunidades) {
+            if (op.getId().equals(id)
+                    && !LocalDate.now().isBefore(op.getFim())
+                    && op.getStatus() == StatusOportunidade.EM_EXECUCAO) {
                 op.setStatus(StatusOportunidade.ENCERRADA);
                 return op;
             }

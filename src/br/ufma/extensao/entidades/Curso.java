@@ -1,18 +1,18 @@
 package br.ufma.extensao.entidades;
 
 public class Curso {
-    private Long id;
+    private String id;
     private String nome;
     private String codigo;
 
-    public Curso(Long id, String nome, String codigo) {
+    public Curso(String id, String nome, String codigo) {
         this.id = id;
         this.nome = nome;
         this.codigo = codigo;
     }
 
     // Getters
-    public Long getId() { return id; }
+    public String getId() { return id; }
     public String getNome() { return nome; }
     public String getCodigo() { return codigo; }
 

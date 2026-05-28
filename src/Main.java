@@ -36,7 +36,7 @@ public class Main {
                 + " | Depto: " + docente.getDepartamento());
 
         // Cadastra Discente passando: nome, email, senha, matrícula, semestre, curso
-        Curso cursoCC = new Curso(1L, "Ciência da Computação", "CC");
+        Curso cursoCC = new Curso("1L", "Ciência da Computação", "CC");
         Discente discente = usuarioService.cadastrarDiscente(
                 "Ana Souza",
                 "ana.souza@discente.ufma.br",

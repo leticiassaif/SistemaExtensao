@@ -3,13 +3,13 @@ package br.ufma.extensao.entidades;
 import java.time.LocalDate;
 
 public class PPC {
-    private Long id;
-    private Long cursoId;
+    private String id;
+    private String cursoId;
     private int versao;
     private double cargaHoraria;
     private LocalDate dataInicio;
 
-    public PPC(Long id, Long cursoId, int versao, double cargaHorariaExtensao) {
+    public PPC(String id, String cursoId, int versao, double cargaHorariaExtensao) {
         this.id = id;
         this.cursoId = cursoId;
         this.versao = versao;
@@ -19,19 +19,19 @@ public class PPC {
     }
     // getters, setters e toString()
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Long getCursoId() {
+    public String getCursoId() {
         return cursoId;
     }
 
-    public void setCursoId(Long cursoId) {
+    public void setCursoId(String cursoId) {
         this.cursoId = cursoId;
     }
 

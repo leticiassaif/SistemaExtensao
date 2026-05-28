@@ -15,9 +15,7 @@ import java.util.UUID;
 public class OportunidadeService {
     private List<Oportunidade> oportunidades = new ArrayList<>();
 
-
-
-    public Oportunidade criarOportunidade(String titulo, String descricao, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, Long responsavelId, Usuario autor, LocalDate inicio, LocalDate fim){
+    public Oportunidade criarOportunidade(String titulo, String descricao, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, String responsavelId, Usuario autor, LocalDate inicio, LocalDate fim){
         if (titulo == null || descricao == null)
             throw new IllegalArgumentException("Discente e oportunidade são obrigatórios.");
         if (cargaHoraria <= 0)

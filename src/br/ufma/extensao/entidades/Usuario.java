@@ -1,6 +1,7 @@
 package br.ufma.extensao.entidades;
 
 import br.ufma.extensao.enums.Papel;
+import br.ufma.extensao.servicos.SenhaHash;
 
 public abstract class Usuario {
 
@@ -11,8 +12,10 @@ public abstract class Usuario {
     private Papel papel;
     private boolean ativo;
 
+
     // Métodos especiais
     public Usuario(String id, String nome, String email, String senha, Papel papel) {
+
         if (nome == null) {
             throw new IllegalArgumentException("Nome obrigatório");
         }
@@ -27,7 +30,7 @@ public abstract class Usuario {
         this.id = id;
         this.nome = nome;
         this.email = email;
-        this.senha = senha;
+        this.senha = SenhaHash.hash(senha);
         this.papel = papel;
         this.ativo = true;
     }

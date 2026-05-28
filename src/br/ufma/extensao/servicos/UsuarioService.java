@@ -19,7 +19,7 @@ public class UsuarioService {
     }
 
     public Docente cadastrarDocente(String nome, String email, String senha, String siape, String departamento) {
-        Docente docente = new Docente("DOC-" + siape, nome, email, senha, siape, departamento);
+        Docente docente = new Docente("DOC" + siape, nome, email, senha, siape, departamento);
         usuarios.add(docente);
         return docente;
     }

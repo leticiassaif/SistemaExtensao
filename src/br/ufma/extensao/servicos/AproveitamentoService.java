@@ -24,29 +24,34 @@ public class AproveitamentoService {
         return aproveitamento;
     }
 
-    public Aproveitamento aprovar(String id, Usuario u, double cargaPleiteada){
-        if (UsuarioService.hasPermissao(u, Papel.COORDENADOR)){
-            for (Aproveitamento apr : aproveitamentos){
-                if (apr.getId().equals(id) && apr.getStatus() == StatusAproveitamento.PENDENTE) {
-                    apr.setCargaHorariaAprovada(cargaPleiteada);
-                    apr.setStatus(StatusAproveitamento.APROVADO);
-                    return apr;
-                }
+    public Aproveitamento aprovar(String id, Usuario u, double cargaPleiteada) {
+        if (!UsuarioService.hasPermissao(u, Papel.COORDENADOR))
+            throw new SecurityException("Usuário sem permissão para essa ação!");
+        for (Aproveitamento apr : aproveitamentos) {
+            if (apr.getId().equals(id)) {
+                if (apr.getStatus() != StatusAproveitamento.PENDENTE)
+                    throw new IllegalStateException("Aproveitamento não está PENDENTE.");
+                apr.setCargaHorariaAprovada(cargaPleiteada);
+                apr.setStatus(StatusAproveitamento.APROVADO);
+                return apr;
             }
         }
-        throw new IllegalArgumentException("Usuário sem permissão para essa ação!");
+        throw new IllegalArgumentException("Aproveitamento não encontrado: " + id);
     }
 
-    public Aproveitamento indeferir(String id, Usuario u){
-        if (UsuarioService.hasPermissao(u, Papel.COORDENADOR)){
-            for (Aproveitamento apr : aproveitamentos){
-                if (apr.getId().equals(id) && apr.getStatus() == StatusAproveitamento.PENDENTE) {
-                    apr.setStatus(StatusAproveitamento.INDEFERIDO);
-                    return apr;
-                }
+    public Aproveitamento indeferir(String id, Usuario u) {
+        if (!UsuarioService.hasPermissao(u, Papel.COORDENADOR))
+            throw new SecurityException("Usuário sem permissão para essa ação!");
+
+        for (Aproveitamento apr : aproveitamentos) {
+            if (apr.getId().equals(id)) {
+                if (apr.getStatus() != StatusAproveitamento.PENDENTE)
+                    throw new IllegalStateException("Aproveitamento não está PENDENTE.");
+                apr.setStatus(StatusAproveitamento.INDEFERIDO);
+                return apr;
             }
         }
-        throw new IllegalArgumentException("Usuário sem permissão para essa ação!");
+        throw new IllegalArgumentException("Aproveitamento não encontrado: " + id);
     }
 
     public Aproveitamento reenviar(String id){

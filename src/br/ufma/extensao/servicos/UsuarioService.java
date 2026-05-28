@@ -32,14 +32,11 @@ public class UsuarioService {
 
     public DiscenteDiretor promover(Discente discente, Grupo grupo, String cargo) {
         DiscenteDiretor diretor = new DiscenteDiretor(
-                discente.getNome(),
-                discente.getEmail(),
-                discente.getSenha(),
-                discente.getMatricula(),
-                discente.getSemestreAtual(),
-                grupo,
-                cargo
-        );
+                discente.getNome(), discente.getEmail(), discente.getSenha(),
+                discente.getMatricula(), discente.getSemestreAtual(),
+                discente.getCurso(), // <- parâmetro adicionado
+                grupo, cargo);
+
         usuarios.remove(discente); // remove o antigo
         usuarios.add(diretor); // adiciona o promovido
         return diretor;

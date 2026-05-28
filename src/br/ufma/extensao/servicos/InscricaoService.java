@@ -15,7 +15,7 @@ import java.util.UUID;
 
 public class InscricaoService {
     private List<Inscricao> inscricoes = new ArrayList<>();
-
+    //todo: colocar map
 
     public Inscricao inscrever(Discente discente, Oportunidade oportunidade, String motivacao){
 
@@ -29,7 +29,7 @@ public class InscricaoService {
     }
 
     public Inscricao aprovar(String inscricaoId, Usuario u){
-        if (UsuarioService.hasPermissao(u, Papel.ADMIN) || UsuarioService.hasPermissao(u, Papel.DOCENTE)) {
+        if (UsuarioService.hasPermissao(u, Papel.ADMIN) || UsuarioService.hasPermissao(u, Papel.DOCENTE) || UsuarioService.hasPermissao(u, Papel.DISCENTE_DIRETOR)) {
             for (Inscricao i : inscricoes) {
                 if (i.getId().equals(inscricaoId)) {
                     if (i.getStatus() == StatusInscricao.PENDENTE) {
@@ -43,7 +43,7 @@ public class InscricaoService {
     }
 
     public Inscricao rejeitar(String inscricaoId, Usuario u){
-        if (UsuarioService.hasPermissao(u, Papel.ADMIN) || UsuarioService.hasPermissao(u, Papel.DOCENTE)) {
+        if (UsuarioService.hasPermissao(u, Papel.ADMIN) || UsuarioService.hasPermissao(u, Papel.DOCENTE) || UsuarioService.hasPermissao(u, Papel.DISCENTE_DIRETOR)) {
             for (Inscricao i : inscricoes) {
                 if (i.getId().equals(inscricaoId)) {
                     if (i.getStatus() == StatusInscricao.PENDENTE) {

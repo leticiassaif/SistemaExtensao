@@ -14,6 +14,7 @@ import java.util.UUID;
 
 public class OportunidadeService {
     private List<Oportunidade> oportunidades = new ArrayList<>();
+    //todo: colocar map
 
     public Oportunidade criarOportunidade(String titulo, String descricao, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, String responsavelId, Usuario autor, LocalDate inicio, LocalDate fim){
         if (titulo == null || descricao == null)

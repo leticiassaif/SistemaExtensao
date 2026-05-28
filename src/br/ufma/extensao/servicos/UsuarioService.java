@@ -10,7 +10,7 @@ import java.util.List;
 
 public class UsuarioService {
     private List<Usuario> usuarios = new ArrayList<>();
-
+    //todo: colocar map
 
     public Discente cadastrarDiscente(String nome, String email, String senha, String matricula, int semestreAtual, Curso curso){
         Discente discente = new Discente("DIS"+matricula, nome, email, senha, matricula, semestreAtual, curso);

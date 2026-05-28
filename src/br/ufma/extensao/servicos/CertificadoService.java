@@ -5,12 +5,11 @@ import br.ufma.extensao.entidades.Discente;
 import br.ufma.extensao.entidades.Oportunidade;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class CertificadoService {
     private List<Certificado> certificados = new ArrayList<>();
+    private Map<String, Certificado> mapaCertificados = new HashMap<>();
 
 
     public Certificado gerar(Discente discente, Oportunidade oportunidade, double cargaHoraria, LocalDate dataEmissao){
@@ -26,15 +25,12 @@ public class CertificadoService {
 
         Certificado certificado = new Certificado(id, discente, oportunidade, cargaHoraria, dataEmissao);
         certificados.add(certificado);
+        mapaCertificados.put(certificado.getId(), certificado);
         return certificado;
     }
 
     public Certificado buscar(String codigo){
-        for (Certificado c : certificados){
-            if(c.getCodigoAutenticidade().equals(codigo))
-                return c;
-        }
-        return null;
+        return mapaCertificados.get(codigo);
     }
 
     public List <Certificado> listarPorDiscente(Discente discente){

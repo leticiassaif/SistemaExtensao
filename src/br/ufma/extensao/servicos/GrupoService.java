@@ -14,6 +14,7 @@ public class GrupoService {
 
     private List<Grupo> grupos = new ArrayList<>();
     private List<GrupoMembros> membros = new ArrayList<>();
+    //todo: colocar map
 
     private int proximoIdMembro = 1;
 

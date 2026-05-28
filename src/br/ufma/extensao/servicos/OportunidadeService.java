@@ -16,8 +16,10 @@ public class OportunidadeService {
     private List<Oportunidade> oportunidades = new ArrayList<>();
 
     public Oportunidade criarOportunidade(String titulo, String descricao, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, String responsavelId, Usuario autor, LocalDate inicio, LocalDate fim){
-        if (titulo == null || descricao == null)
-            throw new IllegalArgumentException("Discente e oportunidade são obrigatórios.");
+        if (titulo == null || titulo.isBlank())
+            throw new IllegalArgumentException("Título é obrigatório.");
+        if (descricao == null || descricao.isBlank())
+            throw new IllegalArgumentException("Descrição é obrigatória.");
         if (cargaHoraria <= 0)
             throw new IllegalArgumentException("Carga horária deve ser positiva.");
         if (inicio == null || fim == null || fim.isBefore(LocalDate.now()))

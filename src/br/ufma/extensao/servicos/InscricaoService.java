@@ -35,7 +35,7 @@ public class InscricaoService {
         }
 
         boolean duplicada = inscricoes.stream().anyMatch(i -> i.getDiscente().equals(discente) && i.getOportunidade().equals(oportunidade));
-        
+
         if (duplicada) {
             throw new IllegalStateException("Discente já inscrito nesta oportunidade.");
         }
@@ -74,18 +74,18 @@ public class InscricaoService {
         return null;
     }
 
-    public Inscricao cancelar(String inscricaoId, Usuario u){
-        if (UsuarioService.hasPermissao(u, Papel.DISCENTE) || UsuarioService.hasPermissao(u, Papel.DISCENTE_DIRETOR)) {
-            for (Inscricao i : inscricoes) {
-                if (i.getId().equals(inscricaoId) && LocalDate.now().isBefore(i.getOportunidade().getInicio())) {
-                    if (i.getStatus() == StatusInscricao.APROVADA) {
-                        i.setStatus(StatusInscricao.CANCELADA);
-                        return i;
-                    }
-                if (!(LocalDate.now().isBefore(i.getOportunidade().getInicio())))
-                        throw new IllegalArgumentException("Não é possível cancelar a inscrição em oportunidades já iniciadas!");
-                }
-            }
+    public Inscricao cancelar(String inscricaoId, Usuario u) {
+        if (!UsuarioService.hasPermissao(u, Papel.DISCENTE)
+                && !UsuarioService.hasPermissao(u, Papel.DISCENTE_DIRETOR))
+            return null;
+        for (Inscricao i : inscricoes) {
+            if (!i.getId().equals(inscricaoId)) continue;
+            if (!LocalDate.now().isBefore(i.getOportunidade().getInicio()))
+                throw new IllegalStateException("Não é possível cancelar após o início da oportunidade.");
+            if (i.getStatus() != StatusInscricao.APROVADA)
+                return null;
+            i.setStatus(StatusInscricao.CANCELADA);
+            return i;
         }
         return null;
     }

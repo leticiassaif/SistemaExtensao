@@ -12,10 +12,15 @@ public abstract class Usuario {
     private Papel papel;
     private boolean ativo;
 
+    private static final java.util.regex.Pattern EMAIL_PATTERN = java.util.regex.Pattern.compile("^[\\w.+-]+@[\\w-]+\\.[\\w.]{2,}$");
 
     // Métodos especiais
     public Usuario(String id, String nome, String email, String senha, Papel papel) {
 
+        if (email == null || !EMAIL_PATTERN.matcher(email).matches()) {
+            throw new IllegalArgumentException("E-mail inválido: " + email);
+        }
+        
         if (nome == null) {
             throw new IllegalArgumentException("Nome obrigatório");
         }

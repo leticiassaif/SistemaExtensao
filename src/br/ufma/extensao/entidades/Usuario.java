@@ -69,7 +69,6 @@ public abstract class Usuario {
         return "Usuario{" +
                 "nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
-                ", senha='" + senha + '\'' +
                 ", papel=" + papel +
                 ", ativo=" + ativo +
                 '}';

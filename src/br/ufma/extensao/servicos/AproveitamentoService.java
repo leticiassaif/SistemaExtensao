@@ -1,12 +1,10 @@
 package br.ufma.extensao.servicos;
 
 import br.ufma.extensao.entidades.Aproveitamento;
-import br.ufma.extensao.entidades.Inscricao;
 import br.ufma.extensao.entidades.Usuario;
 import br.ufma.extensao.enums.Papel;
 import br.ufma.extensao.enums.StatusAproveitamento;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -24,7 +22,7 @@ public class AproveitamentoService {
         return aproveitamento;
     }
 
-    public Aproveitamento aprovar(String id, Usuario u, double cargaPleiteada) {
+    public boolean aprovar(String id, Usuario u, double cargaPleiteada) {
         if (!UsuarioService.hasPermissao(u, Papel.COORDENADOR))
             throw new SecurityException("Usuário sem permissão para essa ação!");
         for (Aproveitamento apr : aproveitamentos) {
@@ -33,13 +31,13 @@ public class AproveitamentoService {
                     throw new IllegalStateException("Aproveitamento não está PENDENTE.");
                 apr.setCargaHorariaAprovada(cargaPleiteada);
                 apr.setStatus(StatusAproveitamento.APROVADO);
-                return apr;
+                return true;
             }
         }
         throw new IllegalArgumentException("Aproveitamento não encontrado: " + id);
     }
 
-    public Aproveitamento indeferir(String id, Usuario u) {
+    public boolean indeferir(String id, Usuario u) {
         if (!UsuarioService.hasPermissao(u, Papel.COORDENADOR))
             throw new SecurityException("Usuário sem permissão para essa ação!");
 
@@ -48,17 +46,17 @@ public class AproveitamentoService {
                 if (apr.getStatus() != StatusAproveitamento.PENDENTE)
                     throw new IllegalStateException("Aproveitamento não está PENDENTE.");
                 apr.setStatus(StatusAproveitamento.INDEFERIDO);
-                return apr;
+                return true;
             }
         }
         throw new IllegalArgumentException("Aproveitamento não encontrado: " + id);
     }
 
-    public Aproveitamento reenviar(String id){
+    public boolean reenviar(String id){
         for (Aproveitamento apr : aproveitamentos) {
             if (apr.getId().equals(id) && apr.getStatus() == StatusAproveitamento.INDEFERIDO) {
                 apr.setStatus(StatusAproveitamento.PENDENTE);
-                return apr;
+                return true;
                 }
             }
         throw new IllegalArgumentException("Impossível realizar ação!");

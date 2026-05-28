@@ -20,13 +20,9 @@ public abstract class Usuario {
         if (email == null || !EMAIL_PATTERN.matcher(email).matches()) {
             throw new IllegalArgumentException("E-mail inválido: " + email);
         }
-        
+
         if (nome == null) {
             throw new IllegalArgumentException("Nome obrigatório");
-        }
-
-        if (email == null || !email.contains("@")) {
-            throw new IllegalArgumentException("E-mail inválido");
         }
 
         if (senha == null) {

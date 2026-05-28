@@ -17,10 +17,10 @@ public class Oportunidade {
     private StatusOportunidade status;
     private LocalDate inicio;
     private LocalDate fim;
-    private Long docenteResponsavelId;
+    private String docenteResponsavelId;
     private Usuario autor;
 
-    public Oportunidade(String id, String titulo, String descricao, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, Long docenteResponsavelId, LocalDate inicio, LocalDate fim, Usuario autor) {
+    public Oportunidade(String id, String titulo, String descricao, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, String docenteResponsavelId, LocalDate inicio, LocalDate fim, Usuario autor) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
@@ -48,7 +48,7 @@ public class Oportunidade {
     public StatusOportunidade getStatus() { return status; }
     public LocalDate getInicio() { return inicio; }
     public LocalDate getFim() { return fim; }
-    public Long getDocenteResponsavelId() { return docenteResponsavelId; }
+    public String getDocenteResponsavelId() { return docenteResponsavelId; }
 
     // Setters
     public void setTitulo(String titulo) { this.titulo = titulo; }
@@ -60,7 +60,7 @@ public class Oportunidade {
     public void setStatus(StatusOportunidade status) { this.status = status; }
     public void setInicio(LocalDate inicio) { this.inicio = inicio; }
     public void setFim(LocalDate fim) { this.fim = fim; }
-    public void setDocenteResponsavelId(Long docenteResponsavelId) { this.docenteResponsavelId = docenteResponsavelId; }
+    public void setDocenteResponsavelId(String docenteResponsavelId) { this.docenteResponsavelId = docenteResponsavelId; }
     public void setAutor(Usuario autor) { this.autor = autor; }
 
     @Override

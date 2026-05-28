@@ -22,7 +22,7 @@ public class CertificadoService {
         if (dataEmissao == null || dataEmissao.isAfter(LocalDate.now()))
             throw new IllegalArgumentException("Data de emissão inválida.");
 
-        String id = "CER-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+        String id = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
 
         Certificado certificado = new Certificado(id, discente, oportunidade, cargaHoraria, dataEmissao);
         certificados.add(certificado);

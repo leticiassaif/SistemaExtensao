@@ -1,19 +1,25 @@
 package br.ufma.extensao.servicos;
 
-import br.ufma.extensao.enums.Modalidade;
-import br.ufma.extensao.enums.StatusOportunidade;
-import br.ufma.extensao.enums.TipoOportunidade;
+import br.ufma.extensao.entidades.Certificado;
+import br.ufma.extensao.entidades.Inscricao;
+import br.ufma.extensao.enums.*;
 import br.ufma.extensao.entidades.Oportunidade;
 import br.ufma.extensao.entidades.Usuario;
-import br.ufma.extensao.enums.Papel;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class OportunidadeService {
-    private List<Oportunidade> oportunidades = new ArrayList<>();
+
+    private Map<Oportunidade, List<Certificado>> certificadosPorOportunidade = new LinkedHashMap <>();
+
+    private CertificadoService certificadoService;
+    private InscricaoService inscricaoService;
+
+    public OportunidadeService(InscricaoService inscricaoService, CertificadoService certificadoService) {
+        this.inscricaoService = inscricaoService;
+        this.certificadoService = certificadoService;
+    }
 
     public Oportunidade criarOportunidade(String titulo, String descricao, TipoOportunidade tipo, Modalidade modalidade, int cargaHoraria, int vagas, String responsavelId, Usuario autor, LocalDate inicio, LocalDate fim){
         if (titulo == null || titulo.isBlank())
@@ -28,15 +34,17 @@ public class OportunidadeService {
         if (!(autor.getPapel() == Papel.DOCENTE || autor.getPapel() == Papel.DISCENTE_DIRETOR)) {
             throw new IllegalArgumentException("Usuário não tem permissão para criar oportunidade!");
             }
-        // Criar a oportunidade diretamente, sem o segundo if redundante:
+
         String id = "OPT-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
         Oportunidade oportunidade = new Oportunidade(id, titulo, descricao, tipo, modalidade, cargaHoraria, vagas, responsavelId, inicio, fim, autor);
-        oportunidades.add(oportunidade);
+
+        certificadosPorOportunidade.computeIfAbsent(oportunidade, k -> new ArrayList<>());
+
         return oportunidade;
     }
 
     public Oportunidade publicarOportunidade(String id, Usuario autor){
-        for (Oportunidade op : oportunidades){
+        for (Oportunidade op : certificadosPorOportunidade.keySet()){
             if (op.getId().equals(id)) {
                 if (autor.getPapel() == Papel.DISCENTE_DIRETOR) {
                     op.setStatus(StatusOportunidade.AGUARDANDO_APROVACAO);
@@ -52,7 +60,7 @@ public class OportunidadeService {
     }
 
     public Oportunidade aprovarOportunidade(String id, Usuario usuario){
-        for (Oportunidade op : oportunidades){
+        for (Oportunidade op : certificadosPorOportunidade.keySet()){
             if (op.getId().equals(id)) {
                 if (usuario.getPapel() == Papel.DOCENTE) {
                     if (op.getStatus() == StatusOportunidade.AGUARDANDO_APROVACAO) {
@@ -66,7 +74,7 @@ public class OportunidadeService {
     }
 
     public Oportunidade iniciarExecucao(String id) {
-        for (Oportunidade op : oportunidades) {
+        for (Oportunidade op : certificadosPorOportunidade.keySet()) {
             if (op.getId().equals(id) && !LocalDate.now().isBefore(op.getInicio()) && op.getStatus() == StatusOportunidade.ABERTA) {
                 op.setStatus(StatusOportunidade.EM_EXECUCAO);
                 return op;
@@ -76,9 +84,17 @@ public class OportunidadeService {
     }
 
     public Oportunidade encerrarOportunidade(String id) {
-        for (Oportunidade op : oportunidades) {
+        for (Oportunidade op : certificadosPorOportunidade.keySet()) {
             if (op.getId().equals(id) && !LocalDate.now().isBefore(op.getFim()) && op.getStatus() == StatusOportunidade.EM_EXECUCAO) {
                 op.setStatus(StatusOportunidade.ENCERRADA);
+
+                for (Inscricao ins : inscricaoService.listarPorOportunidade(op)) {
+                    if (ins.getStatus() == StatusInscricao.APROVADA) {
+                        certificadosPorOportunidade.computeIfAbsent(op, k -> new ArrayList<>()).add
+                                (certificadoService.gerar(ins.getDiscente(), op, op.getCargaHoraria(), LocalDate.now()));
+                    }
+                }
+
                 return op;
             }
         }
@@ -87,7 +103,7 @@ public class OportunidadeService {
 
     public Oportunidade cancelarOportunidade(String id, Usuario u){
         if (UsuarioService.hasPermissao(u, Papel.ADMIN) || UsuarioService.hasPermissao(u, Papel.DOCENTE)) {
-            for (Oportunidade op : oportunidades) {
+            for (Oportunidade op : certificadosPorOportunidade.keySet()) {
                 if (op.getId().equals(id)) {
                     op.setStatus(StatusOportunidade.CANCELADA);
                     return op;
@@ -98,7 +114,7 @@ public class OportunidadeService {
     }
 
     public Oportunidade buscarOportunidadePorId(String id){
-        for (Oportunidade op : oportunidades){
+        for (Oportunidade op : certificadosPorOportunidade.keySet()){
             if (op.getId().equals(id)) {
                 return op;
             }
@@ -106,7 +122,12 @@ public class OportunidadeService {
         return null;
     }
 
-    public List <Oportunidade> listarOportunidades(){
-        return oportunidades;
+    public List<Certificado> pegarCertificadosDeOportunidade(Oportunidade op) {
+        return certificadosPorOportunidade.get(op);
+    }
+
+
+    public Set <Oportunidade> listarOportunidades(){
+        return certificadosPorOportunidade.keySet();
     }
 }

@@ -26,7 +26,7 @@
 | [✅]  | RF015 | O sistema deve permitir que o responsável aprove ou rejeite inscrições. | `aprovar`/`rejeitar` com checagem de permissão. _Obs.: checa ADMIN/DOCENTE; não contempla o "líder discente autorizado"._ |
 | [✅]  | RF016 | O sistema deve permitir que o discente cancele sua inscrição antes do início da atividade. | `cancelar` verifica a data antes do início. _Obs.: hoje só cancela inscrição com status APROVADA, não PENDENTE._ |
 | [ ]  | RF017 | O sistema deve permitir a substituição de participantes. | _Falta: não existe remoção de participante com justificativa + seleção de substituto a partir da lista de interessados._ |
-| [⚠️]   | RF019 | O sistema deve permitir o encerramento da oportunidade. | `encerrarOportunidade` marca como Encerrada. _Falta: o encaminhamento da lista de participantes para certificação é feito manualmente no `Main`, não de forma automática. (Anteriormente marcado como feito.)_ |
+| [✅]   | RF019 | O sistema deve permitir o encerramento da oportunidade. | `encerrarOportunidade` marca como Encerrada. _Falta: o encaminhamento da lista de participantes para certificação é feito manualmente no `Main`, não de forma automática. (Anteriormente marcado como feito.)_ |
 
 ## Gestão de Solicitações
 

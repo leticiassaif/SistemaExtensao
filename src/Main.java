@@ -3,6 +3,7 @@ import br.ufma.extensao.enums.*;
 import br.ufma.extensao.entidades.*;
 import br.ufma.extensao.servicos.*;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Main {
 
@@ -12,9 +13,9 @@ public class Main {
         System.out.println("Instanciando todos os serviços:");
 
         UsuarioService usuarioService       = new UsuarioService();
-        OportunidadeService oportunidadeService = new OportunidadeService();
         InscricaoService inscricaoService   = new InscricaoService();
         CertificadoService certificadoService = new CertificadoService();
+        OportunidadeService oportunidadeService = new OportunidadeService(inscricaoService, certificadoService);
         AproveitamentoService aprovService  = new AproveitamentoService();
         GrupoService grupoService           = new GrupoService();
 
@@ -76,10 +77,10 @@ public class Main {
                 Modalidade.PRESENCIAL,
                 60,
                 5,
-                null,           // responsavelId (Long) — não obrigatório nesta etapa
+                null,           // responsavelId  — não obrigatório nesta etapa
                 docente,
-                LocalDate.now(),
-                LocalDate.now().plusMonths(6)
+                LocalDate.now().minusMonths(6),
+                LocalDate.now()
         );
         System.out.println("   Oportunidade criada  : " + oportunidade.getTitulo()
                 + " | Status: " + oportunidade.getStatus());
@@ -112,29 +113,19 @@ public class Main {
 
         oportunidadeService.encerrarOportunidade(oportunidade.getId());
         System.out.println("   Oportunidade encerrada. Status: " + oportunidade.getStatus() + "\n");
+        System.out.println("Certificados gerados automaticamente no encerramento:");
 
-// PASSO 7 — Gerar certificado para o discente
-        System.out.println("Gerando certificado para o discente:");
+// PASSO 7
+        List<Certificado> certificados = oportunidadeService.pegarCertificadosDeOportunidade(oportunidade);
+        Certificado cert = certificados.getFirst();
+        Certificado encontrado = certificadoService.buscar(cert.getCodigoAutenticidade());
 
-        // gerar requer: discente, oportunidade, cargaHoraria, dataEmissao
-        Certificado certificado = certificadoService.gerar(
-                discente,
-                oportunidade,
-                oportunidade.getCargaHoraria(),
-                LocalDate.now()
-        );
-        System.out.println("   Certificado gerado para: " + discente.getNome()
-                + " | Oportunidade: " + oportunidade.getTitulo() + "\n");
+        System.out.println("   Certificado encontrado: " + encontrado.getCodigoAutenticidade());
+        System.out.println("   Discente     : " + encontrado.getDiscente().getNome());
+        System.out.println("   Oportunidade : " + encontrado.getOportunidade().getTitulo());
+        System.out.println("   Carga horária: " + encontrado.getCargaHorariaCumprida() + "h");
+        System.out.println("   Data emissão : " + encontrado.getDataEmissao());
 
-// PASSO 8 — Buscar o certificado pelo código de autenticidade e imprimir
-        System.out.println("Buscando certificado pelo código de autenticidade:");
-
-        Certificado certificadoEncontrado = certificadoService.buscar(certificado.getCodigoAutenticidade());
-        System.out.println("   Certificado encontrado: " + certificadoEncontrado.getCodigoAutenticidade());
-        System.out.println("   Discente     : " + certificadoEncontrado.getDiscente().getNome());
-        System.out.println("   Oportunidade : " + certificadoEncontrado.getOportunidade().getTitulo());
-        System.out.println("   Carga horária: " + certificadoEncontrado.getCargaHorariaCumprida() + "h");
-        System.out.println("   Data emissão : " + certificadoEncontrado.getDataEmissao() + "\n");
 
 // PASSO 9 — Submeter solicitação de aproveitamento
         System.out.println("Submetendo solicitação de aproveitamento:");
@@ -209,8 +200,8 @@ public class Main {
                 + " → " + oportunidade.getTitulo()
                 + " | Status: " + inscricao.getStatus());
         System.out.println("  Certificado emitido   : " + discente.getNome()
-                + " | " + certificado.getCargaHorariaCumprida() + "h"
-                + " | Código: " + certificado.getCodigoAutenticidade());
+                + " | " + encontrado.getCargaHorariaCumprida() + "h"
+                + " | Código: " + encontrado.getCodigoAutenticidade());
         System.out.println("  Aproveitamento        : " + discente.getNome()
                 + " | Status: " + aproveitamento.getStatus());
         System.out.println("  Grupo/Diretor         : " + diretor.getNome()

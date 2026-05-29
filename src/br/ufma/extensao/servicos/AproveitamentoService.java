@@ -37,15 +37,25 @@ public class AproveitamentoService {
         throw new IllegalArgumentException("Aproveitamento não encontrado: " + id);
     }
 
-    public boolean indeferir(String id, Usuario u) {
+    public boolean indeferir(String id, Usuario u, String parecer) {
         if (!UsuarioService.hasPermissao(u, Papel.COORDENADOR))
             throw new SecurityException("Usuário sem permissão para essa ação!");
 
+        if (parecer == null || parecer.isBlank()) {
+            throw new IllegalArgumentException("O parecer é obrigatório");
+        }
+
+
         for (Aproveitamento apr : aproveitamentos) {
+
             if (apr.getId().equals(id)) {
-                if (apr.getStatus() != StatusAproveitamento.PENDENTE)
+                if (apr.getStatus() != StatusAproveitamento.PENDENTE) {
                     throw new IllegalStateException("Aproveitamento não está PENDENTE.");
+                }
+
                 apr.setStatus(StatusAproveitamento.INDEFERIDO);
+                apr.setParecer(parecer);
+
                 return true;
             }
         }

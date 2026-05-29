@@ -152,7 +152,7 @@ public class Main {
         System.out.println("Indeferindo solicitação com parecer:");
 
         // Indeferir requer permissão de COORDENADOR
-        aprovService.indeferir(aproveitamento.getId(), coordenador);
+        aprovService.indeferir(aproveitamento.getId(), coordenador, "Documentação insuficiente");
         System.out.println("   Solicitação indeferida.");
         System.out.println("   Status: " + aproveitamento.getStatus());
 

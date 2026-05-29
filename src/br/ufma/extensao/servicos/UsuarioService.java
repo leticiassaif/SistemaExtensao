@@ -19,7 +19,7 @@ public class UsuarioService {
     }
 
     public Docente cadastrarDocente(String nome, String email, String senha, String siape, String departamento) {
-        Docente docente = new Docente("DOC-" + siape, nome, email, senha, siape, departamento);
+        Docente docente = new Docente("DOC" + siape, nome, email, senha, siape, departamento);
         usuarios.add(docente);
         return docente;
     }
@@ -32,14 +32,11 @@ public class UsuarioService {
 
     public DiscenteDiretor promover(Discente discente, Grupo grupo, String cargo) {
         DiscenteDiretor diretor = new DiscenteDiretor(
-                discente.getNome(),
-                discente.getEmail(),
-                discente.getSenha(),
-                discente.getMatricula(),
-                discente.getSemestreAtual(),
-                grupo,
-                cargo
-        );
+                discente.getNome(), discente.getEmail(), discente.getSenha(),
+                discente.getMatricula(), discente.getSemestreAtual(),
+                discente.getCurso(), // <- parâmetro adicionado
+                grupo, cargo);
+
         usuarios.remove(discente); // remove o antigo
         usuarios.add(diretor); // adiciona o promovido
         return diretor;

@@ -15,8 +15,6 @@ public class GrupoService {
     private List<Grupo> grupos = new ArrayList<>();
     private List<GrupoMembros> membros = new ArrayList<>();
 
-    private int proximoIdMembro = 1;
-
     public Grupo criar(String nome, String descricao, String email, String docenteResponsavelId) {
         if (nome == null || descricao == null || email == null || docenteResponsavelId == null)
             throw new IllegalArgumentException("Dados do grupo são inválidos!");

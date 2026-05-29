@@ -186,6 +186,7 @@ public class Main {
                 discente.getSenha(),
                 discente.getMatricula(),
                 discente.getSemestreAtual(),
+                discente.getCurso(),
                 grupo,
                 "Diretor"
         );

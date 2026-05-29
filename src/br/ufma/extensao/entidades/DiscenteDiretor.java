@@ -13,12 +13,12 @@ public class DiscenteDiretor extends Discente {
 
     public DiscenteDiretor(String nome, String email, String senha,
                            String matricula, int semestreAtual,
-                           Grupo grupo, String cargo) {
-        super("DD-" + matricula, nome, email, senha, matricula, semestreAtual,
-                new Curso("0L", "Ciência da Computação", "CC"));
+                           Curso curso, Grupo grupo, String cargo) {
+        super("DD-" + matricula, nome, email, senha, matricula, semestreAtual, curso);
         this.setPapel(Papel.DISCENTE_DIRETOR);
         this.grupo = grupo;
         this.cargo = cargo;
+
     }
 
     public Grupo getGrupo() { return grupo; }

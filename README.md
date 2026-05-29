@@ -4,12 +4,12 @@ Projeto desenvolvido para a disciplina de Programação Orientada a Objetos, imp
 
 ## Equipe
 
-| Nome | Responsabilidade |
-|------|-----------------|
-|Ana Letícia Saif Rodrigues      | Estrutura do projeto |
-|Maria Cecília V. Xavier| Entidades |
-|Roberta Silva Seba Salomão      | Serviços |
-|Luana P. Reis      | Main |
+| Nome | GitHub |
+|------|--------|
+| Ana Letícia Saif Rodrigues | @leticiassaif |
+| Maria Cecília V. Xavier | @CeciliaXav1er |
+| Roberta Silva Seba Salomão | @bebeta |
+| Luana P. Reis | @luana |
 
 ## Pré-requisitos
 

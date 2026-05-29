@@ -4,12 +4,12 @@ import br.ufma.extensao.enums.Papel;
 
 public class Docente extends Usuario {
     private String siape;
-    private String departamento;
+    private final String departamento;
 
-    public Docente(String id, String nome, String email, String senha, String siape, String departamento) {
+    public Docente(String id, String nome, String email, String senha, String siape) {
         super(id, nome, email, senha, Papel.DOCENTE);
         this.siape = siape;
-        this.departamento = departamento;
+        this.departamento = "Departamento de Informática";
     }
 
     // Getters
@@ -18,7 +18,6 @@ public class Docente extends Usuario {
 
     // Setters
     public void setSiape(String siape) { this.siape = siape; }
-    public void setDepartamento(String departamento) { this.departamento = departamento; }
 
     @Override
     public String toString() {

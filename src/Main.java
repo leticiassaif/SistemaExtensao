@@ -1,16 +1,33 @@
 // Importação dos pacotes corretos do projeto
 import br.ufma.extensao.enums.*;
 import br.ufma.extensao.entidades.*;
+import br.ufma.extensao.menus.MenuAdmin;
 import br.ufma.extensao.servicos.*;
 import java.time.LocalDate;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
 
-// PASSO 1 — INSTANCIAR TODOS OS SERVIÇOS
-        System.out.println("Instanciando todos os serviços:");
+        // variáveis do menu
+        boolean desativarMenu = false;
+        boolean logout = false;
+        int opcao = -1;
+        int opcaoEspecifica = -1;
 
+        // variáveis dos dados
+        String nome;
+        String email;
+        String identificador;
+        String descricao;
+        String cargo;
+
+        CargoCoordenador cCoordenador;
+
+        Scanner scanner = new Scanner(System.in);
+
+        // inicialização dos serviços
         UsuarioService usuarioService       = new UsuarioService();
         OportunidadeService oportunidadeService = new OportunidadeService();
         InscricaoService inscricaoService   = new InscricaoService();
@@ -18,53 +35,129 @@ public class Main {
         AproveitamentoService aprovService  = new AproveitamentoService();
         GrupoService grupoService           = new GrupoService();
 
+        // inicialização dos menus
+        MenuAdmin menuAdmin = new MenuAdmin();
+
         System.out.println("   Todos os serviços instanciados.\n");
 
-// PASSO 2 — Cadastrar um Docente e um Discente
-        System.out.println("Cadastrando Docente e Discente:");
+        while (desativarMenu == false) {
+            System.out.println("============================");
+            System.out.println("SISTEMA DE EXTENSÃO");
+            System.out.println("============================");
 
-        // Cadastra Docente passando: nome, email, senha, siape, departamento
-        Docente docente = usuarioService.cadastrarDocente(
-                "Prof. Carlos Silva",
-                "carlos.silva@docente.ufma.br",
-                "senha123",
-                "1234567",
-                "Departamento de Informática"
-        );
-        System.out.println("   Docente cadastrado : " + docente.getNome()
-                + " | SIAPE: " + docente.getSiape()
-                + " | Depto: " + docente.getDepartamento());
+            System.out.println();
 
-        // Cadastra Discente passando: nome, email, senha, matrícula, semestre, curso
-        Curso cursoCC = new Curso(1L, "Ciência da Computação", "CC");
-        Discente discente = usuarioService.cadastrarDiscente(
-                "Ana Souza",
-                "ana.souza@discente.ufma.br",
-                "senha456",
-                "20230001",
-                3,
-                cursoCC
-        );
-        System.out.println("   Discente cadastrado: " + discente.getNome()
-                + " | Matrícula: " + discente.getMatricula()
-                + " | Semestre: " + discente.getSemestreAtual()
-                + " | Curso: " + discente.getCurso().getNome() + "\n");
+            System.out.println("BEM VINDO");
+            System.out.println("[1] Entrar como discente");
+            System.out.println("[1] Entrar como discente diretor");
+            System.out.println("[3] Entrar como docente");
+            System.out.println("[4] Entrar como coordenador");
+            System.out.println("[5] Entrar como administrador");
+            System.out.println("[0] Sair do sistema");
 
-// PASSO 3 — Cadastrar um Coordenador
-        System.out.println("Cadastrando Coordenador:");
+            opcao = scanner.nextInt();
 
-        // Coordenador é cadastrado com nome, email, senha, siape e cargo de coordenação
-        Usuario coordenador = usuarioService.cadastrarCoordenador(
-                "Coord. Mariana Lima",
-                "mariana.lima@ufma.br",
-                "senha789",
-                "7654321",
-                CargoCoordenador.COORDENADOR
-        );
-        System.out.println("   Coordenador cadastrado: " + coordenador.getNome()
-                + " | Papel: " + coordenador.getPapel().getDescricao() + "\n");
+            switch (opcao) {
 
-// PASSO 4 — Criar uma oportunidade e publicá-la
+                // logado como discente
+                case 1:
+                    System.out.println("Entrando como discente. . .");
+
+                    while (logout == false) {}
+
+                case 2:
+                    System.out.println("Entrando como discente diretor. . .");
+
+                    while (logout == false) {}
+
+
+                case 3:
+                    System.out.println("Entrando como docente. . .");
+
+                    while (logout == false) {}
+
+                case 4:
+
+                case 5:
+                    System.out.println("Entrando como administrador. . .");
+
+                    while (logout == false) {
+                        menuAdmin.imprimirEspecifico();
+                        opcaoEspecifica = scanner.nextInt();
+
+                        switch (opcaoEspecifica) {
+                            case 1:
+                                System.out.println("Digite o nome do coodernador:");
+                                nome = scanner.next();
+                                System.out.println("Digite o email do coodernador:");
+                                email = scanner.next();
+                                System.out.println("Digite o siape do coodernador:");
+                                identificador = scanner.next();
+                                System.out.println("Digite o cargo do coodernador:");
+                                cargo = scanner.next().toUpperCase();
+
+                                try {
+                                    cCoordenador = CargoCoordenador.valueOf(cargo);
+                                    usuarioService.cadastrarCoordenador(nome, email, "coordenador", identificador, cCoordenador);
+                                } catch (IllegalArgumentException e) {
+                                    System.out.println("Cargo inexistente!");
+                                }
+
+                            case 2:
+                                System.out.println("Digite o nome do docente:");
+                                nome = scanner.next();
+                                System.out.println("Digite o email do docente:");
+                                email = scanner.next();
+                                System.out.println("Digite o siape do docente:");
+                                identificador = scanner.next();
+
+                                usuarioService.cadastrarDocente(nome, email, "docente", identificador);
+
+                            case 3:
+                                System.out.println("Digite o nome do grupo:");
+                                nome = scanner.next();
+                                System.out.println("Digite a descrição do grupo:");
+                                descricao = scanner.next();
+                                System.out.println("Digite o email:");
+                                email = scanner.next();
+                                System.out.println("Digite o siape do docente:");
+                                identificador = scanner.next();
+
+                                grupoService.criar(nome, descricao, email, identificador);
+
+                            case 4:
+                                // novo ppc
+
+                            case 5:
+                                // nova uce
+
+                            case 6:
+                                // desativar conta
+
+                            case 0:
+                                logout = true;
+                                System.out.println("Logging out. . .");
+
+                            default:
+                                System.out.println("Opção inválida!");
+                        }
+                    }
+
+                case 0:
+                    desativarMenu = true;
+                    System.out.println("Saíndo do sistema. . .");
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+            }
+
+            scanner.close();
+
+        }
+    }
+
+    /*
+    // PASSO 4 — Criar uma oportunidade e publicá-la
         System.out.println("Criando e publicando oportunidade:");
 
         // criarOportunidade requer: titulo, descricao, tipo, modalidade,
@@ -88,7 +181,7 @@ public class Main {
         oportunidadeService.publicarOportunidade(oportunidade.getId(), docente);
         System.out.println("   Oportunidade publicada. Status: " + oportunidade.getStatus() + "\n");
 
-// PASSO 5 — Inscrever o discente e aprovar a inscrição
+    // PASSO 5 — Inscrever o discente e aprovar a inscrição
         System.out.println("Inscrevendo discente e aprovando inscrição:");
 
         // inscrever requer: discente, oportunidade, motivacao
@@ -104,7 +197,7 @@ public class Main {
         inscricaoService.aprovar(inscricao.getId(), docente);
         System.out.println("   Inscrição aprovada Status: " + StatusInscricao.APROVADA + "\n");
 
-// PASSO 6 — Iniciar execução da oportunidade e encerrar
+    // PASSO 6 — Iniciar execução da oportunidade e encerrar
         System.out.println("Iniciando e encerrando execução da oportunidade:");
 
         oportunidadeService.iniciarExecucao(oportunidade.getId());
@@ -113,7 +206,7 @@ public class Main {
         oportunidadeService.encerrarOportunidade(oportunidade.getId());
         System.out.println("   Oportunidade encerrada. Status: " + oportunidade.getStatus() + "\n");
 
-// PASSO 7 — Gerar certificado para o discente
+    // PASSO 7 — Gerar certificado para o discente
         System.out.println("Gerando certificado para o discente:");
 
         // gerar requer: discente, oportunidade, cargaHoraria, dataEmissao
@@ -126,7 +219,7 @@ public class Main {
         System.out.println("   Certificado gerado para: " + discente.getNome()
                 + " | Oportunidade: " + oportunidade.getTitulo() + "\n");
 
-// PASSO 8 — Buscar o certificado pelo código de autenticidade e imprimir
+    // PASSO 8 — Buscar o certificado pelo código de autenticidade e imprimir
         System.out.println("Buscando certificado pelo código de autenticidade:");
 
         Certificado certificadoEncontrado = certificadoService.buscar(certificado.getCodigoAutenticidade());
@@ -136,7 +229,7 @@ public class Main {
         System.out.println("   Carga horária: " + certificadoEncontrado.getCargaHorariaCumprida() + "h");
         System.out.println("   Data emissão : " + certificadoEncontrado.getDataEmissao() + "\n");
 
-// PASSO 9 — Submeter solicitação de aproveitamento
+    // PASSO 9 — Submeter solicitação de aproveitamento
         System.out.println("Submetendo solicitação de aproveitamento:");
 
         // submeter requer: discenteId, descricao, cargaHorariaPleiteada
@@ -148,7 +241,7 @@ public class Main {
         System.out.println("   Solicitação submetida por: " + discente.getNome());
         System.out.println("   Status: " + aproveitamento.getStatus() + "\n");
 
-// PASSO 10 — Indeferir, reenviar e aprovar o aproveitamento
+    // PASSO 10 — Indeferir, reenviar e aprovar o aproveitamento
         System.out.println("Indeferindo solicitação com parecer:");
 
         // Indeferir requer permissão de COORDENADOR
@@ -166,7 +259,7 @@ public class Main {
         System.out.println("   Solicitação aprovada pelo avaliador: " + coordenador.getNome());
         System.out.println("   Status: " + aproveitamento.getStatus() + "\n");
 
-// PASSO 11 — Criar grupo e adicionar o discente como DIRETOR
+    // PASSO 11 — Criar grupo e adicionar o discente como DIRETOR
         System.out.println("Criando grupo e adicionando discente como DIRETOR:");
 
         // criar requer: nome, descricao, email, docenteResponsavelId
@@ -197,7 +290,7 @@ public class Main {
                 + " | Cargo: " + diretor.getCargo()
                 + " | Papel: " + diretor.getPapel().getDescricao() + "\n");
 
-// PASSO 12 — Imprimir o resultado final de cada operação
+    // PASSO 12 — Imprimir o resultado final de cada operação
         System.out.println("Resultado Final");
         System.out.println("  Docente cadastrado    : " + docente.getNome());
         System.out.println("  Discente cadastrado   : " + discente.getNome());
@@ -214,5 +307,5 @@ public class Main {
                 + " | Status: " + aproveitamento.getStatus());
         System.out.println("  Grupo/Diretor         : " + diretor.getNome()
                 + " | Cargo: " + diretor.getCargo());
-    }
+    }*/
 }

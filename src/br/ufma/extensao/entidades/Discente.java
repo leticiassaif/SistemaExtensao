@@ -8,7 +8,7 @@ public class Discente extends Usuario {
     private double totalHorasConcluidas;
     private Curso curso;
 
-    public Discente(String id, String nome, String email, String senha, String matricula, int semestreAtual, Curso curso) {
+    public Discente(String id, String nome, String email, String senha, String matricula, int semestreAtual) {
         super(id, nome, email, senha, Papel.DISCENTE);
 
         if (matricula == null || matricula.isBlank())
@@ -20,7 +20,7 @@ public class Discente extends Usuario {
         this.matricula = matricula;
         this.semestreAtual = semestreAtual;
         this.totalHorasConcluidas = 0.0;
-        this.curso = curso;
+        this.curso = new Curso(123456L, "Ciência da Computação", "1");
     }
 
     public String getMatricula() { return matricula; }

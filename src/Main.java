@@ -2,6 +2,7 @@
 import br.ufma.extensao.enums.*;
 import br.ufma.extensao.entidades.*;
 import br.ufma.extensao.menus.MenuAdmin;
+import br.ufma.extensao.menus.MenuDiscente;
 import br.ufma.extensao.servicos.*;
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -22,6 +23,7 @@ public class Main {
         String identificador;
         String descricao;
         String cargo;
+        int semestreAtual;
 
         CargoCoordenador cCoordenador;
 
@@ -37,10 +39,11 @@ public class Main {
 
         // inicialização dos menus
         MenuAdmin menuAdmin = new MenuAdmin();
+        MenuDiscente menuDiscente = new MenuDiscente();
 
         System.out.println("   Todos os serviços instanciados.\n");
 
-        while (desativarMenu == false) {
+        while (!desativarMenu) {
             System.out.println("============================");
             System.out.println("SISTEMA DE EXTENSÃO");
             System.out.println("============================");
@@ -59,41 +62,116 @@ public class Main {
 
             switch (opcao) {
 
-                // logado como discente
                 case 1:
                     System.out.println("Entrando como discente. . .");
 
-                    while (logout == false) {}
+                    while (!logout) {
+                        menuDiscente.imprimirEspecifico();
+                        opcaoEspecifica = scanner.nextInt();
+
+                        switch (opcaoEspecifica) {
+                            case 1:
+                                System.out.println("Digite o nome:");
+                                nome = scanner.next();
+                                System.out.println("Digite o email:");
+                                email = scanner.next();
+                                System.out.println("Digite a matricula:");
+                                identificador = scanner.next();
+                                System.out.println("Digite o semestre atual:");
+                                semestreAtual = scanner.nextInt();
+
+                                usuarioService.cadastrarDiscente(nome, email, "discente", identificador, semestreAtual);
+
+                                break;
+
+                            case 2:
+                                System.out.println("Digite o nome da liga:");
+                                nome = scanner.next();
+                                System.out.println("Digite a descrição da liga:");
+                                descricao = scanner.next();
+                                System.out.println("Digite o email:");
+                                email = scanner.next();
+                                System.out.println("Digite o SIAPE do docente:");
+                                identificador = scanner.next();
+
+                                grupoService.criar(nome, descricao, email, identificador);
+
+                                break;
+
+                            case 3:
+                                break;
+                            case 4:
+                                break;
+                            case 5:
+                                break;
+                            case 6:
+                                break;
+                            case 7:
+                                break;
+
+                            case 0:
+                                logout = true;
+                                System.out.println("Logging out. . .");
+                                break;
+
+                            default:
+                                System.out.println("Opção inválida!");
+                                break;
+                        }
+                    }
 
                 case 2:
                     System.out.println("Entrando como discente diretor. . .");
 
-                    while (logout == false) {}
+                    while (!logout) {
+
+                        switch (opcaoEspecifica) {
+                            case 0:
+                                logout = true;
+                                System.out.println("Logging out. . .");
+                                break;
+
+                            default:
+                                System.out.println("Opção inválida!");
+                                break;
+                        }
+                    }
 
 
                 case 3:
                     System.out.println("Entrando como docente. . .");
 
-                    while (logout == false) {}
+                    while (!logout) {
+                        switch (opcaoEspecifica) {
+                            case 0:
+                                logout = true;
+                                System.out.println("Logging out. . .");
+                                break;
+
+                            default:
+                                System.out.println("Opção inválida!");
+                                break;
+                        }
+                    }
 
                 case 4:
 
                 case 5:
                     System.out.println("Entrando como administrador. . .");
 
-                    while (logout == false) {
+                    while (!logout) {
                         menuAdmin.imprimirEspecifico();
                         opcaoEspecifica = scanner.nextInt();
 
                         switch (opcaoEspecifica) {
                             case 1:
-                                System.out.println("Digite o nome do coodernador:");
+                                System.out.println("Digite o nome do coordenador:");
                                 nome = scanner.next();
-                                System.out.println("Digite o email do coodernador:");
+                                System.out.println("Digite o email do coordenador:");
                                 email = scanner.next();
-                                System.out.println("Digite o siape do coodernador:");
+                                System.out.println("Digite o SIAPE do coordenador:");
                                 identificador = scanner.next();
-                                System.out.println("Digite o cargo do coodernador:");
+                                System.out.println("Digite o cargo do coordenador:");
                                 cargo = scanner.next().toUpperCase();
 
                                 try {
@@ -103,15 +181,19 @@ public class Main {
                                     System.out.println("Cargo inexistente!");
                                 }
 
+                                break;
+
                             case 2:
                                 System.out.println("Digite o nome do docente:");
                                 nome = scanner.next();
                                 System.out.println("Digite o email do docente:");
                                 email = scanner.next();
-                                System.out.println("Digite o siape do docente:");
+                                System.out.println("Digite o SIAPE do docente:");
                                 identificador = scanner.next();
 
                                 usuarioService.cadastrarDocente(nome, email, "docente", identificador);
+
+                                break;
 
                             case 3:
                                 System.out.println("Digite o nome do grupo:");
@@ -125,6 +207,8 @@ public class Main {
 
                                 grupoService.criar(nome, descricao, email, identificador);
 
+                                break;
+
                             case 4:
                                 // novo ppc
 
@@ -137,16 +221,21 @@ public class Main {
                             case 0:
                                 logout = true;
                                 System.out.println("Logging out. . .");
+                                break;
 
                             default:
                                 System.out.println("Opção inválida!");
+                                break;
                         }
                     }
+
+                    break;
 
                 case 0:
                     desativarMenu = true;
                     System.out.println("Saíndo do sistema. . .");
                     break;
+
                 default:
                     System.out.println("Opção inválida!");
             }

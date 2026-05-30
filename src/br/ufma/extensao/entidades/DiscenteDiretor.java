@@ -13,8 +13,9 @@ public class DiscenteDiretor extends Discente {
 
     public DiscenteDiretor(String nome, String email, String senha,
                            String matricula, int semestreAtual,
-                           Curso curso, Grupo grupo, String cargo) {
-        super("DD-" + matricula, nome, email, senha, matricula, semestreAtual, curso);
+                           Grupo grupo, String cargo) {
+        super("DD-" + matricula, nome, email, senha, matricula, semestreAtual);
+                           Grupo grupo, String cargo) {
         this.setPapel(Papel.DISCENTE_DIRETOR);
         this.grupo = grupo;
         this.cargo = cargo;

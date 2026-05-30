@@ -3,18 +3,20 @@ package br.ufma.extensao.menus;
 import br.ufma.extensao.entidades.Discente;
 import br.ufma.extensao.entidades.DiscenteDiretor;
 import br.ufma.extensao.entidades.Usuario;
+import br.ufma.extensao.servicos.GrupoService;
 import br.ufma.extensao.servicos.InscricaoService;
 import br.ufma.extensao.servicos.OportunidadeService;
 
 public class MenuDD extends Menu {
     private final DiscenteDiretor diretor;
     private final InscricaoService inscricaoService;
-    private final OportunidadeService oportunidadeService;
+    private final MenuExtra menuExtra;
 
-    public MenuDD(DiscenteDiretor diretor, InscricaoService inscricaoService, OportunidadeService oportunidadeService) {
+    public MenuDD(DiscenteDiretor diretor, GrupoService grupoService, InscricaoService inscricaoService,
+                  OportunidadeService oportunidadeService) {
         this.diretor = diretor;
         this.inscricaoService = inscricaoService;
-        this.oportunidadeService = oportunidadeService;
+        this.menuExtra = new MenuExtra(grupoService, inscricaoService, oportunidadeService);
     }
 
     @Override
@@ -52,7 +54,6 @@ public class MenuDD extends Menu {
                     // olhar como pegaria esse id?
                     System.out.println("oi");
                     String id = scanner.nextLine();
-                    // deveria ser só discente ou usuário mesmo?
                     inscricaoService.cancelar(id, diretor);
                     break;
 
@@ -64,15 +65,15 @@ public class MenuDD extends Menu {
                     System.out.println("Você deseja\n[1]Aprovar\n[2]");
                     tipo = scanner.nextInt();
                     limparBuffer(scanner);
-                    gerenciarInscricao(tipo);
+                    menuExtra.gerenciarInscricao(tipo);
                     break;
 
                 case 5:
-                    // decidir como vai ser menu extra
+                    menuExtra.criarGrupo();
                     break;
 
                 case 6:
-                    // decidir como vai ser menu extra
+                    menuExtra.criarOportunidade(diretor);
                     break;
 
                 case 0:
@@ -84,32 +85,6 @@ public class MenuDD extends Menu {
                     System.out.println("Opção inválida!");
                     break;
             }
-        }
-    }
-
-    private void gerenciarInscricao(int tipo) {
-        String id;
-        Usuario u;
-
-        System.out.println("Digite o nome do discente:");
-        // fazer a busca...
-
-        System.out.println("Digite o ID:");
-        id = scanner.nextLine();
-
-        switch (tipo) {
-            case 1:
-                inscricaoService.aprovar(id, u);
-                break;
-
-            case 2:
-                inscricaoService.rejeitar(id, u);
-                break;
-
-            default:
-                System.out.println("Opção inválida!");
-                break;
-
         }
     }
 }

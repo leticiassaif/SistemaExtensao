@@ -12,19 +12,7 @@ public class Main {
 
         // variáveis do menu
         boolean desativarMenu = false;
-        boolean logout = false;
         int opcao = -1;
-        int opcaoEspecifica = -1;
-
-        // variáveis dos dados
-        String nome;
-        String email;
-        String identificador;
-        String descricao;
-        String motivacao;
-        String cargo;
-        int semestreAtual;
-        CargoCoordenador cCoordenador;
 
         Scanner scanner = new Scanner(System.in);
 
@@ -35,8 +23,6 @@ public class Main {
         InscricaoService inscricaoService = new InscricaoService();
         OportunidadeService oportunidadeService = new OportunidadeService();
         UsuarioService usuarioService = new UsuarioService();
-
-        // jogar isso no menu
 
         while (!desativarMenu) {
             System.out.println("============================");
@@ -71,6 +57,7 @@ public class Main {
                     break;
 
                 case 4:
+                    System.out.println("Entrando como coordenador. . .");
                     break;
 
                 case 5:

@@ -51,6 +51,38 @@ public class UsuarioService {
         return diretor;
     }
 
+    public void desativar(Usuario solicitante, Usuario alvo) {
+
+        if (!podeGerenciarUsuario(solicitante, alvo)) {
+            throw new IllegalStateException("O solicitante não possui permissão para desativar o usuário");
+        }
+            alvo.setAtivo(false);
+    }
+
+    public void anonimizar(Usuario solicitante, Usuario alvo) {
+        if (!podeGerenciarUsuario(solicitante, alvo)) {
+            throw new IllegalStateException("O solicitante não possui permissão para desativar o usuário");
+        }
+
+        alvo.setAtivo(false);
+        alvo.setEmail("anonimo_" + alvo.getId() + "@sistema.local");
+        alvo.setSenha("");
+        alvo.setNome("Usuário Anonimizado");
+
+    }
+
+    public static boolean podeGerenciarUsuario(Usuario solicitante, Usuario alvo) {
+        if (solicitante == null || alvo == null) {
+            throw new IllegalArgumentException("Solicitante ou o Alvo não existem");
+        }
+
+        boolean coordenadorDesativandoDiscente  = hasPermissao(solicitante, Papel.COORDENADOR) && (alvo.getPapel() == Papel.DISCENTE || alvo.getPapel() == Papel.DISCENTE_DIRETOR);
+        boolean isAdmin = hasPermissao(solicitante, Papel.ADMIN);
+        boolean isSameUser = solicitante.getId().equals(alvo.getId());
+
+        return isAdmin || isSameUser || coordenadorDesativandoDiscente;
+    }
+
     public static boolean hasPermissao(Usuario usuario, Papel papel) {
         return usuario.getPapel() == papel;
     }
@@ -64,7 +96,14 @@ public class UsuarioService {
         return null;
     }
 
-    // possível buscar por matrícula / siape / id futuramente
+    Usuario buscarPorId(String usuarioId) {
+        for (Usuario u : usuarios) {
+            if (u.getId().equals(usuarioId)) {
+                return u;
+            }
+        }
+        return null;
+    }
 
     // sugestão Collections.unmodifiableList(usuarios) pois impede mudanças da lista *
     public List<Usuario> listarUsuarios() {

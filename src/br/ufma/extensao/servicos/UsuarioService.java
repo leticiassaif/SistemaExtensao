@@ -18,16 +18,25 @@ public class UsuarioService {
         return discente;
     }
 
-    public Docente cadastrarDocente(String nome, String email, String senha, String siape, String departamento) {
-        Docente docente = new Docente("DOC" + siape, nome, email, senha, siape, departamento);
-        usuarios.add(docente);
-        return docente;
+    public Docente cadastrarDocente(Usuario usuario, String nome, String email, String senha, String siape, String departamento) {
+
+        if (hasPermissao(usuario, Papel.ADMIN)) {
+            Docente docente = new Docente("DOC" + siape, nome, email, senha, siape, departamento);
+            usuarios.add(docente);
+            return docente;
+        }
+
+        throw new IllegalStateException("Você deve ser administrador para cadastrar um Docente");
     }
 
-    public Usuario cadastrarCoordenador(String nome, String email, String senha, String siape, CargoCoordenador cargo) {
-        Usuario coordenador = new Coordenador("COR"+siape, nome, email, senha, siape, cargo);
-        usuarios.add(coordenador);
-        return coordenador;
+    public Usuario cadastrarCoordenador(Usuario usuario, String nome, String email, String senha, String siape, CargoCoordenador cargo) {
+
+        if (hasPermissao(usuario, Papel.ADMIN)) {
+            Usuario coordenador = new Coordenador("COR"+siape, nome, email, senha, siape, cargo);
+            usuarios.add(coordenador);
+            return coordenador;
+        }
+        throw new IllegalStateException("Você deve ser administrador para cadastrar um Coordenador");
     }
 
     public DiscenteDiretor promover(Discente discente, Grupo grupo, String cargo) {

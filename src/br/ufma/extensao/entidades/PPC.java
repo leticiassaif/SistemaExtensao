@@ -5,16 +5,18 @@ import java.time.LocalDate;
 public class PPC {
     private String id;
     private String cursoId;
-    private int versao;
+    private String versao;
     private double cargaHoraria;
     private LocalDate dataInicio;
+    private LocalDate dataFim;
 
-    public PPC(String id, String cursoId, int versao, double cargaHorariaExtensao) {
+    public PPC(String id, String cursoId, String versao, double cargaHorariaExtensao) {
         this.id = id;
         this.cursoId = cursoId;
         this.versao = versao;
         this.cargaHoraria = cargaHorariaExtensao;
         dataInicio = LocalDate.now();
+        dataFim = null;
 
     }
     // getters, setters e toString()
@@ -35,11 +37,11 @@ public class PPC {
         this.cursoId = cursoId;
     }
 
-    public int getVersao() {
+    public String getVersao() {
         return versao;
     }
 
-    public void setVersao(int versao) {
+    public void setVersao(String versao) {
         this.versao = versao;
     }
 
@@ -55,6 +57,18 @@ public class PPC {
         return dataInicio;
     }
 
+    public void setDataInicio(LocalDate dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public LocalDate getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(LocalDate dataFim) {
+        this.dataFim = dataFim;
+    }
+
     @Override
     public String toString() {
         return "PPC{" +
@@ -63,6 +77,7 @@ public class PPC {
                 ", versao=" + versao +
                 ", cargaHoraria=" + cargaHoraria +
                 ", dataInicio=" + dataInicio +
+                ", dataFim= " + dataFim +
                 '}';
     }
 }

@@ -2,12 +2,14 @@ package br.ufma.extensao.servicos;
 
 import br.ufma.extensao.entidades.Grupo;
 import br.ufma.extensao.entidades.GrupoMembros;
+import br.ufma.extensao.entidades.Usuario;
 import br.ufma.extensao.enums.Cargo;
 import br.ufma.extensao.enums.StatusGrupo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 public class GrupoService {
@@ -49,6 +51,25 @@ public class GrupoService {
             }
         }
         throw new IllegalArgumentException("Membro não encontrado ou já removido!");
+    }
+
+    public GrupoMembros reatribuirCargo(String membroId, Cargo novoCargo) {
+
+        for (GrupoMembros m : membros) {
+            if (m.getId().equals(membroId)) {
+
+                if(m.getDataSaida() != null) {
+                    throw new IllegalStateException("Membro inativo");
+                }
+
+                if (m.getCargo() == novoCargo) {
+                    throw new IllegalStateException("O membro já tem esse cargo");
+                }
+                m.setCargo(novoCargo);
+                return m;
+            }
+        }
+        throw new NoSuchElementException("Membro não encontrado");
     }
 
     public List<GrupoMembros> listarMembrosPorGrupo(String grupoId) {

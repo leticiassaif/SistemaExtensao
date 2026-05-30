@@ -1,15 +1,21 @@
 package br.ufma.extensao.menus;
 
+import br.ufma.extensao.entidades.Usuario;
 import br.ufma.extensao.enums.CargoCoordenador;
 import br.ufma.extensao.servicos.*;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class MenuAdmin extends Menu {
     private final UsuarioService usuarioService;
+    private final PPCService ppcService;
+    private final Usuario admin;
 
-    public MenuAdmin(UsuarioService usuarioService) {
+    public MenuAdmin(UsuarioService usuarioService, PPCService ppcService, Usuario admin) {
         this.usuarioService = usuarioService;
+        this.ppcService = ppcService;
+        this.admin = admin;
     }
 
     @Override
@@ -45,19 +51,22 @@ public class MenuAdmin extends Menu {
                     break;
 
                 case 3:
-                    System.out.println("Digite o ID do PPC:");
-                    Long id = scanner.nextLong();
-                    limparBuffer(scanner);
+                    System.out.println("Digite o ID do curso:");
+                    String id = scanner.nextLine();
 
                     System.out.println("Digite a versão do PPC:");
-                    int versao = scanner.nextInt();
+                    String versao = scanner.nextLine();
+
+                    System.out.println("Digite a carga horária total do PPC:");
+                    Double cargaH = scanner.nextDouble();
                     limparBuffer(scanner);
 
-                    System.out.println("Digite a carga horária do PPC:");
-                    double cargaH = scanner.nextDouble();
-                    limparBuffer(scanner);
+                    System.out.println("Digite a data do início (YYYY-MM-DD):");
+                    String dInicio = scanner.nextLine();
 
-                    // chamar
+                    LocalDate inicio = LocalDate.parse(dInicio);
+
+                    ppcService.criarPPC(admin, id, versao, cargaH, inicio);
 
                     break;
 
@@ -105,7 +114,7 @@ public class MenuAdmin extends Menu {
             case 2:
                 System.out.println("Digite o SIAPE:");
                 identificador = scanner.nextLine();
-                usuarioService.cadastrarDocente(nome, email, "senha", identificador);
+                usuarioService.cadastrarDocente(admin, nome, email, "senha", identificador);
                 break;
 
             case 3:
@@ -117,7 +126,7 @@ public class MenuAdmin extends Menu {
 
                 try {
                     CargoCoordenador cCoordenador = CargoCoordenador.valueOf(cargo);
-                    usuarioService.cadastrarCoordenador(nome, email, "senha", identificador, cCoordenador);
+                    usuarioService.cadastrarCoordenador(admin, nome, email, "senha", identificador, cCoordenador);
                 } catch (IllegalArgumentException e) {
                     System.out.println("Cargo inexistente!");
                 }

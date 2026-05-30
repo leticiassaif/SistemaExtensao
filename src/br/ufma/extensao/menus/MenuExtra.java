@@ -3,7 +3,6 @@ package br.ufma.extensao.menus;
 // serve para oportunidades e grupo!
 
 import br.ufma.extensao.entidades.Usuario;
-import br.ufma.extensao.enums.CargoCoordenador;
 import br.ufma.extensao.enums.Modalidade;
 import br.ufma.extensao.enums.TipoOportunidade;
 import br.ufma.extensao.servicos.*;
@@ -24,6 +23,10 @@ public class MenuExtra {
         this.oportunidadeService = oportunidadeService;
         scanner = new Scanner(System.in);
     }
+
+    /*public void addPPC(Usuario solicitante) {
+        // pode tirar no futuro
+    }*/
 
     public void criarGrupo() {
         System.out.println("Digite o nome do grupo:");
@@ -64,8 +67,7 @@ public class MenuExtra {
         limparBuffer(scanner);
 
         System.out.println("Digite o ID do responsável:");
-        Long id = scanner.nextLong();
-        limparBuffer(scanner);
+        String id = scanner.nextLine();
 
         // CHECAR O INPUT DO USER!!!!
         System.out.println("Digite a data do íncio (YYYY-MM-DD):");

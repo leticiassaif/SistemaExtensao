@@ -1,8 +1,8 @@
 package br.ufma.extensao.menus;
 
-public class MenuCoordenador extends MenuGeral {
+public class MenuCoordenador extends Menu {
     @Override
-    public void imprimirEspecifico() {
-        super.imprimirEspecifico();
+    public void imprimirOpcao() {
+        super.imprimirOpcao();
     }
 }

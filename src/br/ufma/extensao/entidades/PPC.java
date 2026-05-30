@@ -9,9 +9,9 @@ public class PPC {
     private double cargaHoraria;
     private LocalDate dataInicio;
 
-    public PPC(Long id, Long cursoId, int versao, double cargaHorariaExtensao) {
+    public PPC(Long id, int versao, double cargaHorariaExtensao) {
         this.id = id;
-        this.cursoId = cursoId;
+        this.cursoId = 12345L;
         this.versao = versao;
         this.cargaHoraria = cargaHorariaExtensao;
         dataInicio = LocalDate.now();

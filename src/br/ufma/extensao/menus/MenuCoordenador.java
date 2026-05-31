@@ -30,7 +30,7 @@ public class MenuCoordenador extends Menu {
         System.out.println("[2] Gerenciar solicitações");
         System.out.println("[3] Visualizar solicitações");
         System.out.println("[4] Cadastrar PPC");
-        //System.out.println("[5] Cadastro UCE");
+        System.out.println("[5] Cadastro UCE");
         System.out.println("[0] Logout");
     }
 
@@ -80,6 +80,9 @@ public class MenuCoordenador extends Menu {
 
                     ppcService.criarPPC(coordenador, curso, versao, cargaH);
 
+                    break;
+
+                case 5:
                     break;
 
                 case 0:

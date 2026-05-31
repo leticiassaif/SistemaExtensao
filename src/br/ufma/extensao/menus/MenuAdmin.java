@@ -26,8 +26,8 @@ public class MenuAdmin extends Menu {
         System.out.println("[1] Cadastrar novo usuário");
         System.out.println("[2] Cadastrar novo grupo");
         System.out.println("[3] Cadastrar novo PPC");
-        /*System.out.println("[4] Cadastrar nova UCE");*/
-        System.out.println("[4] Desativar conta");
+        System.out.println("[4] Cadastrar nova UCE");
+        System.out.println("[5] Desativar conta");
         System.out.println("[0] Logout");
     }
 
@@ -80,6 +80,10 @@ public class MenuAdmin extends Menu {
                     break;
 
                 case 4:
+                    // finalizar uce
+                    break;
+
+                case 5:
                     System.out.println("Que tipo de conta você?");
                     System.out.println("[1] Discente\n[2] Docente\n[3] Coordenador");
                     tipo = scanner.nextInt();

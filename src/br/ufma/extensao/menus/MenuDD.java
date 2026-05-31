@@ -1,22 +1,21 @@
 package br.ufma.extensao.menus;
 
-import br.ufma.extensao.entidades.Discente;
 import br.ufma.extensao.entidades.DiscenteDiretor;
-import br.ufma.extensao.entidades.Usuario;
-import br.ufma.extensao.servicos.GrupoService;
-import br.ufma.extensao.servicos.InscricaoService;
-import br.ufma.extensao.servicos.OportunidadeService;
+import br.ufma.extensao.entidades.Oportunidade;
+import br.ufma.extensao.servicos.*;
 
 public class MenuDD extends Menu {
     private final DiscenteDiretor diretor;
-    private final InscricaoService inscricaoService;
     private final MenuExtra menuExtra;
 
-    public MenuDD(DiscenteDiretor diretor, GrupoService grupoService, InscricaoService inscricaoService,
-                  OportunidadeService oportunidadeService) {
+
+    public MenuDD(AproveitamentoService aproveitamentoService, CertificadoService certificadoService,
+                  GrupoService grupoService, InscricaoService inscricaoService, OportunidadeService oportunidadeService,
+                  UsuarioService usuarioService, PPCService ppcService, DiscenteDiretor diretor, MenuExtra menuExtra) {
+        super(aproveitamentoService, certificadoService, grupoService, inscricaoService, oportunidadeService,
+                usuarioService, ppcService);
         this.diretor = diretor;
-        this.inscricaoService = inscricaoService;
-        this.menuExtra = new MenuExtra(grupoService, inscricaoService, oportunidadeService);
+        this.menuExtra = menuExtra;
     }
 
     @Override
@@ -35,6 +34,8 @@ public class MenuDD extends Menu {
         boolean logout = false;
         int opcao;
         int tipo;
+        String idOportunidade;
+        Oportunidade op;
 
         while (!logout) {
             imprimir();
@@ -43,18 +44,37 @@ public class MenuDD extends Menu {
 
             switch (opcao) {
                 case 1:
-                    // fazer uma busca para achar a oportunidade
+                    System.out.println("Digite o ID da oportunidade:");
+                    idOportunidade = scanner.nextLine();
+
+                    op = oportunidadeService.buscarOportunidadePorId(idOportunidade);
+
                     System.out.println("Digite a motivação:");
                     String motivacao = scanner.next();
 
-                    inscricaoService.inscrever(diretor, , motivacao);
+                    if (op == null) {
+                        System.out.println("Oportunidade não foi achada!");
+                    } else {
+                        inscricaoService.inscrever(diretor, op, motivacao);
+                    }
+
                     break;
 
                 case 2:
-                    // olhar como pegaria esse id?
-                    System.out.println("oi");
-                    String id = scanner.nextLine();
-                    inscricaoService.cancelar(id, diretor);
+                    System.out.println("Digite o ID da sua inscrição:");
+                    String idInscricao = scanner.nextLine();
+
+                    System.out.println("Digite o ID da oportunidade:");
+                    idOportunidade = scanner.nextLine();
+
+                    op = oportunidadeService.buscarOportunidadePorId(idOportunidade);
+
+                    if (op == null) {
+                        System.out.println("Oportunidade não foi achada!");
+                    } else {
+                        inscricaoService.desistir(idInscricao, op, diretor);
+                    }
+
                     break;
 
                 case 3:

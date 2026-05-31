@@ -94,7 +94,7 @@ public class UsuarioService {
         return usuario.getPapel() == papel;
     }
 
-    Usuario buscarEmail(String email) {
+    public Usuario buscarEmail(String email) {
         for (Usuario u : usuarios) {
             if (u.getEmail().equals(email)) {
                 return u;
@@ -103,7 +103,7 @@ public class UsuarioService {
         return null;
     }
 
-    Usuario buscarPorId(String usuarioId) {
+    public Usuario buscarPorId(String usuarioId) {
         for (Usuario u : usuarios) {
             if (u.getId().equals(usuarioId)) {
                 return u;

@@ -1,24 +1,20 @@
 package br.ufma.extensao.menus;
 
 import br.ufma.extensao.entidades.Docente;
-import br.ufma.extensao.servicos.GrupoService;
-import br.ufma.extensao.servicos.InscricaoService;
-import br.ufma.extensao.servicos.OportunidadeService;
+import br.ufma.extensao.servicos.*;
 
 public class MenuDocente extends Menu {
     private final Docente docente;
-    private final GrupoService grupoService;
-    private final InscricaoService inscricaoService;
-    private final OportunidadeService oportunidadeService;
     private final MenuExtra menuExtra;
 
-    public MenuDocente(Docente docente, GrupoService grupoService, InscricaoService inscricaoService,
-                       OportunidadeService oportunidadeService) {
+    public MenuDocente(AproveitamentoService aproveitamentoService, CertificadoService certificadoService,
+                       GrupoService grupoService, InscricaoService inscricaoService,
+                       OportunidadeService oportunidadeService, UsuarioService usuarioService, PPCService ppcService,
+                       Docente docente, MenuExtra menuExtra) {
+        super(aproveitamentoService, certificadoService, grupoService, inscricaoService, oportunidadeService,
+                usuarioService, ppcService);
         this.docente = docente;
-        this.grupoService = grupoService;
-        this.inscricaoService = inscricaoService;
-        this.oportunidadeService = oportunidadeService;
-        this.menuExtra = new MenuExtra(grupoService, inscricaoService, oportunidadeService);
+        this.menuExtra = menuExtra;
     }
 
     @Override
@@ -27,7 +23,7 @@ public class MenuDocente extends Menu {
         System.out.println("[2] Encerrar oportunidade");
         System.out.println("[3] Gerenciar inscrições");
         System.out.println("[4] Substituir participante");
-        System.out.println("[5] Atribuir cargos");
+        System.out.println("[5] Atribuir cargos à discente");
         System.out.println("[0] Logout");
     }
 

@@ -11,7 +11,6 @@ import java.time.LocalDate;
 public class MenuCoordenador extends Menu {
     private final Coordenador coordenador;
     private final MenuExtra menuExtra;
-    private final PPCService ppcService;
 
     public MenuCoordenador(Coordenador coordenador, GrupoService grupoService, InscricaoService inscricaoService,
                            OportunidadeService oportunidadeService, PPCService ppcService) {

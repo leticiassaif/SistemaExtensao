@@ -8,20 +8,7 @@ import br.ufma.extensao.servicos.*;
 import java.util.Scanner;
 
 public class Main {
-
-    // Helpers de log
-    static void titulo(String t) {
-        System.out.println("\n╔══════════════════════════════════════════════════════════");
-        System.out.println("║ " + t);
-        System.out.println("╚══════════════════════════════════════════════════════════");
-    }
-    static void acao(String s)  { System.out.println("▶ AÇÃO    : " + s); }
-    static void ok(String s)    { System.out.println("  ✓ OK    : " + s); }
-    static void info(String s)  { System.out.println("  • INFO  : " + s); }
-    static void fluxo(String s) { System.out.println("  → FLUXO : " + s); }
-    static void anomalia(String s) { System.out.println("⚠ ANOMALIA: " + s); }
-    static void bloqueado(String s){ System.out.println("  ✗ BLOQUEADO: " + s); }
-
+    public static void main(String[] args) {
         // variáveis do menu
         boolean desativarMenu = false;
         int opcao = -1;
@@ -35,11 +22,11 @@ public class Main {
         InscricaoService inscricaoService = new InscricaoService();
         OportunidadeService oportunidadeService = new OportunidadeService(inscricaoService, certificadoService);
         PPCService ppcService = new PPCService();
-        UsuarioService usuarioService = new UsuarioService();
+        UsuarioService usuarioService = new UsuarioService(ppcService);
 
         // inicialização dos menu
         Administrador admin = new Administrador("Leticia", "oi@gmail.com", "senha");
-        MenuAdmin menuAdmin = new MenuAdmin(usuarioService, ppcService, admin);
+        MenuAdmin menuAdmin = new MenuAdmin(usuarioService, ppcService, grupoService, admin);
 
         while (!desativarMenu) {
             System.out.println("============================");
@@ -63,22 +50,26 @@ public class Main {
                 case 1:
                     System.out.println("Entrando como discente. . .");
                     MenuDiscente menuDiscente = new MenuDiscente(, inscricaoService);
+                    menuDiscente.executar();
                     break;
 
                 case 2:
                     System.out.println("Entrando como discente diretor. . .");
                     MenuDD menuDD = new MenuDD(, grupoService, inscricaoService, oportunidadeService);
+                    menuDD.executar();
                     break;
 
                 case 3:
                     System.out.println("Entrando como docente. . .");
                     MenuDocente menuDocente = new MenuDocente(, grupoService, inscricaoService, oportunidadeService);
+                    menuDocente.executar();
                     break;
 
                 case 4:
                     System.out.println("Entrando como coordenador. . .");
                     MenuCoordenador menuCoordenador = new MenuCoordenador(, grupoService, inscricaoService,
                             oportunidadeService, ppcService);
+                    menuCoordenador.executar();
                     break;
 
                 case 5:
@@ -98,5 +89,6 @@ public class Main {
             scanner.close();
 
         }
+
     }
 }

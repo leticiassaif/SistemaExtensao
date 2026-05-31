@@ -12,7 +12,7 @@ public class PPC {
 
     public PPC(String id, String cursoId, String versao, double cargaHorariaExtensao) {
         this.id = id;
-        this.cursoId = 12345L;
+        this.cursoId = cursoId;
         this.versao = versao;
         this.cargaHoraria = cargaHorariaExtensao;
         dataInicio = LocalDate.now();

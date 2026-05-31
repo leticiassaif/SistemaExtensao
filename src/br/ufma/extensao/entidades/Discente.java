@@ -9,8 +9,8 @@ public class Discente extends Usuario {
     private PPC ppc;
     private Curso curso;
 
-    public Discente(String id, String nome, String email, String senha, String matricula, int semestreAtual, PPC ppc) {
-    public Discente(String id, String nome, String email, String senha, String matricula, int semestreAtual) {
+    public Discente(String id, String nome, String email, String senha, String matricula, int semestreAtual, PPC ppc,
+                    Curso curso) {
         super(id, nome, email, senha, Papel.DISCENTE);
 
         if (matricula == null || matricula.isBlank())
@@ -26,7 +26,7 @@ public class Discente extends Usuario {
         this.semestreAtual = semestreAtual;
         this.totalHorasConcluidas = 0.0;
         this.ppc = ppc;
-        this.curso = new Curso(123456L, "Ciência da Computação", "1");
+        this.curso = curso;
     }
 
     public String getMatricula() { return matricula; }

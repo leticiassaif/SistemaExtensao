@@ -7,13 +7,13 @@
 
 | Feito | Código | Requisito | Detalhamento |
 |-------|--------|-----------|--------------|
-| [✅]   | RF001 | O sistema deve permitir que o discente realize o autocadastro na plataforma. | O discente deverá se cadastrar utilizando dados institucionais, como nome completo, matrícula e e-mail institucional. A secretaria ou coordenação poderá apoiar o processo quando necessário. |
+| [⚠️]   | RF001 | O sistema deve permitir que o discente realize o autocadastro na plataforma. | O discente deverá se cadastrar utilizando dados institucionais, como nome completo, matrícula e e-mail institucional. A secretaria ou coordenação poderá apoiar o processo quando necessário. |
 | [⚠️]   | RF003 | O sistema deve permitir o cadastro prévio dos perfis de gestores. | `cadastrarDocente` e `cadastrarCoordenador` existem. _Falta: não há perfil Administrador cadastrando previamente, nem envio de e-mail com credenciais de primeiro acesso._ |
 | [ ]   | RF004 | O sistema deve permitir o gerenciamento de perfis e permissões. | Perfis predefinidos (`Papel`) existem e há checagem `hasPermissao`. _Falta: atribuição de permissões por módulo/ação e registro (usuário, data, operação) das alterações._ |
 | [✅]   | RF006 | O sistema deve permitir o cadastro de grupos de discentes. | `GrupoService.criar` exige vínculo obrigatório de um Docente Responsável (ex.: Diretório Acadêmico, Ligas, Atlética). |
 | [✅]   | RF007 | O sistema deve permitir que o coordenador cadastre o Projeto Pedagógico do Curso (PPC). | _Falta: `PPC` existe apenas como entidade; não há serviço para o coordenador cadastrar o PPC e ele não é usado no `Main`._ |
 | [✅]   | RF008 | O sistema deve manter o histórico de versões do PPC. | _Falta: a entidade `PPC` tem apenas um campo `versao` (int) e `dataInicio`. Não há histórico de versões anteriores, nem registro de autor da alteração. (Anteriormente marcado como feito.)_ |
-| [⚠️]   | RF009 | O sistema deve permitir que o docente responsável atribua ou remova cargos dos membros de um grupo estudantil. | O cargo é atribuído ao adicionar o membro (`adicionarMembro`) e `removerMembro` desliga o membro. _Falta: reatribuir/trocar o cargo de um membro já existente (`setCargo` não é exposto por serviço)._ |
+| [✅]   | RF009 | O sistema deve permitir que o docente responsável atribua ou remova cargos dos membros de um grupo estudantil. | O cargo é atribuído ao adicionar o membro (`adicionarMembro`) e `removerMembro` desliga o membro. _Falta: reatribuir/trocar o cargo de um membro já existente (`setCargo` não é exposto por serviço)._ |
 | [⚠️]  | RF010 | O sistema deve registrar o histórico de ocupação de cargos em grupos estudantis. | `GrupoMembros` guarda `cargo`, `dataEntrada` e `dataSaida` (preserva o vínculo). _Falta: versionar a troca de cargo ao longo do tempo._ |
 
 ## Gestão de Oportunidades
@@ -38,9 +38,7 @@
 | [✅] | RF023 | O sistema deve permitir que o discente reenvie uma solicitação indeferida. | `reenviar` faz INDEFERIDO → PENDENTE. _Obs.: não há checagem da janela de 5 dias._ |
 | [⚠️] | RF024 | O sistema deve exibir o acompanhamento de status das solicitações para o discente. | `listarPorDiscente` retorna as solicitações do discente com seus status (Pendente, Aprovado, Indeferido, Cancelado). _Falta: exibição de prazos associados e desacordos com a norma._ |
 
-## Equipe 7 — Requisitos próprios (aba "Equipe 7")
-
-> Requisitos derivados/adicionais do nosso time. Os 8 em vermelho na planilha estão descartados; restam 3 ativos, ainda não implementados.
+## Requisitos EQ. 7
 
 | Feito | Código | Derivado de | Tipo | Requisito | Detalhamento |
 |-------|--------|-------------|------|-----------|--------------|

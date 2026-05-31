@@ -199,6 +199,34 @@ public class InscricaoService {
         return fila;
     }
 
+    public List<Inscricao> listarFilaEspera(Oportunidade oportunidade) {
+        if (oportunidade == null) {
+            throw new IllegalArgumentException("Oportunidade é obrigatória");
+        }
+
+        List<Inscricao> fila = inscricoes.get(oportunidade);
+
+        if (fila == null) {
+            return new ArrayList<>();
+        }
+
+        List<Inscricao> resultado = new ArrayList<>();
+        fila.sort(Comparator.comparing(Inscricao::getDataInscricao));
+        int limite = oportunidade.getVagas() - contarAprovadas(oportunidade).size();
+        
+        int i = 0;
+        while (i < fila.size() && limite > 0) {
+            Inscricao inscricao = fila.get(i);
+            if (inscricao.getStatus().equals(StatusInscricao.PENDENTE)) {
+                resultado.add(inscricao);
+                limite--;
+            }
+            i++;
+        }
+
+        return resultado;
+    }
+
     public List<Inscricao> listarPorDiscente(Discente discente) {
         if (discente == null) {
             throw new IllegalArgumentException("Discente é obrigatório");

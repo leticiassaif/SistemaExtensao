@@ -18,17 +18,15 @@ public class UsuarioService {
     }
 
     public Discente cadastrarDiscente(String nome, String email, String senha, String matricula, int semestreAtual, Curso curso){
-
-        Discente discente = new Discente("DIS"+matricula, nome, email, senha, matricula, semestreAtual, ppcService.buscarVigente(curso),curso);
-
+        Discente discente = new Discente("DIS"+matricula, nome, email, senha, matricula, semestreAtual, ppcService.buscarVigente(curso));
         usuarios.add(discente);
         return discente;
     }
 
-    public Docente cadastrarDocente(Usuario usuario, String nome, String email, String senha, String siape, String departamento) {
+    public Docente cadastrarDocente(Usuario usuario, String nome, String email, String senha, String siape) {
 
         if (hasPermissao(usuario, Papel.ADMIN)) {
-            Docente docente = new Docente("DOC" + siape, nome, email, senha, siape, departamento);
+            Docente docente = new Docente("DOC" + siape, nome, email, senha, siape);
             usuarios.add(docente);
             return docente;
         }

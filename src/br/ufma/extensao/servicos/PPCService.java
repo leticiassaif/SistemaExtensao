@@ -49,4 +49,61 @@ public class PPCService {
 
         return ppc;
     }
+
+    public PPC buscarVigente(Curso curso) {
+
+
+        if (curso == null) {
+            throw new IllegalArgumentException("Deve possuir um curso");
+        }
+
+        Deque<PPC> pilha = historicoPPC.get(curso);
+
+        if (pilha == null || pilha.isEmpty()) {
+            throw new NoSuchElementException("Nenhum PPC cadastrado nesse curso");
+        }
+
+        return pilha.peek();
+
+    }
+
+    public PPC buscarPPCPorVersao(Curso curso, String versao) {
+        if (curso == null) {
+            throw new IllegalArgumentException("Deve possuir um curso");
+        }
+
+        Deque<PPC> pilha = historicoPPC.get(curso);
+
+        if (pilha == null || pilha.isEmpty()) {
+            throw new NoSuchElementException("Nenhum PPC cadastrado nesse curso");
+        }
+
+        if(versao == null || versao.isBlank()) {
+            throw new IllegalArgumentException("Versão é obrigatória");
+        }
+
+        for (PPC ppc : pilha) {
+            if(ppc.getVersao().equals(versao)) {
+                return ppc;
+            }
+        }
+
+        throw new NoSuchElementException("Nenhum PPC cadastrado com essa versão");
+    }
+
+    public ArrayList<PPC> listarHistorico(Curso curso) {
+        if (curso == null) {
+            throw new IllegalArgumentException("Deve possuir um curso");
+        }
+
+        Deque<PPC> pilha = historicoPPC.get(curso);
+
+        if (pilha == null || pilha.isEmpty()) {
+            throw new NoSuchElementException("Nenhum PPC cadastrado nesse curso");
+        }
+
+        return new ArrayList<>(pilha);
+    }
+
+
 }

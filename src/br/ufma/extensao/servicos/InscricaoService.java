@@ -136,6 +136,7 @@ public class InscricaoService {
 
         Inscricao inscricao = buscarIncricao(inscricaoId, oportunidade);
         inscricao.setStatus(StatusInscricao.REJEITADA);
+        promoverFilaEspera(oportunidade);
         return inscricao;
     }
 
@@ -154,14 +155,33 @@ public class InscricaoService {
         }
 
         incricao.setStatus(StatusInscricao.CANCELADA);
+        promoverFilaEspera(oportunidade);
         return incricao;
 
     }
 
     private void promoverFilaEspera(Oportunidade oportunidade) {
-//        if (contarAprovadas(oportunidade).size() < oportunidade.getVagas()) {
-//            //TODO
-//        }
+
+        if (oportunidade == null) {
+            throw new IllegalArgumentException("A Oportunidade não existe");
+        }
+
+        List<Inscricao> fila = inscricoes.get(oportunidade);
+
+        if (fila == null || fila.isEmpty()) {
+            return;
+        }
+
+        fila.sort(Comparator.comparing(Inscricao::getDataInscricao));
+
+        if (contarAprovadas(oportunidade).size() < oportunidade.getVagas()) {
+            for (Inscricao inscricao : fila) {
+                if (inscricao.getStatus() == StatusInscricao.PENDENTE) {
+                    return;
+                }
+            }
+        }
+
     }
 
 

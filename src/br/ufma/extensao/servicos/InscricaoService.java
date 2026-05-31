@@ -8,7 +8,6 @@ import br.ufma.extensao.enums.StatusOportunidade;
 import br.ufma.extensao.entidades.Oportunidade;
 import br.ufma.extensao.enums.StatusInscricao;
 
-import java.time.LocalDate;
 import java.util.*;
 
 public class InscricaoService {
@@ -37,13 +36,17 @@ public class InscricaoService {
         String id = "INS-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
         Inscricao inscricao = new Inscricao(id, discente, oportunidade, motivacao);
 
+        if (listarSlotsOcupados(oportunidade).size() >= oportunidade.getVagas()) {
+            inscricao.setStatus(StatusInscricao.LISTA_DE_ESPERA);
+        }
+
         inscricoes.computeIfAbsent(oportunidade, k -> new ArrayList<>()).add(inscricao);
 
         return inscricao;
 
     }
 
-    private List<Inscricao> contarAprovadas(Oportunidade oportunidade) {
+    private List<Inscricao> listarSlotsOcupados(Oportunidade oportunidade) {
 
         if (oportunidade == null ) {
             throw new IllegalArgumentException("Campos obrigatórios não foram informados");
@@ -58,7 +61,7 @@ public class InscricaoService {
         List<Inscricao> resultado = new ArrayList<>();
 
         for (Inscricao inscricao : fila) {
-            if (inscricao.getStatus().equals(StatusInscricao.APROVADA)) {
+            if (inscricao.getStatus().equals(StatusInscricao.APROVADA) || inscricao.getStatus().equals(StatusInscricao.PENDENTE)) {
                 resultado.add(inscricao);
             }
         }
@@ -107,11 +110,16 @@ public class InscricaoService {
             throw new IllegalStateException("O Solicitante deve ser o responsável pela Oportunidade");
         }
 
-        if (contarAprovadas(oportunidade).size() >= oportunidade.getVagas()) {
+        if (listarSlotsOcupados(oportunidade).size() >= oportunidade.getVagas()) {
             throw new IllegalStateException("Vagas esgotadas");
         }
 
         Inscricao inscricao = buscarInscricao(inscricaoId, oportunidade);
+
+        if (!inscricao.getStatus().equals(StatusInscricao.PENDENTE)) {
+            throw new IllegalStateException("Só é possível aprovar inscrições PENDENTES");
+        }
+
         inscricao.setStatus(StatusInscricao.APROVADA);
         return inscricao;
 
@@ -184,20 +192,10 @@ public class InscricaoService {
             throw new IllegalArgumentException("A Oportunidade não existe");
         }
 
-        List<Inscricao> fila = inscricoes.get(oportunidade);
+        List<Inscricao> espera = listarFilaEspera(oportunidade);
 
-        if (fila == null || fila.isEmpty()) {
-            return;
-        }
-
-        fila.sort(Comparator.comparing(Inscricao::getDataInscricao));
-
-        if (contarAprovadas(oportunidade).size() < oportunidade.getVagas()) {
-            for (Inscricao inscricao : fila) {
-                if (inscricao.getStatus() == StatusInscricao.PENDENTE) {
-                    return;
-                }
-            }
+        if (!espera.isEmpty()) {
+            espera.getFirst().setStatus(StatusInscricao.PENDENTE);
         }
 
     }
@@ -230,16 +228,11 @@ public class InscricaoService {
 
         List<Inscricao> resultado = new ArrayList<>();
         fila.sort(Comparator.comparing(Inscricao::getDataInscricao));
-        int limite = oportunidade.getVagas() - contarAprovadas(oportunidade).size();
 
-        int i = 0;
-        while (i < fila.size() && limite > 0) {
-            Inscricao inscricao = fila.get(i);
-            if (inscricao.getStatus().equals(StatusInscricao.PENDENTE)) {
+        for (Inscricao inscricao : fila) {
+            if (inscricao.getStatus().equals(StatusInscricao.LISTA_DE_ESPERA)) {
                 resultado.add(inscricao);
-                limite--;
             }
-            i++;
         }
 
         return resultado;

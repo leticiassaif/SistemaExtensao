@@ -17,8 +17,10 @@ public class UsuarioService {
         this.ppcService = ppcService;
     }
 
-    public Discente cadastrarDiscente(String nome, String email, String senha, String matricula, int semestreAtual){
-        Discente discente = new Discente("DIS"+matricula, nome, email, senha, matricula, semestreAtual, ppcService.buscarVigente(curso));
+    public Discente cadastrarDiscente(String nome, String email, String senha, String matricula, int semestreAtual, Curso curso){
+
+        Discente discente = new Discente("DIS"+matricula, nome, email, senha, matricula, semestreAtual, ppcService.buscarVigente(curso),curso);
+
         usuarios.add(discente);
         return discente;
     }

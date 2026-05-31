@@ -4,15 +4,20 @@ import br.ufma.extensao.entidades.Coordenador;
 import br.ufma.extensao.servicos.GrupoService;
 import br.ufma.extensao.servicos.InscricaoService;
 import br.ufma.extensao.servicos.OportunidadeService;
+import br.ufma.extensao.servicos.PPCService;
+
+import java.time.LocalDate;
 
 public class MenuCoordenador extends Menu {
     private final Coordenador coordenador;
     private final MenuExtra menuExtra;
+    private final PPCService ppcService;
 
     public MenuCoordenador(Coordenador coordenador, GrupoService grupoService, InscricaoService inscricaoService,
-                           OportunidadeService oportunidadeService) {
+                           OportunidadeService oportunidadeService, PPCService ppcService) {
         this.coordenador = coordenador;
         this.menuExtra = new MenuExtra(grupoService, inscricaoService, oportunidadeService);
+        this.ppcService = ppcService;
     }
 
     @Override
@@ -52,19 +57,22 @@ public class MenuCoordenador extends Menu {
                     break;
 
                 case 4:
-                    System.out.println("Digite o ID do PPC:");
-                    Long id = scanner.nextLong();
-                    limparBuffer(scanner);
+                    System.out.println("Digite o ID do curso:");
+                    String id = scanner.nextLine();
 
                     System.out.println("Digite a versão do PPC:");
-                    int versao = scanner.nextInt();
+                    String versao = scanner.nextLine();
+
+                    System.out.println("Digite a carga horária total do PPC:");
+                    Double cargaH = scanner.nextDouble();
                     limparBuffer(scanner);
 
-                    System.out.println("Digite a carga horária do PPC:");
-                    double cargaH = scanner.nextDouble();
-                    limparBuffer(scanner);
+                    System.out.println("Digite a data do início (YYYY-MM-DD):");
+                    String dInicio = scanner.nextLine();
 
-                    // chamar
+                    LocalDate inicio = LocalDate.parse(dInicio);
+
+                    ppcService.criarPPC(coordenador, id, versao, cargaH, inicio);
 
                     break;
 

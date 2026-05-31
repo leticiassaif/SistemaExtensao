@@ -25,10 +25,10 @@ public class UsuarioService {
         return discente;
     }
 
-    public Docente cadastrarDocente(Usuario usuario, String nome, String email, String senha, String siape, String departamento) {
+    public Docente cadastrarDocente(Usuario usuario, String nome, String email, String senha, String siape) {
 
         if (hasPermissao(usuario, Papel.ADMIN)) {
-            Docente docente = new Docente("DOC" + siape, nome, email, senha, siape, departamento);
+            Docente docente = new Docente("DOC" + siape, nome, email, senha, siape);
             usuarios.add(docente);
             return docente;
         }

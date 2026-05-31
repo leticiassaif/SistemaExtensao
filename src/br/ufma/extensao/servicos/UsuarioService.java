@@ -11,9 +11,16 @@ import java.util.List;
 public class UsuarioService {
     private List<Usuario> usuarios = new ArrayList<>();
 
+    private PPCService ppcService;
+
+    public UsuarioService(PPCService ppcService) {
+        this.ppcService = ppcService;
+    }
 
     public Discente cadastrarDiscente(String nome, String email, String senha, String matricula, int semestreAtual, Curso curso){
-        Discente discente = new Discente("DIS"+matricula, nome, email, senha, matricula, semestreAtual, curso);
+
+        Discente discente = new Discente("DIS"+matricula, nome, email, senha, matricula, semestreAtual, ppcService.buscarVigente(curso),curso);
+
         usuarios.add(discente);
         return discente;
     }
@@ -43,8 +50,8 @@ public class UsuarioService {
         DiscenteDiretor diretor = new DiscenteDiretor(
                 discente.getNome(), discente.getEmail(), discente.getSenha(),
                 discente.getMatricula(), discente.getSemestreAtual(),
-                discente.getCurso(), // <- parâmetro adicionado
-                grupo, cargo);
+                discente.getCurso(),
+                discente.getPpc(), grupo, cargo);
 
         usuarios.remove(discente); // remove o antigo
         usuarios.add(diretor); // adiciona o promovido

@@ -72,7 +72,7 @@ public class MenuDiscente extends Menu {
                     break;
 
                 case 3:
-                    inscricaoService.listarPorDiscente(discente);
+                    System.out.println(inscricaoService.listarPorDiscente(discente));
                     break;
 
                 case 0:

@@ -78,7 +78,7 @@ public class MenuDD extends Menu {
                     break;
 
                 case 3:
-                    inscricaoService.listarPorDiscente(diretor);
+                    System.out.println(inscricaoService.listarPorDiscente(diretor));
                     break;
 
                 case 4:

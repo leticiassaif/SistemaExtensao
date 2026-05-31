@@ -1,22 +1,26 @@
 package br.ufma.extensao.menus;
 
 import br.ufma.extensao.entidades.Coordenador;
-import br.ufma.extensao.servicos.GrupoService;
-import br.ufma.extensao.servicos.InscricaoService;
-import br.ufma.extensao.servicos.OportunidadeService;
-import br.ufma.extensao.servicos.PPCService;
+import br.ufma.extensao.entidades.Curso;
+import br.ufma.extensao.entidades.Oportunidade;
+import br.ufma.extensao.servicos.*;
 
 import java.time.LocalDate;
 
 public class MenuCoordenador extends Menu {
     private final Coordenador coordenador;
     private final MenuExtra menuExtra;
+    private final Curso curso;
 
-    public MenuCoordenador(Coordenador coordenador, GrupoService grupoService, InscricaoService inscricaoService,
-                           OportunidadeService oportunidadeService, PPCService ppcService) {
+    public MenuCoordenador(AproveitamentoService aproveitamentoService, CertificadoService certificadoService,
+                           GrupoService grupoService, InscricaoService inscricaoService,
+                           OportunidadeService oportunidadeService, UsuarioService usuarioService,
+                           PPCService ppcService, Coordenador coordenador, MenuExtra menuExtra, Curso curso) {
+        super(aproveitamentoService, certificadoService, grupoService, inscricaoService, oportunidadeService,
+                usuarioService, ppcService);
         this.coordenador = coordenador;
-        this.menuExtra = new MenuExtra(grupoService, inscricaoService, oportunidadeService);
-        this.ppcService = ppcService;
+        this.menuExtra = menuExtra;
+        this.curso = curso;
     }
 
     @Override
@@ -25,7 +29,7 @@ public class MenuCoordenador extends Menu {
         System.out.println("[2] Gerenciar solicitações");
         System.out.println("[3] Visualizar solicitações");
         System.out.println("[4] Cadastrar PPC");
-        System.out.println("[5] Cadastro UCE");
+        //System.out.println("[5] Cadastro UCE");
         System.out.println("[0] Logout");
     }
 
@@ -52,13 +56,20 @@ public class MenuCoordenador extends Menu {
                     break;
 
                 case 3:
-                    // checar com as meninas
+                    System.out.println("Digite o ID da oportunidade:");
+                    String idOportunidade = scanner.nextLine();
+
+                    Oportunidade op = oportunidadeService.buscarOportunidadePorId(idOportunidade);
+
+                    if (op == null) {
+                        System.out.println("Oportunidade não foi achada!");
+                    } else {
+                        System.out.println(inscricaoService.listarFilaEspera(op));
+                    }
+
                     break;
 
                 case 4:
-                    System.out.println("Digite o ID do curso:");
-                    String id = scanner.nextLine();
-
                     System.out.println("Digite a versão do PPC:");
                     String versao = scanner.nextLine();
 
@@ -66,17 +77,8 @@ public class MenuCoordenador extends Menu {
                     Double cargaH = scanner.nextDouble();
                     limparBuffer(scanner);
 
-                    System.out.println("Digite a data do início (YYYY-MM-DD):");
-                    String dInicio = scanner.nextLine();
+                    ppcService.criarPPC(coordenador, curso, versao, cargaH);
 
-                    LocalDate inicio = LocalDate.parse(dInicio);
-
-                    ppcService.criarPPC(coordenador, id, versao, cargaH, inicio);
-
-                    break;
-
-                case 5:
-                    // falta função
                     break;
 
                 case 0:

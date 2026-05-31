@@ -36,10 +36,10 @@ public class UsuarioService {
         throw new IllegalStateException("Você deve ser administrador para cadastrar um Docente");
     }
 
-    public Usuario cadastrarCoordenador(Usuario usuario, String nome, String email, String senha, String siape, CargoCoordenador cargo) {
+    public Coordenador cadastrarCoordenador(Usuario usuario, String nome, String email, String senha, String siape, CargoCoordenador cargo) {
 
         if (hasPermissao(usuario, Papel.ADMIN)) {
-            Usuario coordenador = new Coordenador("COR"+siape, nome, email, senha, siape, cargo);
+            Coordenador coordenador = new Coordenador("COR"+siape, nome, email, senha, siape, cargo);
             usuarios.add(coordenador);
             return coordenador;
         }

@@ -1,9 +1,7 @@
-import br.ufma.extensao.entidades.Administrador;
+import br.ufma.extensao.entidades.*;
 import br.ufma.extensao.enums.*;
 import br.ufma.extensao.menus.*;
 import br.ufma.extensao.servicos.*;
-
-// teste
 
 import java.util.Scanner;
 
@@ -24,9 +22,32 @@ public class Main {
         PPCService ppcService = new PPCService();
         UsuarioService usuarioService = new UsuarioService(ppcService);
 
-        // inicialização dos menu
-        Administrador admin = new Administrador("Leticia", "oi@gmail.com", "senha");
-        MenuAdmin menuAdmin = new MenuAdmin(usuarioService, ppcService, grupoService, admin);
+        // inicialização do curso + ppc + admin
+        Administrador admin = new Administrador("Leticia", "oi@gmail.com", "admin");
+        Curso curso = new Curso("123", "Ciência da Computação", "12345");
+        PPC ppc = ppcService.criarPPC(admin, curso, "1", 45.5);
+
+        MenuAdmin menuAdmin = new MenuAdmin(aprovService, certificadoService, grupoService, inscricaoService,
+                oportunidadeService, usuarioService, ppcService, admin, curso);
+        MenuExtra menuExtra = new MenuExtra(grupoService, inscricaoService, oportunidadeService);
+
+        // inicialização dos usuários bases - por não ter um login / bd
+        Coordenador coordenador = usuarioService.cadastrarCoordenador(admin, "COR1234567", "Paulo",
+                "coordenador", "1234567", CargoCoordenador.COORDENADOR);
+
+        Docente docente = usuarioService.cadastrarDocente(admin, "Geraldo", "geraldo@gmail.com",
+                "docente", "9876543");
+
+        Discente discente = usuarioService.cadastrarDiscente("Maria Luísa", "malu@gmail.com",
+                "discente", "20260012341", 1, curso);
+
+        Discente discente1 = usuarioService.cadastrarDiscente("Ana", "ana@gmail.com",
+                "diretor", "20234057891", 5, curso);
+
+        Grupo grupo = grupoService.criar("Liga A", "Somos a liga A", "a@gmail.com",
+                docente.getId());
+
+        DiscenteDiretor diretor = usuarioService.promover(discente1, grupo, "VICE");
 
         while (!desativarMenu) {
             System.out.println("============================");
@@ -49,26 +70,30 @@ public class Main {
 
                 case 1:
                     System.out.println("Entrando como discente. . .");
-                    MenuDiscente menuDiscente = new MenuDiscente(, inscricaoService);
+                    MenuDiscente menuDiscente = new MenuDiscente(aprovService, certificadoService, grupoService,
+                            inscricaoService, oportunidadeService, usuarioService, ppcService, discente);
                     menuDiscente.executar();
                     break;
 
                 case 2:
                     System.out.println("Entrando como discente diretor. . .");
-                    MenuDD menuDD = new MenuDD(, grupoService, inscricaoService, oportunidadeService);
+                    MenuDD menuDD = new MenuDD(aprovService, certificadoService, grupoService,
+                            inscricaoService, oportunidadeService, usuarioService, ppcService, diretor, menuExtra);
                     menuDD.executar();
                     break;
 
                 case 3:
                     System.out.println("Entrando como docente. . .");
-                    MenuDocente menuDocente = new MenuDocente(, grupoService, inscricaoService, oportunidadeService);
+                    MenuDocente menuDocente = new MenuDocente(aprovService, certificadoService, grupoService,
+                            inscricaoService, oportunidadeService, usuarioService, ppcService, docente, menuExtra);
                     menuDocente.executar();
                     break;
 
                 case 4:
                     System.out.println("Entrando como coordenador. . .");
-                    MenuCoordenador menuCoordenador = new MenuCoordenador(, grupoService, inscricaoService,
-                            oportunidadeService, ppcService);
+                    MenuCoordenador menuCoordenador = new MenuCoordenador(aprovService, certificadoService,
+                            grupoService, inscricaoService, oportunidadeService, usuarioService, ppcService,
+                            coordenador, menuExtra, curso);
                     menuCoordenador.executar();
                     break;
 

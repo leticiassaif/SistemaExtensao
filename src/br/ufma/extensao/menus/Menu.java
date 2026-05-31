@@ -10,12 +10,11 @@ public abstract class Menu {
     protected final OportunidadeService oportunidadeService;
     protected final UsuarioService usuarioService;
     protected final PPCService ppcService;
-
     protected final Scanner scanner;
 
     public Menu(AproveitamentoService aproveitamentoService, CertificadoService certificadoService,
                 GrupoService grupoService, InscricaoService inscricaoService, OportunidadeService oportunidadeService,
-                UsuarioService usuarioService, PPCService ppcService) {
+                UsuarioService usuarioService, PPCService ppcService, Scanner scanner) {
         this.aproveitamentoService = aproveitamentoService;
         this.certificadoService = certificadoService;
         this.grupoService = grupoService;
@@ -23,12 +22,8 @@ public abstract class Menu {
         this.oportunidadeService = oportunidadeService;
         this.usuarioService = usuarioService;
         this.ppcService = ppcService;
-        scanner = new Scanner(System.in);
+        this.scanner = scanner;
     }
-
-    /*public Menu() {
-        this.scanner = new Scanner(System.in);
-    }*/
 
     public abstract void imprimir();
 

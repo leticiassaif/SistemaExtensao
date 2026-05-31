@@ -4,6 +4,8 @@ import br.ufma.extensao.entidades.DiscenteDiretor;
 import br.ufma.extensao.entidades.Oportunidade;
 import br.ufma.extensao.servicos.*;
 
+import java.util.Scanner;
+
 public class MenuDD extends Menu {
     private final DiscenteDiretor diretor;
     private final MenuExtra menuExtra;
@@ -11,9 +13,10 @@ public class MenuDD extends Menu {
 
     public MenuDD(AproveitamentoService aproveitamentoService, CertificadoService certificadoService,
                   GrupoService grupoService, InscricaoService inscricaoService, OportunidadeService oportunidadeService,
-                  UsuarioService usuarioService, PPCService ppcService, DiscenteDiretor diretor, MenuExtra menuExtra) {
+                  UsuarioService usuarioService, PPCService ppcService, DiscenteDiretor diretor, MenuExtra menuExtra,
+                  Scanner scanner) {
         super(aproveitamentoService, certificadoService, grupoService, inscricaoService, oportunidadeService,
-                usuarioService, ppcService);
+                usuarioService, ppcService, scanner);
         this.diretor = diretor;
         this.menuExtra = menuExtra;
     }
@@ -85,7 +88,7 @@ public class MenuDD extends Menu {
                     System.out.println("Você deseja\n[1]Aprovar\n[2]");
                     tipo = scanner.nextInt();
                     limparBuffer(scanner);
-                    menuExtra.gerenciarInscricao(tipo);
+                    menuExtra.gerenciarInscricao(tipo, diretor);
                     break;
 
                 case 5:

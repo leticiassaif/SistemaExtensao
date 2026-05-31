@@ -5,6 +5,8 @@ import br.ufma.extensao.entidades.Usuario;
 import br.ufma.extensao.enums.CargoCoordenador;
 import br.ufma.extensao.servicos.*;
 
+import java.util.Scanner;
+
 public class MenuAdmin extends Menu {
     private final Usuario admin;
     private final Curso curso;
@@ -12,9 +14,9 @@ public class MenuAdmin extends Menu {
     public MenuAdmin(AproveitamentoService aproveitamentoService, CertificadoService certificadoService,
                      GrupoService grupoService, InscricaoService inscricaoService,
                      OportunidadeService oportunidadeService, UsuarioService usuarioService, PPCService ppcService,
-                     Usuario admin, Curso curso) {
+                     Scanner scanner, Usuario admin, Curso curso) {
         super(aproveitamentoService, certificadoService, grupoService, inscricaoService, oportunidadeService,
-                usuarioService, ppcService);
+                usuarioService, ppcService, scanner);
         this.admin = admin;
         this.curso = curso;
     }

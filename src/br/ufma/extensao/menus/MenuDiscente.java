@@ -4,15 +4,17 @@ import br.ufma.extensao.entidades.Discente;
 import br.ufma.extensao.entidades.Oportunidade;
 import br.ufma.extensao.servicos.*;
 
+import java.util.Scanner;
+
 public class MenuDiscente extends Menu {
     private final Discente discente;
 
     public MenuDiscente(AproveitamentoService aproveitamentoService, CertificadoService certificadoService,
                         GrupoService grupoService, InscricaoService inscricaoService,
                         OportunidadeService oportunidadeService, UsuarioService usuarioService, PPCService ppcService,
-                        Discente discente) {
+                        Scanner scanner, Discente discente) {
         super(aproveitamentoService, certificadoService, grupoService, inscricaoService, oportunidadeService,
-                usuarioService, ppcService);
+                usuarioService, ppcService, scanner);
         this.discente = discente;
     }
 

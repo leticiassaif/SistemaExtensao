@@ -28,8 +28,8 @@ public class Main {
         PPC ppc = ppcService.criarPPC(admin, curso, "1", 45.5);
 
         MenuAdmin menuAdmin = new MenuAdmin(aprovService, certificadoService, grupoService, inscricaoService,
-                oportunidadeService, usuarioService, ppcService, admin, curso);
-        MenuExtra menuExtra = new MenuExtra(grupoService, inscricaoService, oportunidadeService);
+                oportunidadeService, usuarioService, ppcService, scanner, admin, curso);
+        MenuExtra menuExtra = new MenuExtra(grupoService, inscricaoService, oportunidadeService, scanner);
 
         // inicialização dos usuários bases - por não ter um login / bd
         Coordenador coordenador = usuarioService.cadastrarCoordenador(admin, "COR1234567", "Paulo",
@@ -58,7 +58,7 @@ public class Main {
 
             System.out.println("BEM VINDO");
             System.out.println("[1] Entrar como discente");
-            System.out.println("[1] Entrar como discente diretor");
+            System.out.println("[2] Entrar como discente diretor");
             System.out.println("[3] Entrar como docente");
             System.out.println("[4] Entrar como coordenador");
             System.out.println("[5] Entrar como administrador");
@@ -71,21 +71,21 @@ public class Main {
                 case 1:
                     System.out.println("Entrando como discente. . .");
                     MenuDiscente menuDiscente = new MenuDiscente(aprovService, certificadoService, grupoService,
-                            inscricaoService, oportunidadeService, usuarioService, ppcService, discente);
+                            inscricaoService, oportunidadeService, usuarioService, ppcService, scanner, discente);
                     menuDiscente.executar();
                     break;
 
                 case 2:
                     System.out.println("Entrando como discente diretor. . .");
                     MenuDD menuDD = new MenuDD(aprovService, certificadoService, grupoService,
-                            inscricaoService, oportunidadeService, usuarioService, ppcService, diretor, menuExtra);
+                            inscricaoService, oportunidadeService, usuarioService, ppcService, diretor, menuExtra, scanner);
                     menuDD.executar();
                     break;
 
                 case 3:
                     System.out.println("Entrando como docente. . .");
                     MenuDocente menuDocente = new MenuDocente(aprovService, certificadoService, grupoService,
-                            inscricaoService, oportunidadeService, usuarioService, ppcService, docente, menuExtra);
+                            inscricaoService, oportunidadeService, usuarioService, ppcService, scanner, docente, menuExtra);
                     menuDocente.executar();
                     break;
 
@@ -93,7 +93,7 @@ public class Main {
                     System.out.println("Entrando como coordenador. . .");
                     MenuCoordenador menuCoordenador = new MenuCoordenador(aprovService, certificadoService,
                             grupoService, inscricaoService, oportunidadeService, usuarioService, ppcService,
-                            coordenador, menuExtra, curso);
+                            scanner, coordenador, menuExtra, curso);
                     menuCoordenador.executar();
                     break;
 
@@ -110,10 +110,7 @@ public class Main {
                 default:
                     System.out.println("Opção inválida!");
             }
-
-            scanner.close();
-
         }
-
+        scanner.close();
     }
 }

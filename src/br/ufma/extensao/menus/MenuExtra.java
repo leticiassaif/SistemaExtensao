@@ -21,11 +21,11 @@ public class MenuExtra {
     private static final DateTimeFormatter formato = DateTimeFormatter.ISO_LOCAL_DATE;
 
     public MenuExtra(GrupoService grupoService, InscricaoService inscricaoService,
-                     OportunidadeService oportunidadeService) {
+                     OportunidadeService oportunidadeService, Scanner scanner) {
         this.grupoService = grupoService;
         this.inscricaoService = inscricaoService;
         this.oportunidadeService = oportunidadeService;
-        scanner = new Scanner(System.in);
+        this.scanner = scanner;
     }
 
     public void criarGrupo() {

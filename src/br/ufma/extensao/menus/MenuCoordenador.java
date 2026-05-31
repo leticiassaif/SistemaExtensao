@@ -5,7 +5,7 @@ import br.ufma.extensao.entidades.Curso;
 import br.ufma.extensao.entidades.Oportunidade;
 import br.ufma.extensao.servicos.*;
 
-import java.time.LocalDate;
+import java.util.Scanner;
 
 public class MenuCoordenador extends Menu {
     private final Coordenador coordenador;
@@ -15,9 +15,10 @@ public class MenuCoordenador extends Menu {
     public MenuCoordenador(AproveitamentoService aproveitamentoService, CertificadoService certificadoService,
                            GrupoService grupoService, InscricaoService inscricaoService,
                            OportunidadeService oportunidadeService, UsuarioService usuarioService,
-                           PPCService ppcService, Coordenador coordenador, MenuExtra menuExtra, Curso curso) {
+                           PPCService ppcService, Scanner scanner, Coordenador coordenador, MenuExtra menuExtra,
+                           Curso curso) {
         super(aproveitamentoService, certificadoService, grupoService, inscricaoService, oportunidadeService,
-                usuarioService, ppcService);
+                usuarioService, ppcService, scanner);
         this.coordenador = coordenador;
         this.menuExtra = menuExtra;
         this.curso = curso;
@@ -52,7 +53,7 @@ public class MenuCoordenador extends Menu {
                     System.out.println("Você deseja\n[1]Aprovar\n[2]");
                     int tipo = scanner.nextInt();
                     limparBuffer(scanner);
-                    menuExtra.gerenciarInscricao(tipo);
+                    menuExtra.gerenciarInscricao(tipo, coordenador);
                     break;
 
                 case 3:

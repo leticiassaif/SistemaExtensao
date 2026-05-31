@@ -5,21 +5,17 @@ import br.ufma.extensao.entidades.Inscricao;
 import br.ufma.extensao.entidades.Usuario;
 import br.ufma.extensao.enums.Papel;
 import br.ufma.extensao.enums.StatusOportunidade;
-import br.ufma.extensao.servicos.UsuarioService;
 import br.ufma.extensao.entidades.Oportunidade;
 import br.ufma.extensao.enums.StatusInscricao;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class InscricaoService {
-    private List<Inscricao> inscricoes = new ArrayList<>();
+    private Map<Oportunidade, List<Inscricao>> inscricoes = new HashMap<>();
 
 
-    public Inscricao inscrever(Discente discente, Oportunidade oportunidade, String motivacao)
-    {
+    public Inscricao inscrever(Discente discente, Oportunidade oportunidade, String motivacao) {
         if (discente == null || oportunidade == null || motivacao == null) {
             throw new IllegalArgumentException("Dados obrigatórios ausentes.");
         }
@@ -28,84 +24,176 @@ public class InscricaoService {
             throw new IllegalStateException("Oportunidade não está aberta para inscrições.");
         }
 
-        long ativas = inscricoes.stream().filter(i -> i.getOportunidade().equals(oportunidade) && i.getStatus() != StatusInscricao.CANCELADA).count();
+        List<Inscricao> fila = inscricoes.get(oportunidade);
 
-        if (ativas >= oportunidade.getVagas()) {
-            throw new IllegalStateException("Vagas esgotadas.");
-        }
-
-        boolean duplicada = inscricoes.stream().anyMatch(i -> i.getDiscente().equals(discente) && i.getOportunidade().equals(oportunidade));
-
-        if (duplicada) {
-            throw new IllegalStateException("Discente já inscrito nesta oportunidade.");
+        if (fila != null) {
+            for (Inscricao inscricoes : fila) {
+                if ( inscricoes.getDiscente().equals(discente)) {
+                    throw new IllegalStateException("O usuário " + discente.getNome() + " já foi inscrito na oportunidade");
+                }
+            }
         }
 
         String id = "INS-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
         Inscricao inscricao = new Inscricao(id, discente, oportunidade, motivacao);
-        inscricoes.add(inscricao);
+
+        inscricoes.computeIfAbsent(oportunidade, k -> new ArrayList<>()).add(inscricao);
+
+        return inscricao;
+
+    }
+
+    private List<Inscricao> contarAprovadas(Oportunidade oportunidade) {
+
+        if (oportunidade == null ) {
+            throw new IllegalArgumentException("Campos obrigatórios não foram informados");
+        }
+
+        List<Inscricao> fila = inscricoes.get(oportunidade);
+
+        if (fila == null) {
+            return new ArrayList<>();
+        }
+
+        List<Inscricao> resultado = new ArrayList<>();
+
+        for (Inscricao inscricao : fila) {
+            if (inscricao.getStatus().equals(StatusInscricao.APROVADA)) {
+                resultado.add(inscricao);
+            }
+        }
+        return resultado;
+    }
+
+    private Inscricao buscarIncricao(String inscricaoId, Oportunidade oportunidade) {
+        if (oportunidade == null ) {
+            throw new IllegalArgumentException("Campos obrigatórios não foram informados");
+        }
+
+        if (inscricaoId == null || inscricaoId.isBlank()) {
+            throw new IllegalArgumentException("O ID da Inscrição não foi informado");
+        }
+
+        List<Inscricao> fila = inscricoes.get(oportunidade);
+
+        if (fila == null || fila.isEmpty()) {
+            throw new NoSuchElementException("Nenhuma inscrição encontrada para essa oportunidade");
+        }
+
+        for (Inscricao inscricao : fila) {
+            if (inscricao.getId().equals(inscricaoId)) {
+                return inscricao;
+            }
+        }
+
+        throw new NoSuchElementException("A inscrição não foi achada");
+    }
+
+
+    public Inscricao aprovar(String inscricaoId, Oportunidade oportunidade, Usuario solicitante){
+
+        if (solicitante == null) {
+            throw new IllegalArgumentException("O Solicitante deve ser informado");
+        }
+
+        if (inscricaoId == null || inscricaoId.isBlank()) {
+            throw new IllegalArgumentException("O ID da Inscrição não foi informado");
+        }
+
+        boolean autor = solicitante.getId().equals(oportunidade.getAutor().getId());
+        boolean docenteResponsavel = solicitante.getId().equals(oportunidade.getDocenteResponsavelId());
+
+        if (!(autor || docenteResponsavel || solicitante.getPapel().equals(Papel.ADMIN))) {
+            throw new IllegalStateException("O Solicitante deve ser o responsável pela Oportunidade");
+        }
+
+        if (contarAprovadas(oportunidade).size() >= oportunidade.getVagas()) {
+            throw new IllegalStateException("Vagas esgotadas");
+        }
+
+        Inscricao inscricao = buscarIncricao(inscricaoId, oportunidade);
+        inscricao.setStatus(StatusInscricao.APROVADA);
+        return inscricao;
+
+    }
+
+    public Inscricao rejeitar(String inscricaoId, Oportunidade oportunidade, Usuario solicitante){
+
+        if (solicitante == null) {
+            throw new IllegalArgumentException("O Solicitante deve ser informado");
+        }
+
+        if (inscricaoId == null || inscricaoId.isBlank()) {
+            throw new IllegalArgumentException("O ID da Inscrição não foi informado");
+        }
+
+        boolean autor = solicitante.getId().equals(oportunidade.getAutor().getId());
+        boolean docenteResponsavel = solicitante.getId().equals(oportunidade.getDocenteResponsavelId());
+
+        if (!(autor || docenteResponsavel || solicitante.getPapel().equals(Papel.ADMIN))) {
+            throw new IllegalStateException("O Solicitante deve ser o responsável pela Oportunidade");
+        }
+
+        Inscricao inscricao = buscarIncricao(inscricaoId, oportunidade);
+        inscricao.setStatus(StatusInscricao.REJEITADA);
         return inscricao;
     }
 
-    public Inscricao aprovar(String inscricaoId, Usuario u){
-        if (UsuarioService.hasPermissao(u, Papel.ADMIN) || UsuarioService.hasPermissao(u, Papel.DOCENTE)) {
-            for (Inscricao i : inscricoes) {
-                if (i.getId().equals(inscricaoId)) {
-                    if (i.getStatus() == StatusInscricao.PENDENTE) {
-                        i.setStatus(StatusInscricao.APROVADA);
-                        return i;
-                    }
+    public Inscricao desistir(String inscricaoId, Oportunidade oportunidade, Usuario solicitante) {
+
+        if (inscricaoId == null || inscricaoId.isBlank()) {
+            throw new IllegalArgumentException("O ID da Inscrição é inválido");
+        }
+
+        Inscricao incricao = buscarIncricao(inscricaoId, oportunidade);
+
+        boolean autorIsDiscente = solicitante.getId().equals(incricao.getDiscente().getId());
+
+        if (!autorIsDiscente) {
+            throw new IllegalStateException("Apenas o próprio discente pode desistir");
+        }
+
+        incricao.setStatus(StatusInscricao.CANCELADA);
+        return incricao;
+
+    }
+
+    private void promoverFilaEspera(Oportunidade oportunidade) {
+//        if (contarAprovadas(oportunidade).size() < oportunidade.getVagas()) {
+//            //TODO
+//        }
+    }
+
+
+    public List <Inscricao> listarPorOportunidade(Oportunidade oportunidade){
+        if (oportunidade == null) {
+            throw new IllegalArgumentException("Oportunidade é obrigatória");
+        }
+
+        List<Inscricao> fila = inscricoes.get(oportunidade);
+
+        if (fila == null) {
+            return new ArrayList<>();  // retorna lista vazia em vez de null
+        }
+
+        return fila;
+    }
+
+    public List<Inscricao> listarPorDiscente(Discente discente) {
+        if (discente == null) {
+            throw new IllegalArgumentException("Discente é obrigatório");
+        }
+
+        List<Inscricao> resultado = new ArrayList<>();
+
+        for (List<Inscricao> fila : inscricoes.values()) {
+            for (Inscricao inscricao : fila) {
+                if (inscricao.getDiscente().equals(discente)) {
+                    resultado.add(inscricao);
                 }
             }
         }
-        return null;
-    }
 
-    public Inscricao rejeitar(String inscricaoId, Usuario u){
-        if (UsuarioService.hasPermissao(u, Papel.ADMIN) || UsuarioService.hasPermissao(u, Papel.DOCENTE)) {
-            for (Inscricao i : inscricoes) {
-                if (i.getId().equals(inscricaoId)) {
-                    if (i.getStatus() == StatusInscricao.PENDENTE) {
-                        i.setStatus(StatusInscricao.REJEITADA);
-                        return i;
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
-    public Inscricao cancelar(String inscricaoId, Usuario u) {
-        if (!UsuarioService.hasPermissao(u, Papel.DISCENTE)
-                && !UsuarioService.hasPermissao(u, Papel.DISCENTE_DIRETOR))
-            return null;
-        for (Inscricao i : inscricoes) {
-            if (!i.getId().equals(inscricaoId)) continue;
-            if (!LocalDate.now().isBefore(i.getOportunidade().getInicio()))
-                throw new IllegalStateException("Não é possível cancelar após o início da oportunidade.");
-            if (i.getStatus() != StatusInscricao.APROVADA)
-                return null;
-            i.setStatus(StatusInscricao.CANCELADA);
-            return i;
-        }
-        return null;
-    }
-
-    public List <Inscricao> listarPorOportunidade(Oportunidade op){
-        List<Inscricao> resultado = new ArrayList<>();
-        for (Inscricao i : inscricoes){
-            if(i.getOportunidade().equals(op)){
-                resultado.add(i);
-            }
-        }
-        return resultado; }
-
-    public List <Inscricao> listarPorDiscente(Discente d){
-        List<Inscricao> resultado = new ArrayList<>();
-        for (Inscricao i : inscricoes){
-            if(i.getDiscente().equals(d)){
-                resultado.add(i);
-            }
-        }
         return resultado;
     }
 }

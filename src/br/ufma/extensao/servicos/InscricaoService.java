@@ -110,7 +110,14 @@ public class InscricaoService {
             throw new IllegalStateException("O Solicitante deve ser o responsável pela Oportunidade");
         }
 
-        if (listarSlotsOcupados(oportunidade).size() >= oportunidade.getVagas()) {
+        int aprovadas = 0;
+        for (Inscricao i : listarSlotsOcupados(oportunidade)) {
+            if (i.getStatus().equals(StatusInscricao.APROVADA)) {
+                aprovadas++;
+            }
+        }
+
+        if (aprovadas >= oportunidade.getVagas()) {
             throw new IllegalStateException("Vagas esgotadas");
         }
 

@@ -65,7 +65,7 @@ public class InscricaoService {
         return resultado;
     }
 
-    private Inscricao buscarIncricao(String inscricaoId, Oportunidade oportunidade) {
+    private Inscricao buscarInscricao(String inscricaoId, Oportunidade oportunidade) {
         if (oportunidade == null ) {
             throw new IllegalArgumentException("Campos obrigatórios não foram informados");
         }
@@ -111,13 +111,13 @@ public class InscricaoService {
             throw new IllegalStateException("Vagas esgotadas");
         }
 
-        Inscricao inscricao = buscarIncricao(inscricaoId, oportunidade);
+        Inscricao inscricao = buscarInscricao(inscricaoId, oportunidade);
         inscricao.setStatus(StatusInscricao.APROVADA);
         return inscricao;
 
     }
 
-    public Inscricao rejeitar(String inscricaoId, Oportunidade oportunidade, Usuario solicitante){
+    public Inscricao rejeitarRemoverDiscente(String inscricaoId, String justificativa, Oportunidade oportunidade, Usuario solicitante){
 
         if (solicitante == null) {
             throw new IllegalArgumentException("O Solicitante deve ser informado");
@@ -127,6 +127,10 @@ public class InscricaoService {
             throw new IllegalArgumentException("O ID da Inscrição não foi informado");
         }
 
+        if (justificativa == null || justificativa.isBlank()) {
+            throw new IllegalArgumentException("A justificativa não foi informada");
+        }
+
         boolean autor = solicitante.getId().equals(oportunidade.getAutor().getId());
         boolean docenteResponsavel = solicitante.getId().equals(oportunidade.getDocenteResponsavelId());
 
@@ -134,8 +138,17 @@ public class InscricaoService {
             throw new IllegalStateException("O Solicitante deve ser o responsável pela Oportunidade");
         }
 
-        Inscricao inscricao = buscarIncricao(inscricaoId, oportunidade);
-        inscricao.setStatus(StatusInscricao.REJEITADA);
+        Inscricao inscricao = buscarInscricao(inscricaoId, oportunidade);
+
+        if(inscricao.getStatus().equals(StatusInscricao.APROVADA)) {
+            inscricao.setStatus(StatusInscricao.CANCELADA);
+        } else if (inscricao.getStatus().equals(StatusInscricao.PENDENTE)) {
+            inscricao.setStatus(StatusInscricao.REJEITADA);
+        } else {
+            throw new IllegalStateException("Só é possível rejeitar inscrições PENDENTES ou remover participantes APROVADOS");
+        }
+
+        inscricao.setJustificativaCancelamento(justificativa);
         promoverFilaEspera(oportunidade);
         return inscricao;
     }
@@ -146,7 +159,11 @@ public class InscricaoService {
             throw new IllegalArgumentException("O ID da Inscrição é inválido");
         }
 
-        Inscricao incricao = buscarIncricao(inscricaoId, oportunidade);
+        Inscricao incricao = buscarInscricao(inscricaoId, oportunidade);
+
+        if (incricao.getStatus().equals(StatusInscricao.REJEITADA) || incricao.getStatus().equals(StatusInscricao.CANCELADA)) {
+            throw new IllegalStateException("A inscrição já está rejeitada ou cancelada");
+        }
 
         boolean autorIsDiscente = solicitante.getId().equals(incricao.getDiscente().getId());
 
@@ -155,6 +172,7 @@ public class InscricaoService {
         }
 
         incricao.setStatus(StatusInscricao.CANCELADA);
+        incricao.setJustificativaCancelamento("O Discente desistiu da vaga");
         promoverFilaEspera(oportunidade);
         return incricao;
 
@@ -213,7 +231,7 @@ public class InscricaoService {
         List<Inscricao> resultado = new ArrayList<>();
         fila.sort(Comparator.comparing(Inscricao::getDataInscricao));
         int limite = oportunidade.getVagas() - contarAprovadas(oportunidade).size();
-        
+
         int i = 0;
         while (i < fila.size() && limite > 0) {
             Inscricao inscricao = fila.get(i);
